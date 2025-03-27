@@ -76,6 +76,16 @@ python3.12 wrapper.py \
    --json
 ```
 
+Full pipeline with image captioning (llama3.2-vision:11b)
+and with json structured output (recommended)
+
+```bash
+python3.12 wrapper.py \
+   --input_image ./res/gs_1.png \
+   --weights_file ./best.pt \
+   --json
+```
+
 YOLO-Only
 
 ```bash

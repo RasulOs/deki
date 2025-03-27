@@ -3,7 +3,6 @@ import cv2
 import os
 import subprocess
 from PIL import Image
-import matplotlib.pyplot as plt
 import easyocr
 from spellchecker import SpellChecker
 import numpy as np  
@@ -26,7 +25,7 @@ parser.add_argument('input_image', help='Path to the input YOLO image.')
 parser.add_argument('input_labels', help='Path to the input YOLO labels file.')
 parser.add_argument('--model_to_use', choices=['llama', 'blip'], default='llama', help='Model to use for captioning (default: llama).')
 parser.add_argument('--save_images', action='store_true', help='Flag to save intermediate images.')
-parser.add_argument('--icon_detection_path', default='./icon-image-detection-model.keras', help='Path to the icon detection model.')
+parser.add_argument('--icon_detection_path', help='Path to the icon detection model. If not provided, icon detection will be skipped.')
 parser.add_argument('--cache_directory', default='./models_cache', help='Cache directory for models.')
 parser.add_argument('--huggingface_token', default='your_token', help='Hugging Face token for model downloads.')
 parser.add_argument('--no-captioning', action='store_true', help='Disable any image captioning.')
@@ -86,8 +85,11 @@ reader = easyocr.Reader(['en'])  # Add more languages if needed
 spell = SpellChecker()
 
 # %%
-# Load the icon detection model
-icon_model = tf.keras.models.load_model(icon_model_path)
+# Load the icon detection model (if it was provided)
+if icon_model_path:
+    icon_model = tf.keras.models.load_model(icon_model_path)
+else:
+    icon_model = None
 
 # %%
 # Load the original image
@@ -105,13 +107,13 @@ with open(yolo_output_path, 'r') as f:
 # Check for device compatibility
 if torch.backends.mps.is_available():
     device = torch.device("mps")
-    print("Using MPS device")
+    print("Using MPS")
 elif torch.cuda.is_available():
     device = torch.device("cuda")
-    print("Using CUDA device")
+    print("Using CUDA")
 else:
     device = torch.device("cpu")
-    print("Using CPU device")
+    print("Using CPU")
 
 # %%
 # Function to check if a model is downloaded in the cache
@@ -408,7 +410,7 @@ def process_region(image_path, idx, class_id, captions_file, x_min, y_min, x_max
     # ImageView
     if class_id == 1:
         if no_captioning:
-            print(f"(Icon detection and captioning disabled by --no-captioning.)")
+            print(f"(Icon-image detection and image captioning disabled by --no-captioning.)")
             # For JSON, only set the type, no additional info
             if not output_json:
                 with open(captions_file, 'a', encoding='utf-8') as f:
@@ -421,44 +423,45 @@ def process_region(image_path, idx, class_id, captions_file, x_min, y_min, x_max
             if upscaled_image is None:
                 return
 
-            # Convert to the input format expected by the icon detection model
-            icon_input_size = (224, 224)  # Adjust as needed
+            # If an icon detection model is provided, run the prediction; otherwise, skip icon detection.
+            if icon_model:
+                icon_input_size = (224, 224)
+                icon_image = cv2.resize(upscaled_image, icon_input_size)
+                icon_image = cv2.cvtColor(icon_image, cv2.COLOR_BGR2RGB)
+                icon_image = icon_image / 255.0 # Normalize
+                icon_image = np.expand_dims(icon_image, axis=0)  # batch dimension
 
-            icon_image = cv2.resize(upscaled_image, icon_input_size)
-            icon_image = cv2.cvtColor(icon_image, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
-            icon_image = icon_image / 255.0  # Normalize the image
-            icon_image = np.expand_dims(icon_image, axis=0)  # Add batch dimension
+                prediction = icon_model.predict(icon_image)
+                print(f"Prediction output for Region {idx+1}: {prediction}")
+                print(f"Prediction shape: {prediction.shape}")
 
-            # Use the icon detection model to predict if it is icon or a standard image (image of real people, cars etc.)
-            prediction = icon_model.predict(icon_image)
-            print(f"Prediction output for Region {idx+1}: {prediction}")
-            print(f"Prediction shape: {prediction.shape}")
+                # Interpret the prediction
+                if prediction.shape == (1, 1):
+                    # Sigmoid activation (probability of class 1)
+                    probability = prediction[0][0]
+                    threshold = 0.5  # Adjust the threshold if needed
+                    predicted_class = 1 if probability >= threshold else 0
+                    print(f"Probability of class 1: {probability}")
+                elif prediction.shape == (1, 2):
+                    # Softmax activation
+                    predicted_class = np.argmax(prediction[0])
+                    print(f"Class probabilities: {prediction[0]}")
+                else:
+                    print(f"Unexpected prediction shape: {prediction.shape}")
+                    return
 
-            # Interpret the prediction
-            if prediction.shape == (1, 1):
-                # Sigmoid activation (probability of class 1)
-                probability = prediction[0][0]
-                threshold = 0.5  # Adjust the threshold if needed
-                predicted_class = 1 if probability >= threshold else 0
-                print(f"Probability of class 1: {probability}")
-            elif prediction.shape == (1, 2):
-                # Softmax activation
-                predicted_class = np.argmax(prediction[0])
-                print(f"Class probabilities: {prediction[0]}")
+                print(f"Prediction for Region {idx+1}: {'Icon/Mobile UI Element' if predicted_class == 1 else 'Normal Image'}")
+                prompt_text = (
+                    "Describe the mobile UI element on this image. Try to be short."
+                    if predicted_class == 1
+                    else "Describe what is in the image. This image is not related to icons or mobile UI elements. Try to be short."
+                )
+                region_dict["prediction"] = "Icon/Mobile UI Element" if predicted_class == 1 else "Normal Image"
             else:
-                # Handle other cases or raise an error
-                print(f"Unexpected prediction shape: {prediction.shape}")
-                return
+                print("Icon detection model not provided. Skipping icon detection.")
+                prompt_text = "Describe what is in the image. Try to be short."
+                region_dict["prediction"] = "Icon detection skipped"
 
-            # Set the prompt based on the prediction
-            if predicted_class == 1:
-                # It's an icon/mobile UI element
-                prompt_text = "Describe the mobile UI element on this image. Try to be short."
-            else:
-                # It's a normal image
-                prompt_text = "Describe what is in the image. This image is not related to icons or mobile UI elements. Try to be short."
-
-            print(f"Prediction for Region {idx+1}: {'Icon/Mobile UI Element' if predicted_class == 1 else 'Normal Image'}")
             if not no_captioning:
                 print(f"Using prompt: {prompt_text}")
 
@@ -470,7 +473,7 @@ def process_region(image_path, idx, class_id, captions_file, x_min, y_min, x_max
                 if model_to_use == 'blip':
                     response = generate_caption_blip(temp_image_path)
                 else:
-                    # For LLaMA, incorporate the prompt
+                    # For LLaMA, incorporate the prompt with the image path
                     prompt_with_image = prompt_text + " " + temp_image_path
                     response = call_ollama(prompt_with_image, idx, 'description')
                     if response is None:
@@ -479,8 +482,7 @@ def process_region(image_path, idx, class_id, captions_file, x_min, y_min, x_max
                 print(f"(Captioning disabled by --no-captioning.)")
                 response = ""
 
-            # For JSON, store the predicted type + the description
-            region_dict["prediction"] = "Icon/Mobile UI Element" if predicted_class == 1 else "Normal Image"
+            # Store the description in the JSON dictionary
             region_dict["description"] = response
 
             if not output_json:
@@ -488,7 +490,10 @@ def process_region(image_path, idx, class_id, captions_file, x_min, y_min, x_max
                     f.write(f"Image: region_{idx+1}_class_{class_id} ({class_name})\n")
                     f.write(f"Coordinates: x_min={x_min}, y_min={y_min}, x_max={x_max}, y_max={y_max}\n")
                     f.write(f"Size: width={width}, height={height}\n")
-                    f.write(f"Prediction: {'Icon/Mobile UI Element' if predicted_class == 1 else 'Normal Image'}\n")
+                    if icon_model:
+                        f.write(f"Prediction: {'Icon/Mobile UI Element' if predicted_class == 1 else 'Normal Image'}\n")
+                    else:
+                        f.write("Prediction: Icon detection skipped\n")
                     f.write(f"{response}\n")
                     f.write(BARRIER)
 

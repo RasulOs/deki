@@ -15,7 +15,7 @@ def init():
     # Image description-specific arguments
     parser.add_argument('--model_to_use', choices=['llama', 'blip'], default='llama', help='Model to use for captioning.')
     parser.add_argument('--save_images', action='store_true', help='Flag to save intermediate images.')
-    parser.add_argument('--icon_detection_path', required=True, help='Path to the icon detection model.')
+    parser.add_argument('--icon_detection_path', help='Path to the icon detection model.')
     parser.add_argument('--cache_directory', default='./models_cache', help='Cache directory for models.')
     parser.add_argument('--huggingface_token', default='your_token', help='Hugging Face token for model downloads.')
     parser.add_argument('--no-captioning', action='store_true', help='Disable any image captioning')
@@ -53,11 +53,13 @@ def init():
         args.input_image,
         labels_file,
         '--model_to_use', args.model_to_use,
-        '--icon_detection_path', args.icon_detection_path,
         '--cache_directory', args.cache_directory,
         '--huggingface_token', args.huggingface_token
     ]
     # Append optional flags if specified
+    if args.icon_detection_path:
+        script_command.extend(['--icon_detection_path', args.icon_detection_path])
+
     if args.save_images:
         script_command.append('--save_images')
 

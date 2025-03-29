@@ -10,8 +10,9 @@ pyspellchecker==0.8.1
 requests==2.32.3
 tensorflow==2.18.0
 torch==2.5.1
-transformers==4.47.0.dev0
+transformers==4.50.3
 ultralytics==8.3.29
+webcolors==24.11.1
 
 # WARNING(pigar): some manual fixes might be required as pigar has detected duplicate requirements for the same import name (possibly for different submodules).
 # WARNING(pigar): the following duplicate requirements are for the import name: cv2

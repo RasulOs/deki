@@ -135,6 +135,10 @@ def run_wrapper(image_path: str) -> str:
 
     return description
 
+@app.get("/")
+async def root():
+    return {"message": "deki"}
+
 @app.post("/action")
 async def action(request: ActionRequest, token: str = Depends(verify_token)):
     """

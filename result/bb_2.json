@@ -430,8 +430,8 @@
         "width": 173,
         "height": 46
       },
-      "extractedText": "Umico_ 8 ' az",
-      "correctedText": "Umico_ 8 ' a"
+      "extractedText": "Umico.az",
+      "correctedText": "Umico.az"
     },
     {
       "id": "region_28_class_1",
@@ -848,8 +848,8 @@
         "width": 52,
         "height": 48
       },
-      "extractedText": "X",
-      "correctedText": "X"
+      "extractedText": "",
+      "correctedText": ""
     },
     {
       "id": "region_55_class_2",

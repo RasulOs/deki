@@ -8,8 +8,7 @@
   },
   "elements": [
     {
-      "id": "region_1_class_2",
-      "type": "Text",
+      "id": "region_1_class_Text",
       "x_coordinates_center": 989,
       "y_coordinates_center": 47,
       "width": 132,
@@ -18,48 +17,42 @@
       "correctedText": "35%"
     },
     {
-      "id": "region_2_class_1",
-      "type": "ImageView",
+      "id": "region_2_class_ImageView",
       "x_coordinates_center": 860,
       "y_coordinates_center": 45,
       "width": 49,
       "height": 47
     },
     {
-      "id": "region_3_class_1",
-      "type": "ImageView",
+      "id": "region_3_class_ImageView",
       "x_coordinates_center": 908,
       "y_coordinates_center": 46,
       "width": 44,
       "height": 47
     },
     {
-      "id": "region_4_class_1",
-      "type": "ImageView",
+      "id": "region_4_class_ImageView",
       "x_coordinates_center": 260,
       "y_coordinates_center": 47,
       "width": 49,
       "height": 48
     },
     {
-      "id": "region_5_class_1",
-      "type": "ImageView",
+      "id": "region_5_class_ImageView",
       "x_coordinates_center": 1034,
       "y_coordinates_center": 47,
       "width": 35,
       "height": 43
     },
     {
-      "id": "region_6_class_1",
-      "type": "ImageView",
+      "id": "region_6_class_ImageView",
       "x_coordinates_center": 304,
       "y_coordinates_center": 47,
       "width": 31,
       "height": 33
     },
     {
-      "id": "region_7_class_3",
-      "type": "Line",
+      "id": "region_7_class_Line",
       "x_coordinates_center": 539,
       "y_coordinates_center": 203,
       "width": 103,
@@ -70,8 +63,7 @@
       ]
     },
     {
-      "id": "region_8_class_2",
-      "type": "Text",
+      "id": "region_8_class_Text",
       "x_coordinates_center": 199,
       "y_coordinates_center": 279,
       "width": 327,
@@ -80,16 +72,14 @@
       "correctedText": "Partners"
     },
     {
-      "id": "region_9_class_1",
-      "type": "ImageView",
+      "id": "region_9_class_ImageView",
       "x_coordinates_center": 1010,
       "y_coordinates_center": 274,
       "width": 69,
       "height": 65
     },
     {
-      "id": "region_10_class_0",
-      "type": "View",
+      "id": "region_10_class_View",
       "x_coordinates_center": 531,
       "y_coordinates_center": 406,
       "width": 1000,
@@ -100,8 +90,7 @@
       ]
     },
     {
-      "id": "region_11_class_2",
-      "type": "Text",
+      "id": "region_11_class_Text",
       "x_coordinates_center": 205,
       "y_coordinates_center": 409,
       "width": 152,
@@ -110,16 +99,14 @@
       "correctedText": "Search"
     },
     {
-      "id": "region_12_class_1",
-      "type": "ImageView",
+      "id": "region_12_class_ImageView",
       "x_coordinates_center": 88,
       "y_coordinates_center": 407,
       "width": 46,
       "height": 45
     },
     {
-      "id": "region_13_class_0",
-      "type": "View",
+      "id": "region_13_class_View",
       "x_coordinates_center": 635,
       "y_coordinates_center": 551,
       "width": 709,
@@ -130,8 +117,7 @@
       ]
     },
     {
-      "id": "region_14_class_0",
-      "type": "View",
+      "id": "region_14_class_View",
       "x_coordinates_center": 152,
       "y_coordinates_center": 550,
       "width": 215,
@@ -142,32 +128,28 @@
       ]
     },
     {
-      "id": "region_15_class_1",
-      "type": "ImageView",
+      "id": "region_15_class_ImageView",
       "x_coordinates_center": 1052,
       "y_coordinates_center": 550,
       "width": 54,
       "height": 71
     },
     {
-      "id": "region_16_class_1",
-      "type": "ImageView",
+      "id": "region_16_class_ImageView",
       "x_coordinates_center": 340,
       "y_coordinates_center": 551,
       "width": 65,
       "height": 61
     },
     {
-      "id": "region_17_class_1",
-      "type": "ImageView",
+      "id": "region_17_class_ImageView",
       "x_coordinates_center": 99,
       "y_coordinates_center": 550,
       "width": 58,
       "height": 54
     },
     {
-      "id": "region_18_class_2",
-      "type": "Text",
+      "id": "region_18_class_Text",
       "x_coordinates_center": 669,
       "y_coordinates_center": 553,
       "width": 588,
@@ -176,8 +158,7 @@
       "correctedText": "clothing jewelry and accessories"
     },
     {
-      "id": "region_19_class_2",
-      "type": "Text",
+      "id": "region_19_class_Text",
       "x_coordinates_center": 184,
       "y_coordinates_center": 551,
       "width": 88,
@@ -186,8 +167,7 @@
       "correctedText": "New"
     },
     {
-      "id": "region_20_class_0",
-      "type": "View",
+      "id": "region_20_class_View",
       "x_coordinates_center": 788,
       "y_coordinates_center": 873,
       "width": 471,
@@ -198,8 +178,7 @@
       ]
     },
     {
-      "id": "region_21_class_0",
-      "type": "View",
+      "id": "region_21_class_View",
       "x_coordinates_center": 293,
       "y_coordinates_center": 876,
       "width": 469,
@@ -210,8 +189,7 @@
       ]
     },
     {
-      "id": "region_22_class_0",
-      "type": "View",
+      "id": "region_22_class_View",
       "x_coordinates_center": 682,
       "y_coordinates_center": 767,
       "width": 207,
@@ -222,8 +200,7 @@
       ]
     },
     {
-      "id": "region_23_class_0",
-      "type": "View",
+      "id": "region_23_class_View",
       "x_coordinates_center": 187,
       "y_coordinates_center": 774,
       "width": 206,
@@ -234,16 +211,14 @@
       ]
     },
     {
-      "id": "region_24_class_1",
-      "type": "ImageView",
+      "id": "region_24_class_ImageView",
       "x_coordinates_center": 187,
       "y_coordinates_center": 772,
       "width": 104,
       "height": 72
     },
     {
-      "id": "region_25_class_2",
-      "type": "Text",
+      "id": "region_25_class_Text",
       "x_coordinates_center": 682,
       "y_coordinates_center": 772,
       "width": 163,
@@ -252,8 +227,7 @@
       "correctedText": "trendy"
     },
     {
-      "id": "region_26_class_2",
-      "type": "Text",
+      "id": "region_26_class_Text",
       "x_coordinates_center": 763,
       "y_coordinates_center": 925,
       "width": 371,
@@ -262,8 +236,7 @@
       "correctedText": "trendy Azarbaycan"
     },
     {
-      "id": "region_27_class_2",
-      "type": "Text",
+      "id": "region_27_class_Text",
       "x_coordinates_center": 170,
       "y_coordinates_center": 924,
       "width": 173,
@@ -272,24 +245,21 @@
       "correctedText": "Umico.az"
     },
     {
-      "id": "region_28_class_1",
-      "type": "ImageView",
+      "id": "region_28_class_ImageView",
       "x_coordinates_center": 611,
       "y_coordinates_center": 1058,
       "width": 47,
       "height": 48
     },
     {
-      "id": "region_29_class_1",
-      "type": "ImageView",
+      "id": "region_29_class_ImageView",
       "x_coordinates_center": 118,
       "y_coordinates_center": 1058,
       "width": 46,
       "height": 47
     },
     {
-      "id": "region_30_class_2",
-      "type": "Text",
+      "id": "region_30_class_Text",
       "x_coordinates_center": 281,
       "y_coordinates_center": 1060,
       "width": 262,
@@ -298,8 +268,7 @@
       "correctedText": "i up to 24 most"
     },
     {
-      "id": "region_31_class_2",
-      "type": "Text",
+      "id": "region_31_class_Text",
       "x_coordinates_center": 767,
       "y_coordinates_center": 1061,
       "width": 245,
@@ -308,8 +277,7 @@
       "correctedText": "i up to 6 most"
     },
     {
-      "id": "region_32_class_0",
-      "type": "View",
+      "id": "region_32_class_View",
       "x_coordinates_center": 787,
       "y_coordinates_center": 1374,
       "width": 477,
@@ -320,8 +288,7 @@
       ]
     },
     {
-      "id": "region_33_class_0",
-      "type": "View",
+      "id": "region_33_class_View",
       "x_coordinates_center": 293,
       "y_coordinates_center": 1374,
       "width": 469,
@@ -332,24 +299,21 @@
       ]
     },
     {
-      "id": "region_34_class_1",
-      "type": "ImageView",
+      "id": "region_34_class_ImageView",
       "x_coordinates_center": 684,
       "y_coordinates_center": 1272,
       "width": 208,
       "height": 206
     },
     {
-      "id": "region_35_class_1",
-      "type": "ImageView",
+      "id": "region_35_class_ImageView",
       "x_coordinates_center": 191,
       "y_coordinates_center": 1276,
       "width": 197,
       "height": 189
     },
     {
-      "id": "region_36_class_2",
-      "type": "Text",
+      "id": "region_36_class_Text",
       "x_coordinates_center": 668,
       "y_coordinates_center": 1419,
       "width": 185,
@@ -358,8 +322,7 @@
       "correctedText": "all & nine"
     },
     {
-      "id": "region_37_class_2",
-      "type": "Text",
+      "id": "region_37_class_Text",
       "x_coordinates_center": 139,
       "y_coordinates_center": 1420,
       "width": 108,
@@ -368,16 +331,14 @@
       "correctedText": "Bravo"
     },
     {
-      "id": "region_38_class_1",
-      "type": "ImageView",
+      "id": "region_38_class_ImageView",
       "x_coordinates_center": 746,
       "y_coordinates_center": 1553,
       "width": 48,
       "height": 52
     },
     {
-      "id": "region_39_class_2",
-      "type": "Text",
+      "id": "region_39_class_Text",
       "x_coordinates_center": 833,
       "y_coordinates_center": 1554,
       "width": 222,
@@ -386,24 +347,21 @@
       "correctedText": "am = 3.33"
     },
     {
-      "id": "region_40_class_1",
-      "type": "ImageView",
+      "id": "region_40_class_ImageView",
       "x_coordinates_center": 117,
       "y_coordinates_center": 1554,
       "width": 47,
       "height": 49
     },
     {
-      "id": "region_41_class_1",
-      "type": "ImageView",
+      "id": "region_41_class_ImageView",
       "x_coordinates_center": 613,
       "y_coordinates_center": 1553,
       "width": 46,
       "height": 47
     },
     {
-      "id": "region_42_class_2",
-      "type": "Text",
+      "id": "region_42_class_Text",
       "x_coordinates_center": 280,
       "y_coordinates_center": 1556,
       "width": 263,
@@ -412,8 +370,7 @@
       "correctedText": "i up to 12 most"
     },
     {
-      "id": "region_43_class_2",
-      "type": "Text",
+      "id": "region_43_class_Text",
       "x_coordinates_center": 674,
       "y_coordinates_center": 1554,
       "width": 52,
@@ -422,16 +379,14 @@
       "correctedText": "i"
     },
     {
-      "id": "region_44_class_1",
-      "type": "ImageView",
+      "id": "region_44_class_ImageView",
       "x_coordinates_center": 674,
       "y_coordinates_center": 1554,
       "width": 52,
       "height": 42
     },
     {
-      "id": "region_45_class_0",
-      "type": "View",
+      "id": "region_45_class_View",
       "x_coordinates_center": 292,
       "y_coordinates_center": 1869,
       "width": 472,
@@ -442,8 +397,7 @@
       ]
     },
     {
-      "id": "region_46_class_0",
-      "type": "View",
+      "id": "region_46_class_View",
       "x_coordinates_center": 187,
       "y_coordinates_center": 1765,
       "width": 204,
@@ -454,16 +408,14 @@
       ]
     },
     {
-      "id": "region_47_class_1",
-      "type": "ImageView",
+      "id": "region_47_class_ImageView",
       "x_coordinates_center": 188,
       "y_coordinates_center": 1773,
       "width": 195,
       "height": 193
     },
     {
-      "id": "region_48_class_2",
-      "type": "Text",
+      "id": "region_48_class_Text",
       "x_coordinates_center": 680,
       "y_coordinates_center": 1764,
       "width": 212,
@@ -472,8 +424,7 @@
       "correctedText": "a MAT | TWEEN"
     },
     {
-      "id": "region_49_class_2",
-      "type": "Text",
+      "id": "region_49_class_Text",
       "x_coordinates_center": 721,
       "y_coordinates_center": 1913,
       "width": 289,
@@ -482,8 +433,7 @@
       "correctedText": "daman TWEEN"
     },
     {
-      "id": "region_50_class_2",
-      "type": "Text",
+      "id": "region_50_class_Text",
       "x_coordinates_center": 157,
       "y_coordinates_center": 1915,
       "width": 149,
@@ -492,16 +442,14 @@
       "correctedText": "contact"
     },
     {
-      "id": "region_51_class_1",
-      "type": "ImageView",
+      "id": "region_51_class_ImageView",
       "x_coordinates_center": 612,
       "y_coordinates_center": 1984,
       "width": 48,
       "height": 48
     },
     {
-      "id": "region_52_class_2",
-      "type": "Text",
+      "id": "region_52_class_Text",
       "x_coordinates_center": 768,
       "y_coordinates_center": 1985,
       "width": 245,
@@ -510,16 +458,14 @@
       "correctedText": "i up to 6 most"
     },
     {
-      "id": "region_53_class_1",
-      "type": "ImageView",
+      "id": "region_53_class_ImageView",
       "x_coordinates_center": 118,
       "y_coordinates_center": 2049,
       "width": 48,
       "height": 49
     },
     {
-      "id": "region_54_class_2",
-      "type": "Text",
+      "id": "region_54_class_Text",
       "x_coordinates_center": 746,
       "y_coordinates_center": 2050,
       "width": 52,
@@ -528,8 +474,7 @@
       "correctedText": ""
     },
     {
-      "id": "region_55_class_2",
-      "type": "Text",
+      "id": "region_55_class_Text",
       "x_coordinates_center": 829,
       "y_coordinates_center": 2050,
       "width": 225,
@@ -538,16 +483,14 @@
       "correctedText": "am = 1.33"
     },
     {
-      "id": "region_56_class_1",
-      "type": "ImageView",
+      "id": "region_56_class_ImageView",
       "x_coordinates_center": 613,
       "y_coordinates_center": 2050,
       "width": 46,
       "height": 47
     },
     {
-      "id": "region_57_class_2",
-      "type": "Text",
+      "id": "region_57_class_Text",
       "x_coordinates_center": 280,
       "y_coordinates_center": 2052,
       "width": 265,
@@ -556,8 +499,7 @@
       "correctedText": "i up to 18 most"
     },
     {
-      "id": "region_58_class_2",
-      "type": "Text",
+      "id": "region_58_class_Text",
       "x_coordinates_center": 672,
       "y_coordinates_center": 2049,
       "width": 55,
@@ -566,8 +508,7 @@
       "correctedText": "i"
     },
     {
-      "id": "region_59_class_0",
-      "type": "View",
+      "id": "region_59_class_View",
       "x_coordinates_center": 294,
       "y_coordinates_center": 2153,
       "width": 476,
@@ -578,8 +519,7 @@
       ]
     },
     {
-      "id": "region_60_class_0",
-      "type": "View",
+      "id": "region_60_class_View",
       "x_coordinates_center": 790,
       "y_coordinates_center": 2153,
       "width": 476,
@@ -590,8 +530,7 @@
       ]
     },
     {
-      "id": "region_61_class_0",
-      "type": "View",
+      "id": "region_61_class_View",
       "x_coordinates_center": 186,
       "y_coordinates_center": 2169,
       "width": 188,

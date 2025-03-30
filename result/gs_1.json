@@ -8,8 +8,7 @@
   },
   "elements": [
     {
-      "id": "region_1_class_0",
-      "type": "View",
+      "id": "region_1_class_View",
       "x_coordinates_center": 361,
       "y_coordinates_center": 64,
       "width": 515,
@@ -20,24 +19,21 @@
       ]
     },
     {
-      "id": "region_2_class_1",
-      "type": "ImageView",
+      "id": "region_2_class_ImageView",
       "x_coordinates_center": 682,
       "y_coordinates_center": 65,
       "width": 69,
       "height": 70
     },
     {
-      "id": "region_3_class_1",
-      "type": "ImageView",
+      "id": "region_3_class_ImageView",
       "x_coordinates_center": 156,
       "y_coordinates_center": 63,
       "width": 42,
       "height": 39
     },
     {
-      "id": "region_4_class_2",
-      "type": "Text",
+      "id": "region_4_class_Text",
       "x_coordinates_center": 247,
       "y_coordinates_center": 65,
       "width": 102,
@@ -46,48 +42,42 @@
       "correctedText": "Search"
     },
     {
-      "id": "region_5_class_1",
-      "type": "ImageView",
+      "id": "region_5_class_ImageView",
       "x_coordinates_center": 55,
       "y_coordinates_center": 65,
       "width": 38,
       "height": 30
     },
     {
-      "id": "region_6_class_1",
-      "type": "ImageView",
+      "id": "region_6_class_ImageView",
       "x_coordinates_center": 374,
       "y_coordinates_center": 542,
       "width": 676,
       "height": 827
     },
     {
-      "id": "region_7_class_1",
-      "type": "ImageView",
+      "id": "region_7_class_ImageView",
       "x_coordinates_center": 649,
       "y_coordinates_center": 189,
       "width": 42,
       "height": 41
     },
     {
-      "id": "region_8_class_1",
-      "type": "ImageView",
+      "id": "region_8_class_ImageView",
       "x_coordinates_center": 101,
       "y_coordinates_center": 189,
       "width": 44,
       "height": 35
     },
     {
-      "id": "region_9_class_1",
-      "type": "ImageView",
+      "id": "region_9_class_ImageView",
       "x_coordinates_center": 376,
       "y_coordinates_center": 534,
       "width": 255,
       "height": 255
     },
     {
-      "id": "region_10_class_0",
-      "type": "View",
+      "id": "region_10_class_View",
       "x_coordinates_center": 375,
       "y_coordinates_center": 535,
       "width": 255,
@@ -98,24 +88,21 @@
       ]
     },
     {
-      "id": "region_11_class_1",
-      "type": "ImageView",
+      "id": "region_11_class_ImageView",
       "x_coordinates_center": 640,
       "y_coordinates_center": 526,
       "width": 85,
       "height": 94
     },
     {
-      "id": "region_12_class_1",
-      "type": "ImageView",
+      "id": "region_12_class_ImageView",
       "x_coordinates_center": 108,
       "y_coordinates_center": 526,
       "width": 87,
       "height": 95
     },
     {
-      "id": "region_13_class_2",
-      "type": "Text",
+      "id": "region_13_class_Text",
       "x_coordinates_center": 375,
       "y_coordinates_center": 536,
       "width": 75,
@@ -124,8 +111,7 @@
       "correctedText": ""
     },
     {
-      "id": "region_14_class_0",
-      "type": "View",
+      "id": "region_14_class_View",
       "x_coordinates_center": 385,
       "y_coordinates_center": 852,
       "width": 38,
@@ -136,16 +122,14 @@
       ]
     },
     {
-      "id": "region_15_class_1",
-      "type": "ImageView",
+      "id": "region_15_class_ImageView",
       "x_coordinates_center": 385,
       "y_coordinates_center": 852,
       "width": 28,
       "height": 29
     },
     {
-      "id": "region_16_class_3",
-      "type": "Line",
+      "id": "region_16_class_Line",
       "x_coordinates_center": 534,
       "y_coordinates_center": 852,
       "width": 265,
@@ -156,8 +140,7 @@
       ]
     },
     {
-      "id": "region_17_class_3",
-      "type": "Line",
+      "id": "region_17_class_Line",
       "x_coordinates_center": 226,
       "y_coordinates_center": 852,
       "width": 294,
@@ -168,8 +151,7 @@
       ]
     },
     {
-      "id": "region_18_class_2",
-      "type": "Text",
+      "id": "region_18_class_Text",
       "x_coordinates_center": 129,
       "y_coordinates_center": 901,
       "width": 108,
@@ -178,8 +160,7 @@
       "correctedText": "00.35.07"
     },
     {
-      "id": "region_19_class_2",
-      "type": "Text",
+      "id": "region_19_class_Text",
       "x_coordinates_center": 618,
       "y_coordinates_center": 901,
       "width": 107,
@@ -188,8 +169,7 @@
       "correctedText": "01.05.23"
     },
     {
-      "id": "region_20_class_2",
-      "type": "Text",
+      "id": "region_20_class_Text",
       "x_coordinates_center": 145,
       "y_coordinates_center": 1028,
       "width": 223,
@@ -198,32 +178,28 @@
       "correctedText": "Decode"
     },
     {
-      "id": "region_21_class_1",
-      "type": "ImageView",
+      "id": "region_21_class_ImageView",
       "x_coordinates_center": 662,
       "y_coordinates_center": 1029,
       "width": 43,
       "height": 44
     },
     {
-      "id": "region_22_class_1",
-      "type": "ImageView",
+      "id": "region_22_class_ImageView",
       "x_coordinates_center": 469,
       "y_coordinates_center": 1028,
       "width": 42,
       "height": 41
     },
     {
-      "id": "region_23_class_1",
-      "type": "ImageView",
+      "id": "region_23_class_ImageView",
       "x_coordinates_center": 565,
       "y_coordinates_center": 1027,
       "width": 43,
       "height": 38
     },
     {
-      "id": "region_24_class_2",
-      "type": "Text",
+      "id": "region_24_class_Text",
       "x_coordinates_center": 357,
       "y_coordinates_center": 1219,
       "width": 676,
@@ -232,8 +208,7 @@
       "correctedText": "Thriller starring family Miller and media francs paints in a future where we've figured out sustainability yet the question is what to do now How will we in earth with all the abundance remain in harmony and how will it inspire to help"
     },
     {
-      "id": "region_25_class_0",
-      "type": "View",
+      "id": "region_25_class_View",
       "x_coordinates_center": 374,
       "y_coordinates_center": 1421,
       "width": 686,
@@ -244,8 +219,7 @@
       ]
     },
     {
-      "id": "region_26_class_0",
-      "type": "View",
+      "id": "region_26_class_View",
       "x_coordinates_center": 99,
       "y_coordinates_center": 1394,
       "width": 118,
@@ -256,32 +230,28 @@
       ]
     },
     {
-      "id": "region_27_class_1",
-      "type": "ImageView",
+      "id": "region_27_class_ImageView",
       "x_coordinates_center": 282,
       "y_coordinates_center": 1393,
       "width": 43,
       "height": 49
     },
     {
-      "id": "region_28_class_1",
-      "type": "ImageView",
+      "id": "region_28_class_ImageView",
       "x_coordinates_center": 466,
       "y_coordinates_center": 1394,
       "width": 45,
       "height": 48
     },
     {
-      "id": "region_29_class_1",
-      "type": "ImageView",
+      "id": "region_29_class_ImageView",
       "x_coordinates_center": 99,
       "y_coordinates_center": 1394,
       "width": 37,
       "height": 40
     },
     {
-      "id": "region_30_class_1",
-      "type": "ImageView",
+      "id": "region_30_class_ImageView",
       "x_coordinates_center": 649,
       "y_coordinates_center": 1394,
       "width": 34,

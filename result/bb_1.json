@@ -8,8 +8,7 @@
   },
   "elements": [
     {
-      "id": "region_1_class_2",
-      "type": "Text",
+      "id": "region_1_class_Text",
       "x_coordinates_center": 942,
       "y_coordinates_center": 46,
       "width": 225,
@@ -18,40 +17,35 @@
       "correctedText": "34%"
     },
     {
-      "id": "region_2_class_1",
-      "type": "ImageView",
+      "id": "region_2_class_ImageView",
       "x_coordinates_center": 158,
       "y_coordinates_center": 47,
       "width": 267,
       "height": 55
     },
     {
-      "id": "region_3_class_1",
-      "type": "ImageView",
+      "id": "region_3_class_ImageView",
       "x_coordinates_center": 859,
       "y_coordinates_center": 45,
       "width": 51,
       "height": 49
     },
     {
-      "id": "region_4_class_1",
-      "type": "ImageView",
+      "id": "region_4_class_ImageView",
       "x_coordinates_center": 259,
       "y_coordinates_center": 47,
       "width": 43,
       "height": 45
     },
     {
-      "id": "region_5_class_1",
-      "type": "ImageView",
+      "id": "region_5_class_ImageView",
       "x_coordinates_center": 306,
       "y_coordinates_center": 47,
       "width": 28,
       "height": 31
     },
     {
-      "id": "region_6_class_2",
-      "type": "Text",
+      "id": "region_6_class_Text",
       "x_coordinates_center": 192,
       "y_coordinates_center": 306,
       "width": 310,
@@ -60,8 +54,7 @@
       "correctedText": "Benefits"
     },
     {
-      "id": "region_7_class_0",
-      "type": "View",
+      "id": "region_7_class_View",
       "x_coordinates_center": 743,
       "y_coordinates_center": 451,
       "width": 275,
@@ -72,8 +65,7 @@
       ]
     },
     {
-      "id": "region_8_class_0",
-      "type": "View",
+      "id": "region_8_class_View",
       "x_coordinates_center": 991,
       "y_coordinates_center": 451,
       "width": 176,
@@ -84,8 +76,7 @@
       ]
     },
     {
-      "id": "region_9_class_0",
-      "type": "View",
+      "id": "region_9_class_View",
       "x_coordinates_center": 463,
       "y_coordinates_center": 452,
       "width": 248,
@@ -96,8 +87,7 @@
       ]
     },
     {
-      "id": "region_10_class_0",
-      "type": "View",
+      "id": "region_10_class_View",
       "x_coordinates_center": 181,
       "y_coordinates_center": 452,
       "width": 275,
@@ -108,32 +98,28 @@
       ]
     },
     {
-      "id": "region_11_class_1",
-      "type": "ImageView",
+      "id": "region_11_class_ImageView",
       "x_coordinates_center": 969,
       "y_coordinates_center": 451,
       "width": 64,
       "height": 64
     },
     {
-      "id": "region_12_class_1",
-      "type": "ImageView",
+      "id": "region_12_class_ImageView",
       "x_coordinates_center": 113,
       "y_coordinates_center": 451,
       "width": 56,
       "height": 63
     },
     {
-      "id": "region_13_class_1",
-      "type": "ImageView",
+      "id": "region_13_class_ImageView",
       "x_coordinates_center": 406,
       "y_coordinates_center": 450,
       "width": 59,
       "height": 59
     },
     {
-      "id": "region_14_class_2",
-      "type": "Text",
+      "id": "region_14_class_Text",
       "x_coordinates_center": 1045,
       "y_coordinates_center": 453,
       "width": 67,
@@ -142,16 +128,14 @@
       "correctedText": "77"
     },
     {
-      "id": "region_15_class_1",
-      "type": "ImageView",
+      "id": "region_15_class_ImageView",
       "x_coordinates_center": 1045,
       "y_coordinates_center": 453,
       "width": 67,
       "height": 54
     },
     {
-      "id": "region_16_class_2",
-      "type": "Text",
+      "id": "region_16_class_Text",
       "x_coordinates_center": 218,
       "y_coordinates_center": 453,
       "width": 122,
@@ -160,16 +144,14 @@
       "correctedText": "10.42"
     },
     {
-      "id": "region_17_class_1",
-      "type": "ImageView",
+      "id": "region_17_class_ImageView",
       "x_coordinates_center": 673,
       "y_coordinates_center": 451,
       "width": 52,
       "height": 48
     },
     {
-      "id": "region_18_class_2",
-      "type": "Text",
+      "id": "region_18_class_Text",
       "x_coordinates_center": 781,
       "y_coordinates_center": 453,
       "width": 122,
@@ -178,8 +160,7 @@
       "correctedText": "65.16"
     },
     {
-      "id": "region_19_class_2",
-      "type": "Text",
+      "id": "region_19_class_Text",
       "x_coordinates_center": 495,
       "y_coordinates_center": 454,
       "width": 91,
@@ -188,16 +169,14 @@
       "correctedText": "0.21"
     },
     {
-      "id": "region_20_class_1",
-      "type": "ImageView",
+      "id": "region_20_class_ImageView",
       "x_coordinates_center": 545,
       "y_coordinates_center": 752,
       "width": 962,
       "height": 357
     },
     {
-      "id": "region_21_class_2",
-      "type": "Text",
+      "id": "region_21_class_Text",
       "x_coordinates_center": 267,
       "y_coordinates_center": 776,
       "width": 351,
@@ -206,8 +185,7 @@
       "correctedText": "super Mega-Bomb\" lottery"
     },
     {
-      "id": "region_22_class_2",
-      "type": "Text",
+      "id": "region_22_class_Text",
       "x_coordinates_center": 277,
       "y_coordinates_center": 1029,
       "width": 480,
@@ -216,8 +194,7 @@
       "correctedText": "Birbank card partners"
     },
     {
-      "id": "region_23_class_2",
-      "type": "Text",
+      "id": "region_23_class_Text",
       "x_coordinates_center": 950,
       "y_coordinates_center": 1029,
       "width": 82,
@@ -226,8 +203,7 @@
       "correctedText": "See"
     },
     {
-      "id": "region_24_class_0",
-      "type": "View",
+      "id": "region_24_class_View",
       "x_coordinates_center": 176,
       "y_coordinates_center": 1209,
       "width": 261,
@@ -238,8 +214,7 @@
       ]
     },
     {
-      "id": "region_25_class_0",
-      "type": "View",
+      "id": "region_25_class_View",
       "x_coordinates_center": 451,
       "y_coordinates_center": 1209,
       "width": 265,
@@ -250,8 +225,7 @@
       ]
     },
     {
-      "id": "region_26_class_0",
-      "type": "View",
+      "id": "region_26_class_View",
       "x_coordinates_center": 732,
       "y_coordinates_center": 1210,
       "width": 262,
@@ -262,8 +236,7 @@
       ]
     },
     {
-      "id": "region_27_class_0",
-      "type": "View",
+      "id": "region_27_class_View",
       "x_coordinates_center": 978,
       "y_coordinates_center": 1211,
       "width": 201,
@@ -274,40 +247,35 @@
       ]
     },
     {
-      "id": "region_28_class_1",
-      "type": "ImageView",
+      "id": "region_28_class_ImageView",
       "x_coordinates_center": 385,
       "y_coordinates_center": 1155,
       "width": 82,
       "height": 71
     },
     {
-      "id": "region_29_class_1",
-      "type": "ImageView",
+      "id": "region_29_class_ImageView",
       "x_coordinates_center": 939,
       "y_coordinates_center": 1157,
       "width": 77,
       "height": 73
     },
     {
-      "id": "region_30_class_1",
-      "type": "ImageView",
+      "id": "region_30_class_ImageView",
       "x_coordinates_center": 663,
       "y_coordinates_center": 1156,
       "width": 85,
       "height": 69
     },
     {
-      "id": "region_31_class_1",
-      "type": "ImageView",
+      "id": "region_31_class_ImageView",
       "x_coordinates_center": 105,
       "y_coordinates_center": 1154,
       "width": 66,
       "height": 61
     },
     {
-      "id": "region_32_class_2",
-      "type": "Text",
+      "id": "region_32_class_Text",
       "x_coordinates_center": 421,
       "y_coordinates_center": 1238,
       "width": 157,
@@ -316,8 +284,7 @@
       "correctedText": "Clothing"
     },
     {
-      "id": "region_33_class_2",
-      "type": "Text",
+      "id": "region_33_class_Text",
       "x_coordinates_center": 988,
       "y_coordinates_center": 1239,
       "width": 179,
@@ -326,8 +293,7 @@
       "correctedText": "For home"
     },
     {
-      "id": "region_34_class_2",
-      "type": "Text",
+      "id": "region_34_class_Text",
       "x_coordinates_center": 723,
       "y_coordinates_center": 1240,
       "width": 203,
@@ -336,8 +302,7 @@
       "correctedText": "Electronics"
     },
     {
-      "id": "region_35_class_2",
-      "type": "Text",
+      "id": "region_35_class_Text",
       "x_coordinates_center": 110,
       "y_coordinates_center": 1239,
       "width": 89,
@@ -346,8 +311,7 @@
       "correctedText": "New"
     },
     {
-      "id": "region_36_class_2",
-      "type": "Text",
+      "id": "region_36_class_Text",
       "x_coordinates_center": 160,
       "y_coordinates_center": 1289,
       "width": 183,
@@ -356,8 +320,7 @@
       "correctedText": "64 partners"
     },
     {
-      "id": "region_37_class_2",
-      "type": "Text",
+      "id": "region_37_class_Text",
       "x_coordinates_center": 988,
       "y_coordinates_center": 1289,
       "width": 177,
@@ -366,8 +329,7 @@
       "correctedText": "85 partners"
     },
     {
-      "id": "region_38_class_2",
-      "type": "Text",
+      "id": "region_38_class_Text",
       "x_coordinates_center": 723,
       "y_coordinates_center": 1289,
       "width": 204,
@@ -376,8 +338,7 @@
       "correctedText": "145 partners"
     },
     {
-      "id": "region_39_class_2",
-      "type": "Text",
+      "id": "region_39_class_Text",
       "x_coordinates_center": 446,
       "y_coordinates_center": 1289,
       "width": 204,
@@ -386,8 +347,7 @@
       "correctedText": "259 partners"
     },
     {
-      "id": "region_40_class_0",
-      "type": "View",
+      "id": "region_40_class_View",
       "x_coordinates_center": 701,
       "y_coordinates_center": 1649,
       "width": 412,
@@ -398,8 +358,7 @@
       ]
     },
     {
-      "id": "region_41_class_0",
-      "type": "View",
+      "id": "region_41_class_View",
       "x_coordinates_center": 259,
       "y_coordinates_center": 1651,
       "width": 411,
@@ -410,8 +369,7 @@
       ]
     },
     {
-      "id": "region_42_class_0",
-      "type": "View",
+      "id": "region_42_class_View",
       "x_coordinates_center": 1005,
       "y_coordinates_center": 1658,
       "width": 148,
@@ -422,8 +380,7 @@
       ]
     },
     {
-      "id": "region_43_class_0",
-      "type": "View",
+      "id": "region_43_class_View",
       "x_coordinates_center": 1016,
       "y_coordinates_center": 1535,
       "width": 125,
@@ -434,8 +391,7 @@
       ]
     },
     {
-      "id": "region_44_class_0",
-      "type": "View",
+      "id": "region_44_class_View",
       "x_coordinates_center": 619,
       "y_coordinates_center": 1536,
       "width": 201,
@@ -446,8 +402,7 @@
       ]
     },
     {
-      "id": "region_45_class_0",
-      "type": "View",
+      "id": "region_45_class_View",
       "x_coordinates_center": 183,
       "y_coordinates_center": 1540,
       "width": 203,
@@ -458,8 +413,7 @@
       ]
     },
     {
-      "id": "region_46_class_0",
-      "type": "View",
+      "id": "region_46_class_View",
       "x_coordinates_center": 620,
       "y_coordinates_center": 1476,
       "width": 202,
@@ -470,16 +424,14 @@
       ]
     },
     {
-      "id": "region_47_class_1",
-      "type": "ImageView",
+      "id": "region_47_class_ImageView",
       "x_coordinates_center": 182,
       "y_coordinates_center": 1541,
       "width": 105,
       "height": 69
     },
     {
-      "id": "region_48_class_2",
-      "type": "Text",
+      "id": "region_48_class_Text",
       "x_coordinates_center": 618,
       "y_coordinates_center": 1540,
       "width": 167,
@@ -488,8 +440,7 @@
       "correctedText": "trendy"
     },
     {
-      "id": "region_49_class_2",
-      "type": "Text",
+      "id": "region_49_class_Text",
       "x_coordinates_center": 693,
       "y_coordinates_center": 1695,
       "width": 355,
@@ -498,8 +449,7 @@
       "correctedText": "trendy Azarbayc."
     },
     {
-      "id": "region_50_class_2",
-      "type": "Text",
+      "id": "region_50_class_Text",
       "x_coordinates_center": 166,
       "y_coordinates_center": 1695,
       "width": 175,
@@ -508,8 +458,7 @@
       "correctedText": "Umicoaz"
     },
     {
-      "id": "region_51_class_2",
-      "type": "Text",
+      "id": "region_51_class_Text",
       "x_coordinates_center": 1012,
       "y_coordinates_center": 1696,
       "width": 110,
@@ -518,32 +467,28 @@
       "correctedText": "Bravo"
     },
     {
-      "id": "region_52_class_1",
-      "type": "ImageView",
+      "id": "region_52_class_ImageView",
       "x_coordinates_center": 111,
       "y_coordinates_center": 1847,
       "width": 50,
       "height": 48
     },
     {
-      "id": "region_53_class_1",
-      "type": "ImageView",
+      "id": "region_53_class_ImageView",
       "x_coordinates_center": 550,
       "y_coordinates_center": 1847,
       "width": 47,
       "height": 47
     },
     {
-      "id": "region_54_class_1",
-      "type": "ImageView",
+      "id": "region_54_class_ImageView",
       "x_coordinates_center": 990,
       "y_coordinates_center": 1846,
       "width": 46,
       "height": 44
     },
     {
-      "id": "region_55_class_2",
-      "type": "Text",
+      "id": "region_55_class_Text",
       "x_coordinates_center": 272,
       "y_coordinates_center": 1848,
       "width": 263,
@@ -552,8 +497,7 @@
       "correctedText": "i up to 24 most"
     },
     {
-      "id": "region_56_class_2",
-      "type": "Text",
+      "id": "region_56_class_Text",
       "x_coordinates_center": 701,
       "y_coordinates_center": 1848,
       "width": 243,
@@ -562,8 +506,7 @@
       "correctedText": "i up to 6 most"
     },
     {
-      "id": "region_57_class_2",
-      "type": "Text",
+      "id": "region_57_class_Text",
       "x_coordinates_center": 1043,
       "y_coordinates_center": 1847,
       "width": 51,
@@ -572,8 +515,7 @@
       "correctedText": "i"
     },
     {
-      "id": "region_58_class_0",
-      "type": "View",
+      "id": "region_58_class_View",
       "x_coordinates_center": 535,
       "y_coordinates_center": 2081,
       "width": 1071,
@@ -584,48 +526,42 @@
       ]
     },
     {
-      "id": "region_59_class_1",
-      "type": "ImageView",
+      "id": "region_59_class_ImageView",
       "x_coordinates_center": 539,
       "y_coordinates_center": 2045,
       "width": 79,
       "height": 78
     },
     {
-      "id": "region_60_class_1",
-      "type": "ImageView",
+      "id": "region_60_class_ImageView",
       "x_coordinates_center": 971,
       "y_coordinates_center": 2045,
       "width": 71,
       "height": 69
     },
     {
-      "id": "region_61_class_1",
-      "type": "ImageView",
+      "id": "region_61_class_ImageView",
       "x_coordinates_center": 755,
       "y_coordinates_center": 2044,
       "width": 70,
       "height": 67
     },
     {
-      "id": "region_62_class_1",
-      "type": "ImageView",
+      "id": "region_62_class_ImageView",
       "x_coordinates_center": 322,
       "y_coordinates_center": 2045,
       "width": 68,
       "height": 68
     },
     {
-      "id": "region_63_class_1",
-      "type": "ImageView",
+      "id": "region_63_class_ImageView",
       "x_coordinates_center": 106,
       "y_coordinates_center": 2045,
       "width": 75,
       "height": 66
     },
     {
-      "id": "region_64_class_2",
-      "type": "Text",
+      "id": "region_64_class_Text",
       "x_coordinates_center": 321,
       "y_coordinates_center": 2108,
       "width": 109,
@@ -634,8 +570,7 @@
       "correctedText": "Benefits"
     },
     {
-      "id": "region_65_class_2",
-      "type": "Text",
+      "id": "region_65_class_Text",
       "x_coordinates_center": 755,
       "y_coordinates_center": 2109,
       "width": 135,
@@ -644,8 +579,7 @@
       "correctedText": "Payments"
     },
     {
-      "id": "region_66_class_2",
-      "type": "Text",
+      "id": "region_66_class_Text",
       "x_coordinates_center": 539,
       "y_coordinates_center": 2108,
       "width": 54,
@@ -654,8 +588,7 @@
       "correctedText": "or"
     },
     {
-      "id": "region_67_class_2",
-      "type": "Text",
+      "id": "region_67_class_Text",
       "x_coordinates_center": 972,
       "y_coordinates_center": 2108,
       "width": 77,
@@ -664,8 +597,7 @@
       "correctedText": "More"
     },
     {
-      "id": "region_68_class_2",
-      "type": "Text",
+      "id": "region_68_class_Text",
       "x_coordinates_center": 107,
       "y_coordinates_center": 2109,
       "width": 90,

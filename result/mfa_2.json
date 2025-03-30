@@ -8,8 +8,7 @@
   },
   "elements": [
     {
-      "id": "region_1_class_2",
-      "type": "Text",
+      "id": "region_1_class_Text",
       "x_coordinates_center": 150,
       "y_coordinates_center": 21,
       "width": 221,
@@ -18,8 +17,7 @@
       "correctedText": "ACELLIAzercell"
     },
     {
-      "id": "region_2_class_2",
-      "type": "Text",
+      "id": "region_2_class_Text",
       "x_coordinates_center": 475,
       "y_coordinates_center": 21,
       "width": 157,
@@ -28,8 +26,7 @@
       "correctedText": "01.49 897%"
     },
     {
-      "id": "region_3_class_0",
-      "type": "View",
+      "id": "region_3_class_View",
       "x_coordinates_center": 300,
       "y_coordinates_center": 643,
       "width": 593,
@@ -40,8 +37,7 @@
       ]
     },
     {
-      "id": "region_4_class_2",
-      "type": "Text",
+      "id": "region_4_class_Text",
       "x_coordinates_center": 161,
       "y_coordinates_center": 75,
       "width": 222,
@@ -50,8 +46,7 @@
       "correctedText": "Registration"
     },
     {
-      "id": "region_5_class_0",
-      "type": "View",
+      "id": "region_5_class_View",
       "x_coordinates_center": 299,
       "y_coordinates_center": 152,
       "width": 492,
@@ -62,8 +57,7 @@
       ]
     },
     {
-      "id": "region_6_class_2",
-      "type": "Text",
+      "id": "region_6_class_Text",
       "x_coordinates_center": 137,
       "y_coordinates_center": 154,
       "width": 124,
@@ -72,8 +66,7 @@
       "correctedText": "Full name"
     },
     {
-      "id": "region_7_class_0",
-      "type": "View",
+      "id": "region_7_class_View",
       "x_coordinates_center": 298,
       "y_coordinates_center": 287,
       "width": 492,
@@ -84,8 +77,7 @@
       ]
     },
     {
-      "id": "region_8_class_2",
-      "type": "Text",
+      "id": "region_8_class_Text",
       "x_coordinates_center": 112,
       "y_coordinates_center": 288,
       "width": 74,
@@ -94,8 +86,7 @@
       "correctedText": "Email"
     },
     {
-      "id": "region_9_class_0",
-      "type": "View",
+      "id": "region_9_class_View",
       "x_coordinates_center": 299,
       "y_coordinates_center": 422,
       "width": 490,
@@ -106,8 +97,7 @@
       ]
     },
     {
-      "id": "region_10_class_2",
-      "type": "Text",
+      "id": "region_10_class_Text",
       "x_coordinates_center": 168,
       "y_coordinates_center": 424,
       "width": 186,
@@ -116,8 +106,7 @@
       "correctedText": "Mobile number"
     },
     {
-      "id": "region_11_class_0",
-      "type": "View",
+      "id": "region_11_class_View",
       "x_coordinates_center": 298,
       "y_coordinates_center": 557,
       "width": 489,
@@ -128,8 +117,7 @@
       ]
     },
     {
-      "id": "region_12_class_2",
-      "type": "Text",
+      "id": "region_12_class_Text",
       "x_coordinates_center": 180,
       "y_coordinates_center": 559,
       "width": 217,
@@ -138,8 +126,7 @@
       "correctedText": "PIN code i digits"
     },
     {
-      "id": "region_13_class_2",
-      "type": "Text",
+      "id": "region_13_class_Text",
       "x_coordinates_center": 289,
       "y_coordinates_center": 682,
       "width": 487,
@@ -148,8 +135,7 @@
       "correctedText": "Passwords must contain both uppercase and lowercase characters Passwords must contain at least one number"
     },
     {
-      "id": "region_14_class_0",
-      "type": "View",
+      "id": "region_14_class_View",
       "x_coordinates_center": 299,
       "y_coordinates_center": 784,
       "width": 490,
@@ -160,16 +146,14 @@
       ]
     },
     {
-      "id": "region_15_class_1",
-      "type": "ImageView",
+      "id": "region_15_class_ImageView",
       "x_coordinates_center": 504,
       "y_coordinates_center": 786,
       "width": 43,
       "height": 34
     },
     {
-      "id": "region_16_class_2",
-      "type": "Text",
+      "id": "region_16_class_Text",
       "x_coordinates_center": 139,
       "y_coordinates_center": 786,
       "width": 126,
@@ -178,8 +162,7 @@
       "correctedText": "Password"
     },
     {
-      "id": "region_17_class_0",
-      "type": "View",
+      "id": "region_17_class_View",
       "x_coordinates_center": 297,
       "y_coordinates_center": 927,
       "width": 491,
@@ -190,16 +173,14 @@
       ]
     },
     {
-      "id": "region_18_class_1",
-      "type": "ImageView",
+      "id": "region_18_class_ImageView",
       "x_coordinates_center": 504,
       "y_coordinates_center": 927,
       "width": 43,
       "height": 33
     },
     {
-      "id": "region_19_class_2",
-      "type": "Text",
+      "id": "region_19_class_Text",
       "x_coordinates_center": 112,
       "y_coordinates_center": 930,
       "width": 77,
@@ -208,16 +189,14 @@
       "correctedText": "Again"
     },
     {
-      "id": "region_20_class_1",
-      "type": "ImageView",
+      "id": "region_20_class_ImageView",
       "x_coordinates_center": 79,
       "y_coordinates_center": 1047,
       "width": 36,
       "height": 35
     },
     {
-      "id": "region_21_class_2",
-      "type": "Text",
+      "id": "region_21_class_Text",
       "x_coordinates_center": 167,
       "y_coordinates_center": 1050,
       "width": 132,
@@ -226,8 +205,7 @@
       "correctedText": "Secure data"
     },
     {
-      "id": "region_22_class_0",
-      "type": "View",
+      "id": "region_22_class_View",
       "x_coordinates_center": 298,
       "y_coordinates_center": 1134,
       "width": 479,
@@ -238,8 +216,7 @@
       ]
     },
     {
-      "id": "region_23_class_2",
-      "type": "Text",
+      "id": "region_23_class_Text",
       "x_coordinates_center": 299,
       "y_coordinates_center": 1137,
       "width": 112,
@@ -248,8 +225,7 @@
       "correctedText": "Sign up"
     },
     {
-      "id": "region_24_class_0",
-      "type": "View",
+      "id": "region_24_class_View",
       "x_coordinates_center": 299,
       "y_coordinates_center": 1230,
       "width": 478,
@@ -260,8 +236,7 @@
       ]
     },
     {
-      "id": "region_25_class_2",
-      "type": "Text",
+      "id": "region_25_class_Text",
       "x_coordinates_center": 299,
       "y_coordinates_center": 1232,
       "width": 102,
@@ -270,8 +245,7 @@
       "correctedText": "Cancel"
     },
     {
-      "id": "region_26_class_1",
-      "type": "ImageView",
+      "id": "region_26_class_ImageView",
       "x_coordinates_center": 261,
       "y_coordinates_center": 1231,
       "width": 25,

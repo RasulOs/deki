@@ -126,8 +126,7 @@ def process_single_region(
     logs.append(f"{log_prefix}Size: width={width}, height={height}")
 
     region_dict = {
-        "id": f"region_{region_idx}_class_{class_id}",
-        "type": class_name,
+        "id": f"region_{region_idx}_class_{class_name}",
         "x_coordinates_center": x_center,
         "y_coordinates_center": y_center,
         "width": width,

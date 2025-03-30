@@ -8,8 +8,7 @@
   },
   "elements": [
     {
-      "id": "region_1_class_0",
-      "type": "View",
+      "id": "region_1_class_View",
       "x_coordinates_center": 301,
       "y_coordinates_center": 22,
       "width": 586,
@@ -20,8 +19,7 @@
       ]
     },
     {
-      "id": "region_2_class_2",
-      "type": "Text",
+      "id": "region_2_class_Text",
       "x_coordinates_center": 148,
       "y_coordinates_center": 22,
       "width": 223,
@@ -30,8 +28,7 @@
       "correctedText": "ACELLIAzercell"
     },
     {
-      "id": "region_3_class_2",
-      "type": "Text",
+      "id": "region_3_class_Text",
       "x_coordinates_center": 474,
       "y_coordinates_center": 21,
       "width": 157,
@@ -40,8 +37,7 @@
       "correctedText": "01,32 897%"
     },
     {
-      "id": "region_4_class_2",
-      "type": "Text",
+      "id": "region_4_class_Text",
       "x_coordinates_center": 98,
       "y_coordinates_center": 22,
       "width": 106,
@@ -50,8 +46,7 @@
       "correctedText": "ACELLIAzercell"
     },
     {
-      "id": "region_5_class_0",
-      "type": "View",
+      "id": "region_5_class_View",
       "x_coordinates_center": 299,
       "y_coordinates_center": 649,
       "width": 596,
@@ -62,24 +57,21 @@
       ]
     },
     {
-      "id": "region_6_class_1",
-      "type": "ImageView",
+      "id": "region_6_class_ImageView",
       "x_coordinates_center": 298,
       "y_coordinates_center": 365,
       "width": 323,
       "height": 294
     },
     {
-      "id": "region_7_class_1",
-      "type": "ImageView",
+      "id": "region_7_class_ImageView",
       "x_coordinates_center": 484,
       "y_coordinates_center": 547,
       "width": 59,
       "height": 62
     },
     {
-      "id": "region_8_class_2",
-      "type": "Text",
+      "id": "region_8_class_Text",
       "x_coordinates_center": 298,
       "y_coordinates_center": 552,
       "width": 306,
@@ -88,8 +80,7 @@
       "correctedText": "Biometric password"
     },
     {
-      "id": "region_9_class_0",
-      "type": "View",
+      "id": "region_9_class_View",
       "x_coordinates_center": 297,
       "y_coordinates_center": 638,
       "width": 493,
@@ -100,8 +91,7 @@
       ]
     },
     {
-      "id": "region_10_class_2",
-      "type": "Text",
+      "id": "region_10_class_Text",
       "x_coordinates_center": 146,
       "y_coordinates_center": 639,
       "width": 143,
@@ -110,8 +100,7 @@
       "correctedText": "Enter email"
     },
     {
-      "id": "region_11_class_0",
-      "type": "View",
+      "id": "region_11_class_View",
       "x_coordinates_center": 298,
       "y_coordinates_center": 773,
       "width": 490,
@@ -122,16 +111,14 @@
       ]
     },
     {
-      "id": "region_12_class_1",
-      "type": "ImageView",
+      "id": "region_12_class_ImageView",
       "x_coordinates_center": 504,
       "y_coordinates_center": 773,
       "width": 44,
       "height": 33
     },
     {
-      "id": "region_13_class_2",
-      "type": "Text",
+      "id": "region_13_class_Text",
       "x_coordinates_center": 170,
       "y_coordinates_center": 775,
       "width": 192,
@@ -140,8 +127,7 @@
       "correctedText": "Enter password"
     },
     {
-      "id": "region_14_class_2",
-      "type": "Text",
+      "id": "region_14_class_Text",
       "x_coordinates_center": 454,
       "y_coordinates_center": 871,
       "width": 187,
@@ -150,8 +136,7 @@
       "correctedText": "Forgot password"
     },
     {
-      "id": "region_15_class_0",
-      "type": "View",
+      "id": "region_15_class_View",
       "x_coordinates_center": 299,
       "y_coordinates_center": 946,
       "width": 480,
@@ -162,8 +147,7 @@
       ]
     },
     {
-      "id": "region_16_class_2",
-      "type": "Text",
+      "id": "region_16_class_Text",
       "x_coordinates_center": 298,
       "y_coordinates_center": 948,
       "width": 107,
@@ -172,8 +156,7 @@
       "correctedText": "Sign In"
     },
     {
-      "id": "region_17_class_0",
-      "type": "View",
+      "id": "region_17_class_View",
       "x_coordinates_center": 298,
       "y_coordinates_center": 1041,
       "width": 477,
@@ -184,8 +167,7 @@
       ]
     },
     {
-      "id": "region_18_class_2",
-      "type": "Text",
+      "id": "region_18_class_Text",
       "x_coordinates_center": 297,
       "y_coordinates_center": 1044,
       "width": 115,

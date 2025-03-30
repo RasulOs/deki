@@ -12,6 +12,7 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 import openai
+from openai import OpenAI
 
 from ultralytics import YOLO
 
@@ -34,13 +35,14 @@ YOLO_MODEL = None
 GLOBAL_SR = None
 GLOBAL_READER = None
 GLOBAL_SPELL = None
+LLM_CLIENT = None
 
 @app.on_event("startup")
 def load_models():
     """
     Called once when FastAPI starts.
     """
-    global YOLO_MODEL, GLOBAL_SR, GLOBAL_READER, GLOBAL_SPELL
+    global YOLO_MODEL, GLOBAL_SR, GLOBAL_READER, GLOBAL_SPELL, LLM_CLIENT
     print("Loading YOLO model ...")
     YOLO_MODEL = YOLO("best.pt")  # or /code/best.pt in Docker
     print("YOLO model loaded successfully.")
@@ -72,6 +74,7 @@ def load_models():
     GLOBAL_READER = easyocr.Reader(['en'], gpu=True)
     GLOBAL_SPELL = SpellChecker()
     print(f"OCR + SpellChecker init took {time.perf_counter()-start_time:.3f}s.")
+    LLM_CLIENT = OpenAI()
 
 class ActionRequest(BaseModel):
     image: str  # Base64-encoded image
@@ -195,7 +198,7 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
     start_time_gpt = time.perf_counter()
     print("Send request to gpt (action endpoint)")
     try:
-        new_bytes, new_b64 = preprocess_image(img_bytes, threshold=500, scale=0.5, fmt="png")
+        new_bytes, new_b64 = preprocess_image(img_bytes, threshold=1500, scale=0.5, fmt="png")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Image preprocessing failed: {e}")
     # Prepare the image as a Data URL (with the "data:image/png;base64," prefix)
@@ -241,11 +244,10 @@ Description:
     
     # Call the OpenAI API with the prepared messages.
     try:
-        response = openai.chat.completions.create(
-            model="gpt-4o-mini",  # or use "gpt-4o"
+        response = LLM_CLIENT.chat.completions.create(
+            model="gpt-4o",  # or "gpt-4o-mini"
             messages=messages,
-            max_tokens=4000,
-            temperature=0.2
+            temperature=0.2,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")

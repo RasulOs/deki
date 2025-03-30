@@ -302,6 +302,83 @@ Description:
     logging.info(f"action endpoint total processing time: {time.perf_counter()-start_time:.3f} seconds.")
     return {"response": command_response}
 
+
+@app.post("/generate")
+@with_semaphore(timeout=60)
+async def generate(request: ActionRequest, token: str = Depends(verify_token)):
+    """
+    Processes the input image (in base64 format) and a user prompt:
+    1. Decodes and saves the image.
+    2. Runs the wrapper to generate an image description.
+    3. Constructs a prompt for ChatGPT and sends it.
+    4. Returns the command response.
+    """
+    start_time = time.perf_counter()
+    logging.info("generate endpoint start")
+    log_request_data(request, "/generate")
+
+    image_path = "./res/uploaded_image_generate.png"
+    start_time_decode = time.perf_counter()
+    logging.info("Decoding and saving image (generate endpoint)")
+    img_bytes = save_base64_image(request.image, image_path)
+    logging.info(f"Image decode and save took {time.perf_counter()-start_time_decode:.3f} seconds.")
+
+    start_time_wrapper = time.perf_counter()
+    logging.info("Running wrapper for image description (generate endpoint)")
+    try:
+        image_description = run_wrapper(image_path)
+    except Exception as e:
+        logging.exception("Image processing failed in generate endpoint.")
+        raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
+    logging.info(f"run_wrapper took {time.perf_counter()-start_time_wrapper:.3f} seconds.")
+
+    start_time_gpt = time.perf_counter()
+    logging.info("Preprocessing image for GPT (generate endpoint)")
+    try:
+        new_bytes, new_b64 = preprocess_image(img_bytes, threshold=1500, scale=0.5, fmt="png")
+    except Exception as e:
+        logging.exception("Image preprocessing failed.")
+        raise HTTPException(status_code=500, detail=f"Image preprocessing failed: {e}")
+
+    base64_image_url = f"data:image/png;base64,{new_b64}"
+
+    messages = [
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": '''"Prompt: {0}" 
+                    Image description:
+                    "{1}"'''.format(request.prompt,
+                    image_description)
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": base64_image_url,
+                        "detail": "high" # or low
+                    }
+                }
+            ]
+        }
+    ]
+
+    logging.info("Sending request to GPT (generate endpoint)")
+    try:
+        response = LLM_CLIENT.chat.completions.create(
+            model="gpt-4o",  # or "gpt-4o-mini"
+            messages=messages
+        )
+    except Exception as e:
+        logging.exception("OpenAI API error.")
+        raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")
+
+    logging.info(f"GPT call took {time.perf_counter()-start_time_gpt:.3f} seconds.")
+    command_response = response.choices[0].message.content.strip()
+    logging.info(f"generate endpoint total processing time: {time.perf_counter()-start_time:.3f} seconds.")
+    return {"response": command_response}
+
 @app.post("/analyze")
 @with_semaphore(timeout=60)
 async def analyze(request: AnalyzeRequest, token: str = Depends(verify_token)):
@@ -321,3 +398,49 @@ async def analyze(request: AnalyzeRequest, token: str = Depends(verify_token)):
         raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
 
     return JSONResponse(content={"description": analyzed_description})
+
+
+@app.post("/analyze_and_get_yolo")
+@with_semaphore(timeout=60)
+async def analyze_and_get_yolo(request: AnalyzeRequest, token: str = Depends(verify_token)):
+    """
+    Processes the input image (in base64 format) to:
+      1. Return the image description as a JSON object.
+      2. Return the YOLO-updated image (base64 encoded) generated at ./output/uploaded_image_analyze_and_get_yolo_yolo_updated.
+    """
+    logging.info("analyze_and_get_yolo endpoint start")
+    log_request_data(request, "/analyze_and_get_yolo")
+    
+    # Save the input image to the res folder.
+    image_path = "./res/uploaded_image_analyze_and_get_yolo.png"
+    img_bytes = save_base64_image(request.image, image_path)
+    
+    # Run the wrapper to generate the image description.
+    try:
+        image_description = run_wrapper(image_path)
+        analyzed_description = json.loads(image_description)
+    except Exception as e:
+        logging.exception("Image processing failed in analyze_and_get_yolo endpoint.")
+        raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
+    
+    # Load the YOLO-updated image from the output folder.
+    print(os.getcwd())
+    yolo_image_path = "./output/uploaded_image_analyze_and_get_yolo_yolo_updated.png"
+    if not os.path.exists(yolo_image_path):
+        logging.error("YOLO updated image not found.")
+        raise HTTPException(status_code=500, detail="YOLO updated image not generated.")
+    
+    try:
+        with open(yolo_image_path, "rb") as f:
+            yolo_img_bytes = f.read()
+        yolo_b64 = base64.b64encode(yolo_img_bytes).decode("utf-8")
+        yolo_image_encoded = f"data:image/png;base64,{yolo_b64}"
+    except Exception as e:
+        logging.exception("Error reading YOLO updated image.")
+        raise HTTPException(status_code=500, detail=f"Error reading YOLO updated image: {e}")
+    
+    # Return both the description and the YOLO image.
+    return JSONResponse(content={
+        "description": analyzed_description,
+        "yolo_image": yolo_image_encoded
+    })

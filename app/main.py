@@ -19,14 +19,17 @@ from ultralytics import YOLO
 from wrapper import process_image_description
 from utils.pills import preprocess_image
 
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
+
 app = FastAPI(title="deki-automata API")
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-
-# Something like a small password that you set and
-# only clients that know this token can use functionalities of the server
 API_TOKEN = os.environ.get("API_TOKEN")
+
 if not OPENAI_API_KEY or not API_TOKEN:
+    logging.error("OPENAI_API_KEY and API_TOKEN must be set in environment variables.")
     raise RuntimeError("OPENAI_API_KEY and API_TOKEN must be set in environment variables.")
 
 openai.api_key = OPENAI_API_KEY
@@ -37,43 +40,46 @@ GLOBAL_READER = None
 GLOBAL_SPELL = None
 LLM_CLIENT = None
 
+os.makedirs("./res", exist_ok=True)
+os.makedirs("./result", exist_ok=True)
+
 @app.on_event("startup")
 def load_models():
     """
     Called once when FastAPI starts.
     """
     global YOLO_MODEL, GLOBAL_SR, GLOBAL_READER, GLOBAL_SPELL, LLM_CLIENT
-    print("Loading YOLO model ...")
+    logging.info("Loading YOLO model ...")
     YOLO_MODEL = YOLO("best.pt")  # or /code/best.pt in Docker
-    print("YOLO model loaded successfully.")
+    logging.info("YOLO model loaded successfully.")
 
     # Super-resolution
-    print("Loading super-resolution model ...")
+    logging.info("Loading super-resolution model ...")
     start_time = time.perf_counter()
     sr = None
     model_path = "EDSR_x4.pb"
     if hasattr(cv2, 'dnn_superres'):
-        print("dnn_superres module is available.")
+        logging.info("dnn_superres module is available.")
         try:
             sr = dnn_superres.DnnSuperResImpl_create()
-            print("Using DnnSuperResImpl_create()")
+            logging.info("Using DnnSuperResImpl_create()")
         except AttributeError:
             sr = dnn_superres.DnnSuperResImpl()
-            print("Using DnnSuperResImpl()")
+            logging.info("Using DnnSuperResImpl()")
         sr.readModel(model_path)
         sr.setModel('edsr', 4)
         GLOBAL_SR = sr
     else:
-        print("dnn_superres module is NOT available; skipping super-resolution.")
+        logging.info("dnn_superres module is NOT available; skipping super-resolution.")
         GLOBAL_SR = None
-    print(f"Super-resolution initialization took {time.perf_counter()-start_time:.3f}s.")
+    logging.info(f"Super-resolution initialization took {time.perf_counter()-start_time:.3f}s.")
 
     # EasyOCR + SpellChecker
-    print("Loading OCR + SpellChecker ...")
+    logging.info("Loading OCR + SpellChecker ...")
     start_time = time.perf_counter()
     GLOBAL_READER = easyocr.Reader(['en'], gpu=True)
     GLOBAL_SPELL = SpellChecker()
-    print(f"OCR + SpellChecker init took {time.perf_counter()-start_time:.3f}s.")
+    logging.info(f"OCR + SpellChecker init took {time.perf_counter()-start_time:.3f}s.")
     LLM_CLIENT = OpenAI()
 
 class ActionRequest(BaseModel):
@@ -87,18 +93,41 @@ security = HTTPBearer()
 
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
     if credentials.credentials != API_TOKEN:
+        logging.warning("Invalid API token attempt.")
         raise HTTPException(status_code=401, detail="Invalid API token")
     return credentials.credentials
 
+def save_base64_image(image_data: str, file_path: str) -> bytes:
+    """
+    Decode base64 image data (removing any data URI header) and save to the specified file.
+    Returns the raw image bytes.
+    """
+    if image_data.startswith("data:image"):
+        _, image_data = image_data.split(",", 1)
+    try:
+        img_bytes = base64.b64decode(image_data)
+    except Exception as e:
+        logging.exception("Error decoding base64 image data.")
+        raise HTTPException(status_code=400, detail=f"Invalid base64 image data: {e}")
+    
+    try:
+        with open(file_path, "wb") as f:
+            f.write(img_bytes)
+    except Exception as e:
+        logging.exception("Error saving image file.")
+        raise HTTPException(status_code=500, detail=f"Failed to save image: {e}")
+    
+    return img_bytes
+
 def run_wrapper(image_path: str) -> str:
     """
-    Calls `process_image_description()` to perform YOLO detection and image description,
-    then loads the resulting JSON or text file from ./result.
+    Calls process_image_description() to perform YOLO detection and image description,
+    then reads the resulting JSON or text file from ./result.
     """
     start_time = time.perf_counter()
-    print("run_wrapper start")
+    logging.info("run_wrapper start")
 
-    weights_file = "/code/best.pt"
+    weights_file = "best.pt"
     no_captioning = True
     output_json = True
 
@@ -113,30 +142,30 @@ def run_wrapper(image_path: str) -> str:
         spell=GLOBAL_SPELL
     )
     elapsed = time.perf_counter() - start_time
-    print(f"process_image_description (run_wrapper) took {elapsed:.3f} seconds.")
+    logging.info(f"process_image_description (run_wrapper) took {elapsed:.3f} seconds.")
 
     base_name = os.path.splitext(os.path.basename(image_path))[0]
     result_dir = os.path.join(os.getcwd(), "result")
     json_file = os.path.join(result_dir, f"{base_name}.json")
     txt_file = os.path.join(result_dir, f"{base_name}.txt")
 
-    description = None
     if os.path.exists(json_file):
         try:
             with open(json_file, "r", encoding="utf-8") as f:
-                description = f.read()
+                return f.read()
         except Exception as e:
+            logging.exception("Failed to read JSON description file.")
             raise Exception(f"Failed to read JSON description file: {e}")
     elif os.path.exists(txt_file):
         try:
             with open(txt_file, "r", encoding="utf-8") as f:
-                description = f.read()
+                return f.read()
         except Exception as e:
+            logging.exception("Failed to read TXT description file.")
             raise Exception(f"Failed to read TXT description file: {e}")
     else:
+        logging.error("No image description file was generated.")
         raise FileNotFoundError("No image description file was generated.")
-
-    return description
 
 @app.get("/")
 async def root():
@@ -147,64 +176,38 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
     """
     Processes the input image (in base64 format) and a user prompt:
     1. Decodes and saves the image.
-    2. Runs the wrapper.py script (via run_wrapper) to generate an image description.
-    3. Constructs a detailed prompt for ChatGPT that includes:
-       - Allowed commands.
-       - The user prompt.
-       - The generated image description.
-       - The original image in a base64 format. (can be resized by 0.5 if image is big)
-    4. Sends the prompt to ChatGPT (via OpenAI API) and returns the command response.
+    2. Runs the wrapper to generate an image description.
+    3. Constructs a prompt for ChatGPT and sends it.
+    4. Returns the command response.
     """
     start_time = time.perf_counter()
-    print("action endpoint start")
+    logging.info("action endpoint start")
 
-    # Remove data URI header if present
-    image_data = request.image
-    if image_data.startswith("data:image"):
-        _, image_data = image_data.split(",", 1)
-    
-    start_time_decode = time.perf_counter()
-    print("Decode image start (action endpoint)")
-
-    try:
-        img_bytes = base64.b64decode(image_data)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Invalid base64 image data: {e}")
-
-    elapsed_decode = time.perf_counter() - start_time_decode
-    print(f"decode image (action endpoint) took {elapsed_decode:.3f} seconds.")
-    
-    # Save the image to a temporary file
     image_path = "./res/uploaded_image_action.png"
-    try:
-        with open(image_path, "wb") as f:
-            f.write(img_bytes)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to save image: {e}")
-    
+    start_time_decode = time.perf_counter()
+    logging.info("Decoding and saving image (action endpoint)")
+    img_bytes = save_base64_image(request.image, image_path)
+    logging.info(f"Image decode and save took {time.perf_counter()-start_time_decode:.3f} seconds.")
 
     start_time_wrapper = time.perf_counter()
-    print("run_wrapper start (action endpoint)")
-    # Generate image description using run_wrapper (which reads the output file from ./result)
+    logging.info("Running wrapper for image description (action endpoint)")
     try:
         image_description = run_wrapper(image_path)
     except Exception as e:
+        logging.exception("Image processing failed in action endpoint.")
         raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
-
-    elapsed_wrapper = time.perf_counter() - start_time_wrapper
-    print(f"run wrapper (action endpoint) took {elapsed_wrapper:.3f} seconds.")
-    
+    logging.info(f"run_wrapper took {time.perf_counter()-start_time_wrapper:.3f} seconds.")
 
     start_time_gpt = time.perf_counter()
-    print("Send request to gpt (action endpoint)")
+    logging.info("Preprocessing image for GPT (action endpoint)")
     try:
         new_bytes, new_b64 = preprocess_image(img_bytes, threshold=1500, scale=0.5, fmt="png")
     except Exception as e:
+        logging.exception("Image preprocessing failed.")
         raise HTTPException(status_code=500, detail=f"Image preprocessing failed: {e}")
-    # Prepare the image as a Data URL (with the "data:image/png;base64," prefix)
+
     base64_image_url = f"data:image/png;base64,{new_b64}"
-    
-    # Construct the messages for ChatGPT using a multi-part structure
+
     messages = [
         {
             "role": "user",
@@ -241,8 +244,8 @@ Description:
             ]
         }
     ]
-    
-    # Call the OpenAI API with the prepared messages.
+
+    logging.info("Sending request to GPT (action endpoint)")
     try:
         response = LLM_CLIENT.chat.completions.create(
             model="gpt-4o",  # or "gpt-4o-mini"
@@ -250,13 +253,12 @@ Description:
             temperature=0.2,
         )
     except Exception as e:
+        logging.exception("OpenAI API error.")
         raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")
-    
-    elapsed_gpt = time.perf_counter() - start_time_gpt
-    print(f"gpt call (action endpoint) took {elapsed_gpt:.3f} seconds.")
+
+    logging.info(f"GPT call took {time.perf_counter()-start_time_gpt:.3f} seconds.")
     command_response = response.choices[0].message.content.strip()
-    elapsed = time.perf_counter() - start_time
-    print(f"process_image_description (action endpoint) took {elapsed:.3f} seconds.")
+    logging.info(f"action endpoint total processing time: {time.time()-start_time:.3f} seconds.")
     return {"response": command_response}
 
 @app.post("/analyze")
@@ -264,27 +266,15 @@ async def analyze(request: AnalyzeRequest, token: str = Depends(verify_token)):
     """
     Processes the input image (in base64 format) to return the image description as a JSON object.
     """
-    # Remove data URI header if present
-    image_data = request.image
-    if image_data.startswith("data:image"):
-        _, image_data = image_data.split(",", 1)
-    
-    try:
-        img_bytes = base64.b64decode(image_data)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Invalid base64 image data: {e}")
-
+    logging.info("analyze endpoint start")
     image_path = "./res/uploaded_image_analyze.png"
-    try:
-        with open(image_path, "wb") as f:
-            f.write(img_bytes)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to save image: {e}")
+    img_bytes = save_base64_image(request.image, image_path)
 
     try:
         image_description = run_wrapper(image_path)
         analyzed_description = json.loads(image_description)
     except Exception as e:
+        logging.exception("Image processing failed in analyze endpoint.")
         raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
 
     return JSONResponse(content={"description": analyzed_description})

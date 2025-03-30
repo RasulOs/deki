@@ -6,8 +6,9 @@ from spellchecker import SpellChecker
 import cv2
 import cv2.dnn_superres as dnn_superres
 import json
+import asyncio
+import functools
 from fastapi.responses import JSONResponse
-
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
@@ -24,6 +25,30 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
 app = FastAPI(title="deki-automata API")
+
+# Global semaphore limit is set to 1 because the ML tasks take almost all RAM for the current server.
+# Can be increased in the future
+CONCURRENT_LIMIT = 1
+concurrency_semaphore = asyncio.Semaphore(CONCURRENT_LIMIT)
+
+def with_semaphore(timeout: float = 20):
+    """
+    Decorator to limit concurrent access by acquiring the semaphore
+    before the function runs, and releasing it afterward.
+    """
+    def decorator(func):
+        @functools.wraps(func)
+        async def wrapper(*args, **kwargs):
+            try:
+                await asyncio.wait_for(concurrency_semaphore.acquire(), timeout=timeout)
+            except asyncio.TimeoutError:
+                raise HTTPException(status_code=503, detail="Service busy, please try again later.")
+            try:
+                return await func(*args, **kwargs)
+            finally:
+                concurrency_semaphore.release()
+        return wrapper
+    return decorator
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 API_TOKEN = os.environ.get("API_TOKEN")
@@ -119,6 +144,16 @@ def save_base64_image(image_data: str, file_path: str) -> bytes:
     
     return img_bytes
 
+def log_request_data(request, endpoint: str):
+    """
+    Log the user prompt (if any) and a preview of the image data.
+    """
+    logging.info(f"{endpoint} request received:")
+    if hasattr(request, 'prompt'):
+        logging.info(f"User prompt: {request.prompt}")
+    image_preview = request.image[:100] + "..." if len(request.image) > 100 else request.image
+    logging.info(f"User image data (base64 preview): {image_preview}")
+
 def run_wrapper(image_path: str) -> str:
     """
     Calls process_image_description() to perform YOLO detection and image description,
@@ -172,6 +207,7 @@ async def root():
     return {"message": "deki"}
 
 @app.post("/action")
+@with_semaphore(timeout=60)
 async def action(request: ActionRequest, token: str = Depends(verify_token)):
     """
     Processes the input image (in base64 format) and a user prompt:
@@ -182,6 +218,7 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
     """
     start_time = time.perf_counter()
     logging.info("action endpoint start")
+    log_request_data(request, "/action")
 
     image_path = "./res/uploaded_image_action.png"
     start_time_decode = time.perf_counter()
@@ -262,11 +299,13 @@ Description:
     return {"response": command_response}
 
 @app.post("/analyze")
+@with_semaphore(timeout=60)
 async def analyze(request: AnalyzeRequest, token: str = Depends(verify_token)):
     """
     Processes the input image (in base64 format) to return the image description as a JSON object.
     """
     logging.info("analyze endpoint start")
+    log_request_data(request, "/analyze")
     image_path = "./res/uploaded_image_analyze.png"
     img_bytes = save_base64_image(request.image, image_path)
 

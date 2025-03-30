@@ -251,17 +251,21 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
             "content": [
                 {
                     "type": "text",
-                    "text": '''You are controlling a mobile device. You can only respond with one of these commands (in quotes):
-1. "Swipe left"
-2. "Swipe right"
-3. "Swipe top"
-4. "Swipe bottom"
+                    "text": '''You are an AI agent that controls a mobile device and sees the content of screen. 
+                    User can ask you about some information or to do some task and you need to do these tasks.
+                    You can only respond with one of these commands (in quotes) but some variables are dynamic
+                    and can be changed based on the context:
+1. "Swipe left. Swipe start coordinates 300, 400" (or other coordinates)
+2. "Swipe right. Swipe start coordinates 300, 400" (or other coordinates)
+3. "Swipe top. Swipe start coordinates 300, 400" (or other coordinates)
+4. "Swipe bottom. Swipe start coordinates 300, 400" (or other coordinates)
 5. "Go home"
 6. "Open com.whatsapp" (or other app)
 7. "Tap coordinates 300,400" (or other coordinates)
-8. "Insert text 300,400:Hello world" (or other coordinates and text)
-9. "Finished" (task is finished)
-10. "Can't proceed" (Can't understand what to do or image has problem etc.. Better to not continue)
+8. "Insert text 300,400:Hello world" (or otheer coordinates and text)
+9. "Answer: There are no new important mails today" (Or other answer)
+10. "Finished" (task is finished)
+11. "Can't proceed" (Can't understand what to do or image has problem etc.. Better to not continue)
 
 The user said: "{0}"
 
@@ -295,7 +299,7 @@ Description:
 
     logging.info(f"GPT call took {time.perf_counter()-start_time_gpt:.3f} seconds.")
     command_response = response.choices[0].message.content.strip()
-    logging.info(f"action endpoint total processing time: {time.time()-start_time:.3f} seconds.")
+    logging.info(f"action endpoint total processing time: {time.perf_counter()-start_time:.3f} seconds.")
     return {"response": command_response}
 
 @app.post("/analyze")

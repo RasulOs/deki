@@ -85,6 +85,13 @@ def process_yolo(input_image, weights_file: str, output_dir: str = './yolo_run',
     else:
         model = model_obj
 
+    # Delete existing label file for this image (if it exists) so that detections are rewritten and not appended
+    labels_dir = os.path.join(output_dir, "yolo_labels_output", "labels")
+    expected_label_file = os.path.join(labels_dir, f"{base_name}.txt")
+    if os.path.exists(expected_label_file):
+        print(f"Deleting existing label file: {expected_label_file}")
+        os.remove(expected_label_file)
+
     results = model(
         source=source_input, 
         save_txt=True, 

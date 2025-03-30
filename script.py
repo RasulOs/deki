@@ -128,14 +128,10 @@ def process_single_region(
     region_dict = {
         "id": f"region_{region_idx}_class_{class_id}",
         "type": class_name,
-        "coordinates": {
-            "x_center": x_center,
-            "y_center": y_center
-        },
-        "size": {
-            "width": width,
-            "height": height
-        }
+        "x_coordinates_center": x_center,
+        "y_coordinates_center": y_center,
+        "width": width,
+        "height": height
     }
 
     # Crop region

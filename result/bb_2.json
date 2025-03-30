@@ -10,102 +10,60 @@
     {
       "id": "region_1_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 923,
-        "y_min": 21,
-        "x_max": 1055,
-        "y_max": 73
-      },
-      "size": {
-        "width": 132,
-        "height": 52
-      },
+      "x_coordinates_center": 989,
+      "y_coordinates_center": 47,
+      "width": 132,
+      "height": 52,
       "extractedText": "35%",
       "correctedText": "35%"
     },
     {
       "id": "region_2_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 836,
-        "y_min": 22,
-        "x_max": 885,
-        "y_max": 69
-      },
-      "size": {
-        "width": 49,
-        "height": 47
-      }
+      "x_coordinates_center": 860,
+      "y_coordinates_center": 45,
+      "width": 49,
+      "height": 47
     },
     {
       "id": "region_3_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 886,
-        "y_min": 23,
-        "x_max": 930,
-        "y_max": 70
-      },
-      "size": {
-        "width": 44,
-        "height": 47
-      }
+      "x_coordinates_center": 908,
+      "y_coordinates_center": 46,
+      "width": 44,
+      "height": 47
     },
     {
       "id": "region_4_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 236,
-        "y_min": 23,
-        "x_max": 285,
-        "y_max": 71
-      },
-      "size": {
-        "width": 49,
-        "height": 48
-      }
+      "x_coordinates_center": 260,
+      "y_coordinates_center": 47,
+      "width": 49,
+      "height": 48
     },
     {
       "id": "region_5_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 1017,
-        "y_min": 26,
-        "x_max": 1052,
-        "y_max": 69
-      },
-      "size": {
-        "width": 35,
-        "height": 43
-      }
+      "x_coordinates_center": 1034,
+      "y_coordinates_center": 47,
+      "width": 35,
+      "height": 43
     },
     {
       "id": "region_6_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 289,
-        "y_min": 31,
-        "x_max": 320,
-        "y_max": 64
-      },
-      "size": {
-        "width": 31,
-        "height": 33
-      }
+      "x_coordinates_center": 304,
+      "y_coordinates_center": 47,
+      "width": 31,
+      "height": 33
     },
     {
       "id": "region_7_class_3",
       "type": "Line",
-      "coordinates": {
-        "x_min": 488,
-        "y_min": 195,
-        "x_max": 591,
-        "y_max": 211
-      },
-      "size": {
-        "width": 103,
-        "height": 16
-      },
+      "x_coordinates_center": 539,
+      "y_coordinates_center": 203,
+      "width": 103,
+      "height": 16,
       "properties": [
         "The color of the line is white.",
         "The line is opaque."
@@ -114,46 +72,28 @@
     {
       "id": "region_8_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 36,
-        "y_min": 239,
-        "x_max": 363,
-        "y_max": 320
-      },
-      "size": {
-        "width": 327,
-        "height": 81
-      },
+      "x_coordinates_center": 199,
+      "y_coordinates_center": 279,
+      "width": 327,
+      "height": 81,
       "extractedText": "Partners",
       "correctedText": "Partners"
     },
     {
       "id": "region_9_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 976,
-        "y_min": 242,
-        "x_max": 1045,
-        "y_max": 307
-      },
-      "size": {
-        "width": 69,
-        "height": 65
-      }
+      "x_coordinates_center": 1010,
+      "y_coordinates_center": 274,
+      "width": 69,
+      "height": 65
     },
     {
       "id": "region_10_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 31,
-        "y_min": 351,
-        "x_max": 1031,
-        "y_max": 462
-      },
-      "size": {
-        "width": 1000,
-        "height": 111
-      },
+      "x_coordinates_center": 531,
+      "y_coordinates_center": 406,
+      "width": 1000,
+      "height": 111,
       "properties": [
         "The background color of the container is whitesmoke.",
         "The container is opaque."
@@ -162,46 +102,28 @@
     {
       "id": "region_11_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 129,
-        "y_min": 383,
-        "x_max": 281,
-        "y_max": 436
-      },
-      "size": {
-        "width": 152,
-        "height": 53
-      },
+      "x_coordinates_center": 205,
+      "y_coordinates_center": 409,
+      "width": 152,
+      "height": 53,
       "extractedText": "Search",
       "correctedText": "Search"
     },
     {
       "id": "region_12_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 65,
-        "y_min": 385,
-        "x_max": 111,
-        "y_max": 430
-      },
-      "size": {
-        "width": 46,
-        "height": 45
-      }
+      "x_coordinates_center": 88,
+      "y_coordinates_center": 407,
+      "width": 46,
+      "height": 45
     },
     {
       "id": "region_13_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 281,
-        "y_min": 507,
-        "x_max": 990,
-        "y_max": 595
-      },
-      "size": {
-        "width": 709,
-        "height": 88
-      },
+      "x_coordinates_center": 635,
+      "y_coordinates_center": 551,
+      "width": 709,
+      "height": 88,
       "properties": [
         "The background color of the container is whitesmoke.",
         "The container is opaque."
@@ -210,16 +132,10 @@
     {
       "id": "region_14_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 45,
-        "y_min": 507,
-        "x_max": 260,
-        "y_max": 593
-      },
-      "size": {
-        "width": 215,
-        "height": 86
-      },
+      "x_coordinates_center": 152,
+      "y_coordinates_center": 550,
+      "width": 215,
+      "height": 86,
       "properties": [
         "The background color of the container is whitesmoke.",
         "The container is opaque."
@@ -228,90 +144,54 @@
     {
       "id": "region_15_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 1025,
-        "y_min": 515,
-        "x_max": 1079,
-        "y_max": 586
-      },
-      "size": {
-        "width": 54,
-        "height": 71
-      }
+      "x_coordinates_center": 1052,
+      "y_coordinates_center": 550,
+      "width": 54,
+      "height": 71
     },
     {
       "id": "region_16_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 308,
-        "y_min": 521,
-        "x_max": 373,
-        "y_max": 582
-      },
-      "size": {
-        "width": 65,
-        "height": 61
-      }
+      "x_coordinates_center": 340,
+      "y_coordinates_center": 551,
+      "width": 65,
+      "height": 61
     },
     {
       "id": "region_17_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 70,
-        "y_min": 523,
-        "x_max": 128,
-        "y_max": 577
-      },
-      "size": {
-        "width": 58,
-        "height": 54
-      }
+      "x_coordinates_center": 99,
+      "y_coordinates_center": 550,
+      "width": 58,
+      "height": 54
     },
     {
       "id": "region_18_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 375,
-        "y_min": 525,
-        "x_max": 963,
-        "y_max": 581
-      },
-      "size": {
-        "width": 588,
-        "height": 56
-      },
+      "x_coordinates_center": 669,
+      "y_coordinates_center": 553,
+      "width": 588,
+      "height": 56,
       "extractedText": "Clothing; jewelry and accessories",
       "correctedText": "clothing jewelry and accessories"
     },
     {
       "id": "region_19_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 140,
-        "y_min": 529,
-        "x_max": 228,
-        "y_max": 574
-      },
-      "size": {
-        "width": 88,
-        "height": 45
-      },
+      "x_coordinates_center": 184,
+      "y_coordinates_center": 551,
+      "width": 88,
+      "height": 45,
       "extractedText": "New",
       "correctedText": "New"
     },
     {
       "id": "region_20_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 553,
-        "y_min": 632,
-        "x_max": 1024,
-        "y_max": 1114
-      },
-      "size": {
-        "width": 471,
-        "height": 482
-      },
+      "x_coordinates_center": 788,
+      "y_coordinates_center": 873,
+      "width": 471,
+      "height": 482,
       "properties": [
         "The background color of the container is white.",
         "The container is opaque."
@@ -320,16 +200,10 @@
     {
       "id": "region_21_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 59,
-        "y_min": 640,
-        "x_max": 528,
-        "y_max": 1112
-      },
-      "size": {
-        "width": 469,
-        "height": 472
-      },
+      "x_coordinates_center": 293,
+      "y_coordinates_center": 876,
+      "width": 469,
+      "height": 472,
       "properties": [
         "The background color of the container is white.",
         "The container is opaque."
@@ -338,16 +212,10 @@
     {
       "id": "region_22_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 579,
-        "y_min": 659,
-        "x_max": 786,
-        "y_max": 875
-      },
-      "size": {
-        "width": 207,
-        "height": 216
-      },
+      "x_coordinates_center": 682,
+      "y_coordinates_center": 767,
+      "width": 207,
+      "height": 216,
       "properties": [
         "The background color of the container is darkorange.",
         "The container is opaque."
@@ -356,16 +224,10 @@
     {
       "id": "region_23_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 84,
-        "y_min": 674,
-        "x_max": 290,
-        "y_max": 875
-      },
-      "size": {
-        "width": 206,
-        "height": 201
-      },
+      "x_coordinates_center": 187,
+      "y_coordinates_center": 774,
+      "width": 206,
+      "height": 201,
       "properties": [
         "The background color of the container is crimson.",
         "The container is opaque."
@@ -374,138 +236,84 @@
     {
       "id": "region_24_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 135,
-        "y_min": 736,
-        "x_max": 239,
-        "y_max": 808
-      },
-      "size": {
-        "width": 104,
-        "height": 72
-      }
+      "x_coordinates_center": 187,
+      "y_coordinates_center": 772,
+      "width": 104,
+      "height": 72
     },
     {
       "id": "region_25_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 601,
-        "y_min": 751,
-        "x_max": 764,
-        "y_max": 794
-      },
-      "size": {
-        "width": 163,
-        "height": 43
-      },
+      "x_coordinates_center": 682,
+      "y_coordinates_center": 772,
+      "width": 163,
+      "height": 43,
       "extractedText": "trendyol",
       "correctedText": "trendy"
     },
     {
       "id": "region_26_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 578,
-        "y_min": 898,
-        "x_max": 949,
-        "y_max": 952
-      },
-      "size": {
-        "width": 371,
-        "height": 54
-      },
+      "x_coordinates_center": 763,
+      "y_coordinates_center": 925,
+      "width": 371,
+      "height": 54,
       "extractedText": "Trendyol Azarbaycan",
       "correctedText": "trendy Azarbaycan"
     },
     {
       "id": "region_27_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 84,
-        "y_min": 901,
-        "x_max": 257,
-        "y_max": 947
-      },
-      "size": {
-        "width": 173,
-        "height": 46
-      },
+      "x_coordinates_center": 170,
+      "y_coordinates_center": 924,
+      "width": 173,
+      "height": 46,
       "extractedText": "Umico.az",
       "correctedText": "Umico.az"
     },
     {
       "id": "region_28_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 588,
-        "y_min": 1034,
-        "x_max": 635,
-        "y_max": 1082
-      },
-      "size": {
-        "width": 47,
-        "height": 48
-      }
+      "x_coordinates_center": 611,
+      "y_coordinates_center": 1058,
+      "width": 47,
+      "height": 48
     },
     {
       "id": "region_29_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 95,
-        "y_min": 1035,
-        "x_max": 141,
-        "y_max": 1082
-      },
-      "size": {
-        "width": 46,
-        "height": 47
-      }
+      "x_coordinates_center": 118,
+      "y_coordinates_center": 1058,
+      "width": 46,
+      "height": 47
     },
     {
       "id": "region_30_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 150,
-        "y_min": 1037,
-        "x_max": 412,
-        "y_max": 1084
-      },
-      "size": {
-        "width": 262,
-        "height": 47
-      },
+      "x_coordinates_center": 281,
+      "y_coordinates_center": 1060,
+      "width": 262,
+      "height": 47,
       "extractedText": "0% up to 24 mos",
       "correctedText": "i up to 24 most"
     },
     {
       "id": "region_31_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 645,
-        "y_min": 1038,
-        "x_max": 890,
-        "y_max": 1084
-      },
-      "size": {
-        "width": 245,
-        "height": 46
-      },
+      "x_coordinates_center": 767,
+      "y_coordinates_center": 1061,
+      "width": 245,
+      "height": 46,
       "extractedText": "0% up to 6 mos",
       "correctedText": "i up to 6 most"
     },
     {
       "id": "region_32_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 549,
-        "y_min": 1137,
-        "x_max": 1026,
-        "y_max": 1611
-      },
-      "size": {
-        "width": 477,
-        "height": 474
-      },
+      "x_coordinates_center": 787,
+      "y_coordinates_center": 1374,
+      "width": 477,
+      "height": 474,
       "properties": [
         "The background color of the container is white.",
         "The container is opaque."
@@ -514,16 +322,10 @@
     {
       "id": "region_33_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 59,
-        "y_min": 1139,
-        "x_max": 528,
-        "y_max": 1609
-      },
-      "size": {
-        "width": 469,
-        "height": 470
-      },
+      "x_coordinates_center": 293,
+      "y_coordinates_center": 1374,
+      "width": 469,
+      "height": 470,
       "properties": [
         "The background color of the container is white.",
         "The container is opaque."
@@ -532,180 +334,108 @@
     {
       "id": "region_34_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 580,
-        "y_min": 1169,
-        "x_max": 788,
-        "y_max": 1375
-      },
-      "size": {
-        "width": 208,
-        "height": 206
-      }
+      "x_coordinates_center": 684,
+      "y_coordinates_center": 1272,
+      "width": 208,
+      "height": 206
     },
     {
       "id": "region_35_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 93,
-        "y_min": 1182,
-        "x_max": 290,
-        "y_max": 1371
-      },
-      "size": {
-        "width": 197,
-        "height": 189
-      }
+      "x_coordinates_center": 191,
+      "y_coordinates_center": 1276,
+      "width": 197,
+      "height": 189
     },
     {
       "id": "region_36_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 576,
-        "y_min": 1394,
-        "x_max": 761,
-        "y_max": 1444
-      },
-      "size": {
-        "width": 185,
-        "height": 50
-      },
+      "x_coordinates_center": 668,
+      "y_coordinates_center": 1419,
+      "width": 185,
+      "height": 50,
       "extractedText": "Ali & Nino",
       "correctedText": "all & nine"
     },
     {
       "id": "region_37_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 85,
-        "y_min": 1398,
-        "x_max": 193,
-        "y_max": 1443
-      },
-      "size": {
-        "width": 108,
-        "height": 45
-      },
+      "x_coordinates_center": 139,
+      "y_coordinates_center": 1420,
+      "width": 108,
+      "height": 45,
       "extractedText": "Bravo",
       "correctedText": "Bravo"
     },
     {
       "id": "region_38_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 722,
-        "y_min": 1527,
-        "x_max": 770,
-        "y_max": 1579
-      },
-      "size": {
-        "width": 48,
-        "height": 52
-      }
+      "x_coordinates_center": 746,
+      "y_coordinates_center": 1553,
+      "width": 48,
+      "height": 52
     },
     {
       "id": "region_39_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 722,
-        "y_min": 1529,
-        "x_max": 944,
-        "y_max": 1579
-      },
-      "size": {
-        "width": 222,
-        "height": 50
-      },
+      "x_coordinates_center": 833,
+      "y_coordinates_center": 1554,
+      "width": 222,
+      "height": 50,
       "extractedText": "1m = 3.33",
       "correctedText": "am = 3.33"
     },
     {
       "id": "region_40_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 94,
-        "y_min": 1530,
-        "x_max": 141,
-        "y_max": 1579
-      },
-      "size": {
-        "width": 47,
-        "height": 49
-      }
+      "x_coordinates_center": 117,
+      "y_coordinates_center": 1554,
+      "width": 47,
+      "height": 49
     },
     {
       "id": "region_41_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 590,
-        "y_min": 1530,
-        "x_max": 636,
-        "y_max": 1577
-      },
-      "size": {
-        "width": 46,
-        "height": 47
-      }
+      "x_coordinates_center": 613,
+      "y_coordinates_center": 1553,
+      "width": 46,
+      "height": 47
     },
     {
       "id": "region_42_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 149,
-        "y_min": 1532,
-        "x_max": 412,
-        "y_max": 1580
-      },
-      "size": {
-        "width": 263,
-        "height": 48
-      },
+      "x_coordinates_center": 280,
+      "y_coordinates_center": 1556,
+      "width": 263,
+      "height": 48,
       "extractedText": "0% up to 12 mos",
       "correctedText": "i up to 12 most"
     },
     {
       "id": "region_43_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 648,
-        "y_min": 1533,
-        "x_max": 700,
-        "y_max": 1575
-      },
-      "size": {
-        "width": 52,
-        "height": 42
-      },
+      "x_coordinates_center": 674,
+      "y_coordinates_center": 1554,
+      "width": 52,
+      "height": 42,
       "extractedText": "5%",
       "correctedText": "i"
     },
     {
       "id": "region_44_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 648,
-        "y_min": 1533,
-        "x_max": 700,
-        "y_max": 1575
-      },
-      "size": {
-        "width": 52,
-        "height": 42
-      }
+      "x_coordinates_center": 674,
+      "y_coordinates_center": 1554,
+      "width": 52,
+      "height": 42
     },
     {
       "id": "region_45_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 56,
-        "y_min": 1633,
-        "x_max": 528,
-        "y_max": 2105
-      },
-      "size": {
-        "width": 472,
-        "height": 472
-      },
+      "x_coordinates_center": 292,
+      "y_coordinates_center": 1869,
+      "width": 472,
+      "height": 472,
       "properties": [
         "The background color of the container is white.",
         "The container is opaque."
@@ -714,16 +444,10 @@
     {
       "id": "region_46_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 85,
-        "y_min": 1663,
-        "x_max": 289,
-        "y_max": 1867
-      },
-      "size": {
-        "width": 204,
-        "height": 204
-      },
+      "x_coordinates_center": 187,
+      "y_coordinates_center": 1765,
+      "width": 204,
+      "height": 204,
       "properties": [
         "The background color of the container is crimson.",
         "The container is opaque."
@@ -732,200 +456,122 @@
     {
       "id": "region_47_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 91,
-        "y_min": 1677,
-        "x_max": 286,
-        "y_max": 1870
-      },
-      "size": {
-        "width": 195,
-        "height": 193
-      }
+      "x_coordinates_center": 188,
+      "y_coordinates_center": 1773,
+      "width": 195,
+      "height": 193
     },
     {
       "id": "region_48_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 574,
-        "y_min": 1746,
-        "x_max": 786,
-        "y_max": 1782
-      },
-      "size": {
-        "width": 212,
-        "height": 36
-      },
+      "x_coordinates_center": 680,
+      "y_coordinates_center": 1764,
+      "width": 212,
+      "height": 36,
       "extractedText": "DA MAT | TWEEN",
       "correctedText": "a MAT | TWEEN"
     },
     {
       "id": "region_49_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 577,
-        "y_min": 1886,
-        "x_max": 866,
-        "y_max": 1940
-      },
-      "size": {
-        "width": 289,
-        "height": 54
-      },
+      "x_coordinates_center": 721,
+      "y_coordinates_center": 1913,
+      "width": 289,
+      "height": 54,
       "extractedText": "DAMAT TWEEN",
       "correctedText": "daman TWEEN"
     },
     {
       "id": "region_50_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 83,
-        "y_min": 1891,
-        "x_max": 232,
-        "y_max": 1940
-      },
-      "size": {
-        "width": 149,
-        "height": 49
-      },
+      "x_coordinates_center": 157,
+      "y_coordinates_center": 1915,
+      "width": 149,
+      "height": 49,
       "extractedText": "Kontakt",
       "correctedText": "contact"
     },
     {
       "id": "region_51_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 588,
-        "y_min": 1960,
-        "x_max": 636,
-        "y_max": 2008
-      },
-      "size": {
-        "width": 48,
-        "height": 48
-      }
+      "x_coordinates_center": 612,
+      "y_coordinates_center": 1984,
+      "width": 48,
+      "height": 48
     },
     {
       "id": "region_52_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 646,
-        "y_min": 1963,
-        "x_max": 891,
-        "y_max": 2008
-      },
-      "size": {
-        "width": 245,
-        "height": 45
-      },
+      "x_coordinates_center": 768,
+      "y_coordinates_center": 1985,
+      "width": 245,
+      "height": 45,
       "extractedText": "0% up to 6 mos",
       "correctedText": "i up to 6 most"
     },
     {
       "id": "region_53_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 94,
-        "y_min": 2025,
-        "x_max": 142,
-        "y_max": 2074
-      },
-      "size": {
-        "width": 48,
-        "height": 49
-      }
+      "x_coordinates_center": 118,
+      "y_coordinates_center": 2049,
+      "width": 48,
+      "height": 49
     },
     {
       "id": "region_54_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 720,
-        "y_min": 2026,
-        "x_max": 772,
-        "y_max": 2074
-      },
-      "size": {
-        "width": 52,
-        "height": 48
-      },
+      "x_coordinates_center": 746,
+      "y_coordinates_center": 2050,
+      "width": 52,
+      "height": 48,
       "extractedText": "",
       "correctedText": ""
     },
     {
       "id": "region_55_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 717,
-        "y_min": 2026,
-        "x_max": 942,
-        "y_max": 2074
-      },
-      "size": {
-        "width": 225,
-        "height": 48
-      },
+      "x_coordinates_center": 829,
+      "y_coordinates_center": 2050,
+      "width": 225,
+      "height": 48,
       "extractedText": "1m = 1.33",
       "correctedText": "am = 1.33"
     },
     {
       "id": "region_56_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 590,
-        "y_min": 2027,
-        "x_max": 636,
-        "y_max": 2074
-      },
-      "size": {
-        "width": 46,
-        "height": 47
-      }
+      "x_coordinates_center": 613,
+      "y_coordinates_center": 2050,
+      "width": 46,
+      "height": 47
     },
     {
       "id": "region_57_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 148,
-        "y_min": 2029,
-        "x_max": 413,
-        "y_max": 2075
-      },
-      "size": {
-        "width": 265,
-        "height": 46
-      },
+      "x_coordinates_center": 280,
+      "y_coordinates_center": 2052,
+      "width": 265,
+      "height": 46,
       "extractedText": "0% up to 18 mos",
       "correctedText": "i up to 18 most"
     },
     {
       "id": "region_58_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 645,
-        "y_min": 2030,
-        "x_max": 700,
-        "y_max": 2069
-      },
-      "size": {
-        "width": 55,
-        "height": 39
-      },
+      "x_coordinates_center": 672,
+      "y_coordinates_center": 2049,
+      "width": 55,
+      "height": 39,
       "extractedText": "2%",
       "correctedText": "i"
     },
     {
       "id": "region_59_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 56,
-        "y_min": 2129,
-        "x_max": 532,
-        "y_max": 2178
-      },
-      "size": {
-        "width": 476,
-        "height": 49
-      },
+      "x_coordinates_center": 294,
+      "y_coordinates_center": 2153,
+      "width": 476,
+      "height": 49,
       "properties": [
         "The background color of the container is white.",
         "The container is opaque."
@@ -934,16 +580,10 @@
     {
       "id": "region_60_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 552,
-        "y_min": 2129,
-        "x_max": 1028,
-        "y_max": 2178
-      },
-      "size": {
-        "width": 476,
-        "height": 49
-      },
+      "x_coordinates_center": 790,
+      "y_coordinates_center": 2153,
+      "width": 476,
+      "height": 49,
       "properties": [
         "The background color of the container is white.",
         "The container is opaque."
@@ -952,16 +592,10 @@
     {
       "id": "region_61_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 92,
-        "y_min": 2161,
-        "x_max": 280,
-        "y_max": 2178
-      },
-      "size": {
-        "width": 188,
-        "height": 17
-      },
+      "x_coordinates_center": 186,
+      "y_coordinates_center": 2169,
+      "width": 188,
+      "height": 17,
       "properties": [
         "The background color of the container is teal.",
         "The container is opaque."

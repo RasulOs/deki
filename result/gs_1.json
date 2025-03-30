@@ -10,16 +10,10 @@
     {
       "id": "region_1_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 104,
-        "y_min": 21,
-        "x_max": 619,
-        "y_max": 108
-      },
-      "size": {
-        "width": 515,
-        "height": 87
-      },
+      "x_coordinates_center": 361,
+      "y_coordinates_center": 64,
+      "width": 515,
+      "height": 87,
       "properties": [
         "The background color of the container is darkslategrey.",
         "The container is opaque."
@@ -28,130 +22,76 @@
     {
       "id": "region_2_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 648,
-        "y_min": 30,
-        "x_max": 717,
-        "y_max": 100
-      },
-      "size": {
-        "width": 69,
-        "height": 70
-      }
+      "x_coordinates_center": 682,
+      "y_coordinates_center": 65,
+      "width": 69,
+      "height": 70
     },
     {
       "id": "region_3_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 135,
-        "y_min": 44,
-        "x_max": 177,
-        "y_max": 83
-      },
-      "size": {
-        "width": 42,
-        "height": 39
-      }
+      "x_coordinates_center": 156,
+      "y_coordinates_center": 63,
+      "width": 42,
+      "height": 39
     },
     {
       "id": "region_4_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 196,
-        "y_min": 49,
-        "x_max": 298,
-        "y_max": 82
-      },
-      "size": {
-        "width": 102,
-        "height": 33
-      },
+      "x_coordinates_center": 247,
+      "y_coordinates_center": 65,
+      "width": 102,
+      "height": 33,
       "extractedText": "Search",
       "correctedText": "Search"
     },
     {
       "id": "region_5_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 36,
-        "y_min": 50,
-        "x_max": 74,
-        "y_max": 80
-      },
-      "size": {
-        "width": 38,
-        "height": 30
-      }
+      "x_coordinates_center": 55,
+      "y_coordinates_center": 65,
+      "width": 38,
+      "height": 30
     },
     {
       "id": "region_6_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 36,
-        "y_min": 129,
-        "x_max": 712,
-        "y_max": 956
-      },
-      "size": {
-        "width": 676,
-        "height": 827
-      }
+      "x_coordinates_center": 374,
+      "y_coordinates_center": 542,
+      "width": 676,
+      "height": 827
     },
     {
       "id": "region_7_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 628,
-        "y_min": 169,
-        "x_max": 670,
-        "y_max": 210
-      },
-      "size": {
-        "width": 42,
-        "height": 41
-      }
+      "x_coordinates_center": 649,
+      "y_coordinates_center": 189,
+      "width": 42,
+      "height": 41
     },
     {
       "id": "region_8_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 79,
-        "y_min": 172,
-        "x_max": 123,
-        "y_max": 207
-      },
-      "size": {
-        "width": 44,
-        "height": 35
-      }
+      "x_coordinates_center": 101,
+      "y_coordinates_center": 189,
+      "width": 44,
+      "height": 35
     },
     {
       "id": "region_9_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 249,
-        "y_min": 407,
-        "x_max": 504,
-        "y_max": 662
-      },
-      "size": {
-        "width": 255,
-        "height": 255
-      }
+      "x_coordinates_center": 376,
+      "y_coordinates_center": 534,
+      "width": 255,
+      "height": 255
     },
     {
       "id": "region_10_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 248,
-        "y_min": 408,
-        "x_max": 503,
-        "y_max": 663
-      },
-      "size": {
-        "width": 255,
-        "height": 255
-      },
+      "x_coordinates_center": 375,
+      "y_coordinates_center": 535,
+      "width": 255,
+      "height": 255,
       "properties": [
         "The background color of the container is darkolivegreen.",
         "The container is opaque."
@@ -160,60 +100,36 @@
     {
       "id": "region_11_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 598,
-        "y_min": 479,
-        "x_max": 683,
-        "y_max": 573
-      },
-      "size": {
-        "width": 85,
-        "height": 94
-      }
+      "x_coordinates_center": 640,
+      "y_coordinates_center": 526,
+      "width": 85,
+      "height": 94
     },
     {
       "id": "region_12_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 65,
-        "y_min": 479,
-        "x_max": 152,
-        "y_max": 574
-      },
-      "size": {
-        "width": 87,
-        "height": 95
-      }
+      "x_coordinates_center": 108,
+      "y_coordinates_center": 526,
+      "width": 87,
+      "height": 95
     },
     {
       "id": "region_13_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 338,
-        "y_min": 497,
-        "x_max": 413,
-        "y_max": 576
-      },
-      "size": {
-        "width": 75,
-        "height": 79
-      },
+      "x_coordinates_center": 375,
+      "y_coordinates_center": 536,
+      "width": 75,
+      "height": 79,
       "extractedText": "",
       "correctedText": ""
     },
     {
       "id": "region_14_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 366,
-        "y_min": 833,
-        "x_max": 404,
-        "y_max": 871
-      },
-      "size": {
-        "width": 38,
-        "height": 38
-      },
+      "x_coordinates_center": 385,
+      "y_coordinates_center": 852,
+      "width": 38,
+      "height": 38,
       "properties": [
         "The background color of the container is gainsboro.",
         "The container is opaque."
@@ -222,30 +138,18 @@
     {
       "id": "region_15_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 371,
-        "y_min": 838,
-        "x_max": 399,
-        "y_max": 867
-      },
-      "size": {
-        "width": 28,
-        "height": 29
-      }
+      "x_coordinates_center": 385,
+      "y_coordinates_center": 852,
+      "width": 28,
+      "height": 29
     },
     {
       "id": "region_16_class_3",
       "type": "Line",
-      "coordinates": {
-        "x_min": 402,
-        "y_min": 848,
-        "x_max": 667,
-        "y_max": 857
-      },
-      "size": {
-        "width": 265,
-        "height": 9
-      },
+      "x_coordinates_center": 534,
+      "y_coordinates_center": 852,
+      "width": 265,
+      "height": 9,
       "properties": [
         "The color of the line is darkslategrey.",
         "The line is opaque."
@@ -254,16 +158,10 @@
     {
       "id": "region_17_class_3",
       "type": "Line",
-      "coordinates": {
-        "x_min": 79,
-        "y_min": 849,
-        "x_max": 373,
-        "y_max": 856
-      },
-      "size": {
-        "width": 294,
-        "height": 7
-      },
+      "x_coordinates_center": 226,
+      "y_coordinates_center": 852,
+      "width": 294,
+      "height": 7,
       "properties": [
         "The color of the line is lavender.",
         "The line is opaque."
@@ -272,122 +170,74 @@
     {
       "id": "region_18_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 75,
-        "y_min": 886,
-        "x_max": 183,
-        "y_max": 917
-      },
-      "size": {
-        "width": 108,
-        "height": 31
-      },
+      "x_coordinates_center": 129,
+      "y_coordinates_center": 901,
+      "width": 108,
+      "height": 31,
       "extractedText": "00.35.07",
       "correctedText": "00.35.07"
     },
     {
       "id": "region_19_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 565,
-        "y_min": 886,
-        "x_max": 672,
-        "y_max": 917
-      },
-      "size": {
-        "width": 107,
-        "height": 31
-      },
+      "x_coordinates_center": 618,
+      "y_coordinates_center": 901,
+      "width": 107,
+      "height": 31,
       "extractedText": "01.05.23",
       "correctedText": "01.05.23"
     },
     {
       "id": "region_20_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 34,
-        "y_min": 996,
-        "x_max": 257,
-        "y_max": 1061
-      },
-      "size": {
-        "width": 223,
-        "height": 65
-      },
+      "x_coordinates_center": 145,
+      "y_coordinates_center": 1028,
+      "width": 223,
+      "height": 65,
       "extractedText": "Decode",
       "correctedText": "Decode"
     },
     {
       "id": "region_21_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 641,
-        "y_min": 1007,
-        "x_max": 684,
-        "y_max": 1051
-      },
-      "size": {
-        "width": 43,
-        "height": 44
-      }
+      "x_coordinates_center": 662,
+      "y_coordinates_center": 1029,
+      "width": 43,
+      "height": 44
     },
     {
       "id": "region_22_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 448,
-        "y_min": 1008,
-        "x_max": 490,
-        "y_max": 1049
-      },
-      "size": {
-        "width": 42,
-        "height": 41
-      }
+      "x_coordinates_center": 469,
+      "y_coordinates_center": 1028,
+      "width": 42,
+      "height": 41
     },
     {
       "id": "region_23_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 544,
-        "y_min": 1008,
-        "x_max": 587,
-        "y_max": 1046
-      },
-      "size": {
-        "width": 43,
-        "height": 38
-      }
+      "x_coordinates_center": 565,
+      "y_coordinates_center": 1027,
+      "width": 43,
+      "height": 38
     },
     {
       "id": "region_24_class_2",
       "type": "Text",
-      "coordinates": {
-        "x_min": 19,
-        "y_min": 1107,
-        "x_max": 695,
-        "y_max": 1331
-      },
-      "size": {
-        "width": 676,
-        "height": 224
-      },
-      "extractedText": "Thriller starring Emily Miller and Lydia Franci; paints in a future where we've figured out sustainability; yet the question is what to do now with all the abundance: will we in earth remain in harmony and how will it inspire to help How",
-      "correctedText": "Thriller starring family Miller and media francs paints in a future where we've figured out sustainability yet the question is what to do now with all the abundance will we in earth remain in harmony and how will it inspire to help How"
+      "x_coordinates_center": 357,
+      "y_coordinates_center": 1219,
+      "width": 676,
+      "height": 224,
+      "extractedText": "Thriller starring Emily Miller and Lydia Franci; paints in a future where we've figured out sustainability; yet the question is what to do now How will we in earth with all the abundance. remain in harmony and how will it inspire to help",
+      "correctedText": "Thriller starring family Miller and media francs paints in a future where we've figured out sustainability yet the question is what to do now How will we in earth with all the abundance remain in harmony and how will it inspire to help"
     },
     {
       "id": "region_25_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 31,
-        "y_min": 1341,
-        "x_max": 717,
-        "y_max": 1501
-      },
-      "size": {
-        "width": 686,
-        "height": 160
-      },
+      "x_coordinates_center": 374,
+      "y_coordinates_center": 1421,
+      "width": 686,
+      "height": 160,
       "properties": [
         "The background color of the container is black.",
         "The container is opaque."
@@ -396,16 +246,10 @@
     {
       "id": "region_26_class_0",
       "type": "View",
-      "coordinates": {
-        "x_min": 40,
-        "y_min": 1364,
-        "x_max": 158,
-        "y_max": 1424
-      },
-      "size": {
-        "width": 118,
-        "height": 60
-      },
+      "x_coordinates_center": 99,
+      "y_coordinates_center": 1394,
+      "width": 118,
+      "height": 60,
       "properties": [
         "The background color of the container is darkolivegreen.",
         "The container is opaque."
@@ -414,58 +258,34 @@
     {
       "id": "region_27_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 261,
-        "y_min": 1369,
-        "x_max": 304,
-        "y_max": 1418
-      },
-      "size": {
-        "width": 43,
-        "height": 49
-      }
+      "x_coordinates_center": 282,
+      "y_coordinates_center": 1393,
+      "width": 43,
+      "height": 49
     },
     {
       "id": "region_28_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 444,
-        "y_min": 1370,
-        "x_max": 489,
-        "y_max": 1418
-      },
-      "size": {
-        "width": 45,
-        "height": 48
-      }
+      "x_coordinates_center": 466,
+      "y_coordinates_center": 1394,
+      "width": 45,
+      "height": 48
     },
     {
       "id": "region_29_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 81,
-        "y_min": 1374,
-        "x_max": 118,
-        "y_max": 1414
-      },
-      "size": {
-        "width": 37,
-        "height": 40
-      }
+      "x_coordinates_center": 99,
+      "y_coordinates_center": 1394,
+      "width": 37,
+      "height": 40
     },
     {
       "id": "region_30_class_1",
       "type": "ImageView",
-      "coordinates": {
-        "x_min": 632,
-        "y_min": 1376,
-        "x_max": 666,
-        "y_max": 1412
-      },
-      "size": {
-        "width": 34,
-        "height": 36
-      }
+      "x_coordinates_center": 649,
+      "y_coordinates_center": 1394,
+      "width": 34,
+      "height": 36
     }
   ]
 }

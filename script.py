@@ -118,7 +118,9 @@ def process_single_region(
     logs = []
 
     logs.append(f"\n{log_prefix}Region {region_idx} - Class ID: {class_id} ({class_name})")
-    logs.append(f"{log_prefix}Coordinates: x_min={x_min}, y_min={y_min}, x_max={x_max}, y_max={y_max}")
+    x_center = (x_min + x_max) // 2
+    y_center = (y_min + y_max) // 2
+    logs.append(f"{log_prefix}Coordinates: x_center={x_center}, y_center={y_center}")
     width = x_max - x_min
     height = y_max - y_min
     logs.append(f"{log_prefix}Size: width={width}, height={height}")
@@ -127,10 +129,8 @@ def process_single_region(
         "id": f"region_{region_idx}_class_{class_id}",
         "type": class_name,
         "coordinates": {
-            "x_min": x_min,
-            "y_min": y_min,
-            "x_max": x_max,
-            "y_max": y_max
+            "x_center": x_center,
+            "y_center": y_center
         },
         "size": {
             "width": width,
@@ -231,7 +231,7 @@ def process_single_region(
             if not output_json:
                 block = (
                     f"Image: region_{region_idx}_class_{class_id} ({class_name})\n"
-                    f"Coordinates: x_min={x_min}, y_min={y_min}, x_max={x_max}, y_max={y_max}\n"
+                    f"Coordinates: x_center={(x_min + x_max) // 2}, y_center={(y_min + y_max) // 2}\n"
                     f"Size: width={width}, height={height}\n"
                     f"{BARRIER}"
                 )
@@ -297,7 +297,7 @@ def process_single_region(
             if not output_json:
                 block = (
                     f"Image: region_{region_idx}_class_{class_id} ({class_name})\n"
-                    f"Coordinates: x_min={x_min}, y_min={y_min}, x_max={x_max}, y_max={y_max}\n"
+                    f"Coordinates: x_center={(x_min + x_max) // 2}, y_center={(y_min + y_max) // 2}\n"
                     f"Size: width={width}, height={height}\n"
                     f"Prediction: {region_dict['prediction']}\n"
                     f"{response}\n"
@@ -344,7 +344,7 @@ def process_single_region(
         if not output_json:
             block = (
                 f"Text: region_{region_idx}_class_{class_id} ({class_name})\n"
-                f"Coordinates: x_min={x_min}, y_min={y_min}, x_max={x_max}, y_max={y_max}\n"
+                f"Coordinates: x_center={(x_min + x_max) // 2}, y_center={(y_min + y_max) // 2}\n"
                 f"Size: width={width}, height={height}\n"
                 f"Extracted Text: {text}\n"
                 f"Corrected Text: {corrected_text}\n"
@@ -393,7 +393,7 @@ def process_single_region(
         if not output_json:
             block = (
                 f"View: region_{region_idx}_class_{class_id} ({class_name})\n"
-                f"Coordinates: x_min={x_min}, y_min={y_min}, x_max={x_max}, y_max={y_max}\n"
+                f"Coordinates: x_center={(x_min + x_max) // 2}, y_center={(y_min + y_max) // 2}\n"
                 f"Size: width={width}, height={height}\n"
                 f"{response}\n"
                 f"{BARRIER}"
@@ -446,7 +446,7 @@ def process_single_region(
         if not output_json:
             block = (
                 f"Line: region_{region_idx}_class_{class_id} ({class_name})\n"
-                f"Coordinates: x_min={x_min}, y_min={y_min}, x_max={x_max}, y_max={y_max}\n"
+                f"Coordinates: x_center={(x_min + x_max) // 2}, y_center={(y_min + y_max) // 2}\n"
                 f"Size: width={width}, height={height}\n"
                 f"{response}\n"
                 f"{BARRIER}"

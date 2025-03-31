@@ -175,3 +175,4 @@ models_cache/*
 .DS_Store
 .gradio/
 .gradio/*
+uploaded_image_*.*

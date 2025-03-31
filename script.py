@@ -380,10 +380,8 @@ def process_single_region(
             f"2. The container is {transparency}."
         )
         logs.append(f"{log_prefix}{response}")
-        region_dict["properties"] = [
-            f"The background color of the container is {color_name}.",
-            f"The container is {transparency}."
-        ]
+        region_dict["view_color"] = f"The background color of the container is {color_name}."
+        region_dict["view_alpha"] = f"The container is {transparency}."
 
         if not output_json:
             block = (
@@ -433,10 +431,8 @@ def process_single_region(
             f"2. The line is {transparency}."
         )
         logs.append(f"{log_prefix}{response}")
-        region_dict["properties"] = [
-            f"The color of the line is {color_name}.",
-            f"The line is {transparency}."
-        ]
+        region_dict["line_color"] = f"The color of the line is {color_name}."
+        region_dict["line_alpha"] = f"The line is {transparency}."
 
         if not output_json:
             block = (

@@ -13,10 +13,8 @@
       "y_coordinates_center": 64,
       "width": 515,
       "height": 87,
-      "properties": [
-        "The background color of the container is darkslategrey.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is darkslategrey.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_2_class_ImageView",
@@ -82,10 +80,8 @@
       "y_coordinates_center": 535,
       "width": 255,
       "height": 255,
-      "properties": [
-        "The background color of the container is darkolivegreen.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is darkolivegreen.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_11_class_ImageView",
@@ -116,10 +112,8 @@
       "y_coordinates_center": 852,
       "width": 38,
       "height": 38,
-      "properties": [
-        "The background color of the container is gainsboro.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is gainsboro.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_15_class_ImageView",
@@ -134,10 +128,8 @@
       "y_coordinates_center": 852,
       "width": 265,
       "height": 9,
-      "properties": [
-        "The color of the line is darkslategrey.",
-        "The line is opaque."
-      ]
+      "line_color": "The color of the line is darkslategrey.",
+      "line_alpha": "The line is opaque."
     },
     {
       "id": "region_17_class_Line",
@@ -145,10 +137,8 @@
       "y_coordinates_center": 852,
       "width": 294,
       "height": 7,
-      "properties": [
-        "The color of the line is lavender.",
-        "The line is opaque."
-      ]
+      "line_color": "The color of the line is lavender.",
+      "line_alpha": "The line is opaque."
     },
     {
       "id": "region_18_class_Text",
@@ -213,10 +203,8 @@
       "y_coordinates_center": 1421,
       "width": 686,
       "height": 160,
-      "properties": [
-        "The background color of the container is black.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is black.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_26_class_View",
@@ -224,10 +212,8 @@
       "y_coordinates_center": 1394,
       "width": 118,
       "height": 60,
-      "properties": [
-        "The background color of the container is darkolivegreen.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is darkolivegreen.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_27_class_ImageView",

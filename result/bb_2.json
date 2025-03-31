@@ -57,10 +57,8 @@
       "y_coordinates_center": 203,
       "width": 103,
       "height": 16,
-      "properties": [
-        "The color of the line is white.",
-        "The line is opaque."
-      ]
+      "line_color": "The color of the line is white.",
+      "line_alpha": "The line is opaque."
     },
     {
       "id": "region_8_class_Text",
@@ -84,10 +82,8 @@
       "y_coordinates_center": 406,
       "width": 1000,
       "height": 111,
-      "properties": [
-        "The background color of the container is whitesmoke.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is whitesmoke.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_11_class_Text",
@@ -111,10 +107,8 @@
       "y_coordinates_center": 551,
       "width": 709,
       "height": 88,
-      "properties": [
-        "The background color of the container is whitesmoke.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is whitesmoke.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_14_class_View",
@@ -122,10 +116,8 @@
       "y_coordinates_center": 550,
       "width": 215,
       "height": 86,
-      "properties": [
-        "The background color of the container is whitesmoke.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is whitesmoke.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_15_class_ImageView",
@@ -172,10 +164,8 @@
       "y_coordinates_center": 873,
       "width": 471,
       "height": 482,
-      "properties": [
-        "The background color of the container is white.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is white.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_21_class_View",
@@ -183,10 +173,8 @@
       "y_coordinates_center": 876,
       "width": 469,
       "height": 472,
-      "properties": [
-        "The background color of the container is white.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is white.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_22_class_View",
@@ -194,10 +182,8 @@
       "y_coordinates_center": 767,
       "width": 207,
       "height": 216,
-      "properties": [
-        "The background color of the container is darkorange.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is darkorange.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_23_class_View",
@@ -205,10 +191,8 @@
       "y_coordinates_center": 774,
       "width": 206,
       "height": 201,
-      "properties": [
-        "The background color of the container is crimson.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is crimson.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_24_class_ImageView",
@@ -282,10 +266,8 @@
       "y_coordinates_center": 1374,
       "width": 477,
       "height": 474,
-      "properties": [
-        "The background color of the container is white.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is white.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_33_class_View",
@@ -293,10 +275,8 @@
       "y_coordinates_center": 1374,
       "width": 469,
       "height": 470,
-      "properties": [
-        "The background color of the container is white.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is white.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_34_class_ImageView",
@@ -391,10 +371,8 @@
       "y_coordinates_center": 1869,
       "width": 472,
       "height": 472,
-      "properties": [
-        "The background color of the container is white.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is white.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_46_class_View",
@@ -402,10 +380,8 @@
       "y_coordinates_center": 1765,
       "width": 204,
       "height": 204,
-      "properties": [
-        "The background color of the container is crimson.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is crimson.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_47_class_ImageView",
@@ -513,10 +489,8 @@
       "y_coordinates_center": 2153,
       "width": 476,
       "height": 49,
-      "properties": [
-        "The background color of the container is white.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is white.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_60_class_View",
@@ -524,10 +498,8 @@
       "y_coordinates_center": 2153,
       "width": 476,
       "height": 49,
-      "properties": [
-        "The background color of the container is white.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is white.",
+      "view_alpha": "The container is opaque."
     },
     {
       "id": "region_61_class_View",
@@ -535,10 +507,8 @@
       "y_coordinates_center": 2169,
       "width": 188,
       "height": 17,
-      "properties": [
-        "The background color of the container is teal.",
-        "The container is opaque."
-      ]
+      "view_color": "The background color of the container is teal.",
+      "view_alpha": "The container is opaque."
     }
   ]
 }

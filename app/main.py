@@ -68,6 +68,12 @@ LLM_CLIENT = None
 os.makedirs("./res", exist_ok=True)
 os.makedirs("./result", exist_ok=True)
 
+
+# for action step tracking
+ACTION_STEPS_LIMIT = 10 # can be updated
+action_step_history = []
+action_step_count = 0
+
 @app.on_event("startup")
 def load_models():
     """
@@ -215,7 +221,19 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
     2. Runs the wrapper to generate an image description.
     3. Constructs a prompt for ChatGPT and sends it.
     4. Returns the command response.
+    
+    This endpoint tracks previous steps and current step count.
+    If the number of calls reaches a limit (ACTION_STEPS_LIMIT), it returns 
+    that step limits are reached and resets the history.
     """
+    global action_step_history, action_step_count
+
+    # Check if the step limit is reached.
+    if action_step_count >= ACTION_STEPS_LIMIT:
+        action_step_history = []
+        action_step_count = 0
+        return {"response": "Step limit is reached"}
+
     start_time = time.perf_counter()
     logging.info("action endpoint start")
     log_request_data(request, "/action")
@@ -245,35 +263,48 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
 
     base64_image_url = f"data:image/png;base64,{new_b64}"
 
+    # Construct previous steps text and include current step number
+    current_step = action_step_count + 1
+    if action_step_history:
+        previous_steps_text = "\nPrevious steps:\n" + "\n".join(f"{i+1}. {step}" for i, step in enumerate(action_step_history))
+    else:
+        previous_steps_text = ""
+    
+    prompt_text = f"""You are an AI agent that controls a mobile device and sees the content of screen.
+User can ask you about some information or to do some task and you need to do these tasks.
+You can only respond with one of these commands (in quotes) but some variables are dynamic
+and can be changed based on the context:
+1. "Swipe left. Swipe start coordinates 300, 400" (or other coordinates)
+2. "Swipe right. Swipe start coordinates 500, 650" (or other coordinates)
+3. "Swipe top. Swipe start coordinates 200, 310" (or other coordinates)
+4. "Swipe bottom. Swipe start coordinates 640, 500" (or other coordinates)
+5. "Go home"
+6. "Open com.whatsapp" (or other app)
+7. "Tap coordinates 160, 820" (or other coordinates)
+8. "Insert text 210, 820:Hello world" (or other coordinates and text)
+9. "Answer: There are no new important mails today" (or other answer)
+10. "Finished" (task is finished)
+11. "Can't proceed" (can't understand what to do or image has problem etc.)
+
+The user said: "{request.prompt}"
+
+Current step: {current_step}
+{previous_steps_text}
+
+I will share the screenshot of the current state of the phone and the description (sizes and coordinates) of UI elements.
+Description:
+"{image_description}" """
+    # Log the prompt for debugging (remove later)
+    logging.info("Constructed prompt for LLM:")
+    logging.info(prompt_text)
+
     messages = [
         {
             "role": "user",
             "content": [
                 {
                     "type": "text",
-                    "text": '''You are an AI agent that controls a mobile device and sees the content of screen. 
-                    User can ask you about some information or to do some task and you need to do these tasks.
-                    You can only respond with one of these commands (in quotes) but some variables are dynamic
-                    and can be changed based on the context:
-1. "Swipe left. Swipe start coordinates 300, 400" (or other coordinates)
-2. "Swipe right. Swipe start coordinates 300, 400" (or other coordinates)
-3. "Swipe top. Swipe start coordinates 300, 400" (or other coordinates)
-4. "Swipe bottom. Swipe start coordinates 300, 400" (or other coordinates)
-5. "Go home"
-6. "Open com.whatsapp" (or other app)
-7. "Tap coordinates 300,400" (or other coordinates)
-8. "Insert text 300,400:Hello world" (or otheer coordinates and text)
-9. "Answer: There are no new important mails today" (Or other answer)
-10. "Finished" (task is finished)
-11. "Can't proceed" (Can't understand what to do or image has problem etc.. Better to not continue)
-
-The user said: "{0}"
-
-Please respond with exactly one valid command from the list (formatted precisely), without extra words or explanation.
-
-I will share the screenshot of the current state of the phone and the description (sizes and coordinates) of UI elements.
-Description:
-"{1}"'''.format(request.prompt, image_description)
+                    "text": prompt_text
                 },
                 {
                     "type": "image_url",
@@ -299,6 +330,10 @@ Description:
 
     logging.info(f"GPT call took {time.perf_counter()-start_time_gpt:.3f} seconds.")
     command_response = response.choices[0].message.content.strip()
+
+    action_step_history.append(command_response)
+    action_step_count += 1
+
     logging.info(f"action endpoint total processing time: {time.perf_counter()-start_time:.3f} seconds.")
     return {"response": command_response}
 

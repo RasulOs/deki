@@ -133,7 +133,7 @@ with gr.Blocks() as demo:
     with gr.Tabs():
         # Action Endpoint Tab
         with gr.TabItem("Action Endpoint"):
-            gr.Markdown("### Call the `/action` endpoint")
+            gr.Markdown("### Call the /action endpoint")
             with gr.Row():
                 image_input = gr.Image(value=None, type="pil", label="Upload Image")
                 prompt_input = gr.Textbox(value="", lines=2, placeholder="Enter prompt", label="Prompt")
@@ -149,7 +149,7 @@ with gr.Blocks() as demo:
         
         # Analyze Endpoint Tab
         with gr.TabItem("Analyze Endpoint"):
-            gr.Markdown("### Call the `/analyze` endpoint")
+            gr.Markdown("### Call the /analyze endpoint")
             image_input_analyze = gr.Image(value=None, type="pil", label="Upload Image")
             analyze_output = gr.Textbox(label="Response")
             analyze_button = gr.Button("Call Analyze Endpoint")
@@ -162,7 +162,7 @@ with gr.Blocks() as demo:
         
         # Analyze & Get YOLO Endpoint Tab
         with gr.TabItem("Analyze & Get YOLO Endpoint"):
-            gr.Markdown("### Call the `/analyze_and_get_yolo` endpoint")
+            gr.Markdown("### Call the /analyze_and_get_yolo endpoint")
             image_input_yolo = gr.Image(value=None, type="pil", label="Upload Image")
             description_output = gr.Textbox(label="Description")
             yolo_image_output = gr.Image(label="YOLO Updated Image")
@@ -180,7 +180,7 @@ with gr.Blocks() as demo:
         
         # Generate Endpoint Tab
         with gr.TabItem("Generate Endpoint"):
-            gr.Markdown("### Call the `/generate` endpoint")
+            gr.Markdown("### Call the /generate endpoint")
             with gr.Row():
                 image_input_generate = gr.Image(value=None, type="pil", label="Upload Image")
                 prompt_input_generate = gr.Textbox(value="", lines=2, placeholder="Enter prompt", label="Prompt")

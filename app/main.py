@@ -274,10 +274,10 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
 User can ask you about some information or to do some task and you need to do these tasks.
 You can only respond with one of these commands (in quotes) but some variables are dynamic
 and can be changed based on the context:
-1. "Swipe left. Swipe start coordinates 300, 400" (or other coordinates)
-2. "Swipe right. Swipe start coordinates 500, 650" (or other coordinates)
-3. "Swipe top. Swipe start coordinates 200, 310" (or other coordinates)
-4. "Swipe bottom. Swipe start coordinates 640, 500" (or other coordinates)
+1. "Go left. From start coordinates 300, 400" (or other coordinates)
+2. "Go right. From start coordinates 500, 650" (or other coordinates)
+3. "Go top. From start coordinates 200, 310" (or other coordinates)
+4. "Go bottom. From start coordinates 640, 500" (or other coordinates)
 5. "Go home"
 6. "Open com.whatsapp" (or other app)
 7. "Tap coordinates 160, 820" (or other coordinates)
@@ -335,6 +335,7 @@ Description:
     action_step_count += 1
 
     logging.info(f"action endpoint total processing time: {time.perf_counter()-start_time:.3f} seconds.")
+    logging.info(f"response: {command_response}")
     return {"response": command_response}
 
 

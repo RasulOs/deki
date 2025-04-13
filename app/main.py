@@ -67,6 +67,7 @@ LLM_CLIENT = None
 
 os.makedirs("./res", exist_ok=True)
 os.makedirs("./result", exist_ok=True)
+os.makedirs("./output", exist_ok=True)
 
 
 # for action step tracking
@@ -97,9 +98,15 @@ def load_models():
         except AttributeError:
             sr = dnn_superres.DnnSuperResImpl()
             logging.info("Using DnnSuperResImpl()")
-        sr.readModel(model_path)
-        sr.setModel('edsr', 4)
-        GLOBAL_SR = sr
+
+        if os.path.exists(model_path):
+            sr.readModel(model_path)
+            sr.setModel('edsr', 4)
+            GLOBAL_SR = sr
+            logging.info("Super-resolution model loaded.")
+        else:
+            logging.warning(f"Super-resolution model file not found: {model_path}. Skipping SR.")
+            GLOBAL_SR = None
     else:
         logging.info("dnn_superres module is NOT available; skipping super-resolution.")
         GLOBAL_SR = None
@@ -217,13 +224,15 @@ async def root():
 async def action(request: ActionRequest, token: str = Depends(verify_token)):
     """
     Processes the input image (in base64 format) and a user prompt:
-    1. Decodes and saves the image.
-    2. Runs the wrapper to generate an image description.
-    3. Constructs a prompt for ChatGPT and sends it.
-    4. Returns the command response.
-    
+    1. Decodes and saves the original image.
+    2. Runs the wrapper to generate an image description and the YOLO-updated image file.
+    3. Reads the YOLO-updated image file.
+    4. Preprocesses the YOLO-updated image.
+    5. Constructs a prompt for ChatGPT (using description + preprocessed YOLO image) and sends it.
+    6. Returns the command response.
+
     This endpoint tracks previous steps and current step count.
-    If the number of calls reaches a limit (ACTION_STEPS_LIMIT), it returns 
+    If the number of calls reaches a limit (ACTION_STEPS_LIMIT), it returns
     that step limits are reached and resets the history.
     """
     global action_step_history, action_step_count
@@ -238,28 +247,43 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
     logging.info("action endpoint start")
     log_request_data(request, "/action")
 
-    image_path = "./res/uploaded_image_action.png"
+    original_image_path = "./res/uploaded_image_action.png"
+    base_name = "uploaded_image_action"
+    yolo_updated_image_path = f"./output/{base_name}_yolo_updated.png"
+
     start_time_decode = time.perf_counter()
-    logging.info("Decoding and saving image (action endpoint)")
-    img_bytes = save_base64_image(request.image, image_path)
-    logging.info(f"Image decode and save took {time.perf_counter()-start_time_decode:.3f} seconds.")
+    logging.info(f"Decoding and saving original image to: {original_image_path}")
+    _ = save_base64_image(request.image, original_image_path)
+    logging.info(f"Original image decode and save took {time.perf_counter()-start_time_decode:.3f} seconds.")
 
     start_time_wrapper = time.perf_counter()
     logging.info("Running wrapper for image description (action endpoint)")
     try:
-        image_description = run_wrapper(image_path)
+        image_description = run_wrapper(original_image_path)
     except Exception as e:
         logging.exception("Image processing failed in action endpoint.")
         raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
     logging.info(f"run_wrapper took {time.perf_counter()-start_time_wrapper:.3f} seconds.")
 
-    start_time_gpt = time.perf_counter()
-    logging.info("Preprocessing image for GPT (action endpoint)")
+    start_time_yolo_read_prep = time.perf_counter()
     try:
-        new_bytes, new_b64 = preprocess_image(img_bytes, threshold=1500, scale=0.5, fmt="png")
+        logging.info(f"Reading YOLO updated image from: {yolo_updated_image_path}")
+        if not os.path.exists(yolo_updated_image_path):
+            logging.error(f"YOLO updated image not found at {yolo_updated_image_path}")
+            raise HTTPException(status_code=500, detail="YOLO updated image generation failed or not found.")
+        with open(yolo_updated_image_path, "rb") as f:
+            yolo_updated_img_bytes = f.read()
     except Exception as e:
-        logging.exception("Image preprocessing failed.")
-        raise HTTPException(status_code=500, detail=f"Image preprocessing failed: {e}")
+        logging.exception(f"Error reading YOLO updated image from {yolo_updated_image_path}")
+        raise HTTPException(status_code=500, detail=f"Failed to read YOLO updated image: {e}")
+
+    logging.info("Preprocessing YOLO updated image for GPT (action endpoint)")
+    try:
+        new_bytes, new_b64 = preprocess_image(yolo_updated_img_bytes, threshold=2000, scale=0.5, fmt="png")
+    except Exception as e:
+        logging.exception("YOLO updated image preprocessing failed.")
+        raise HTTPException(status_code=500, detail=f"YOLO updated image preprocessing failed: {e}")
+    logging.info(f"YOLO image read & preprocess took {time.perf_counter()-start_time_yolo_read_prep:.3f} seconds.")
 
     base64_image_url = f"data:image/png;base64,{new_b64}"
 
@@ -269,29 +293,32 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
         previous_steps_text = "\nPrevious steps:\n" + "\n".join(f"{i+1}. {step}" for i, step in enumerate(action_step_history))
     else:
         previous_steps_text = ""
-    
+
     prompt_text = f"""You are an AI agent that controls a mobile device and sees the content of screen.
 User can ask you about some information or to do some task and you need to do these tasks.
 You can only respond with one of these commands (in quotes) but some variables are dynamic
 and can be changed based on the context:
-1. "Go left. From start coordinates 300, 400" (or other coordinates)
-2. "Go right. From start coordinates 500, 650" (or other coordinates)
-3. "Go top. From start coordinates 200, 310" (or other coordinates)
-4. "Go bottom. From start coordinates 640, 500" (or other coordinates)
+1. "Swipe left. From start coordinates 300, 400" (or other coordinates) (Goes right)
+2. "Swipe right. From start coordinates 500, 650" (or other coordinates) (Goes left)
+3. "Swipe top. From start coordinates 600, 510" (or other coordinates) (Goes bottom)
+4. "Swipe bottom. From start coordinates 640, 500" (or other coordinates) (Goes top)
 5. "Go home"
-6. "Open com.whatsapp" (or other app)
-7. "Tap coordinates 160, 820" (or other coordinates)
-8. "Insert text 210, 820:Hello world" (or other coordinates and text)
-9. "Answer: There are no new important mails today" (or other answer)
-10. "Finished" (task is finished)
-11. "Can't proceed" (can't understand what to do or image has problem etc.)
+6. "Go back"
+8. "Open com.whatsapp" (or other app)
+9. "Tap coordinates 160, 820" (or other coordinates)
+10. "Insert text 210, 820:Hello world" (or other coordinates and text)
+11. "Answer: There are no new important mails today" (or other answer)
+12. "Finished" (task is finished)
+13. "Can't proceed" (can't understand what to do or image has problem etc.)
+
 
 The user said: "{request.prompt}"
 
 Current step: {current_step}
 {previous_steps_text}
 
-I will share the screenshot of the current state of the phone and the description (sizes and coordinates) of UI elements.
+I will share the screenshot of the current state of the phone (with UI elements highlighted and the corresponding 
+index of these UI elements) and the description (sizes, coordinates and indexes) of UI elements.
 Description:
 "{image_description}" """
     # Log the prompt for debugging (remove later)
@@ -310,13 +337,14 @@ Description:
                     "type": "image_url",
                     "image_url": {
                         "url": base64_image_url,
-                        "detail": "low"
+                        "detail": "high"
                     }
                 }
             ]
         }
     ]
 
+    start_time_gpt = time.perf_counter()
     logging.info("Sending request to GPT (action endpoint)")
     try:
         response = LLM_CLIENT.chat.completions.create(

@@ -362,6 +362,13 @@ Description:
     action_step_history.append(command_response)
     action_step_count += 1
 
+    command_lower = command_response.strip().strip('\'"').lower()
+
+    if command_lower.startswith("answer:") or command_lower.startswith("finished") or command_lower.startswith("can't proceed"):
+        logging.info(f"Terminal command received ('{command_response}'). Resetting history and count.")
+        action_step_history = []
+        action_step_count = 0
+
     logging.info(f"action endpoint total processing time: {time.perf_counter()-start_time:.3f} seconds.")
     logging.info(f"response: {command_response}")
     return {"response": command_response}

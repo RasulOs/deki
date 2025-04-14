@@ -223,15 +223,10 @@ Better coordinates (source code: ./res/bb_2_gpt_4o.md and ./res/bb_2_gpt_4o_deki
 ## deki automata: AI agent (Android)
 
 Prompt: Open signal and say what was the last message from my frined Omar
-<video src="./res/deki-signal-demo.mp4" controls width="640">
-  Your browser does not support the video tag.
-</video>
-
+[Youtube](https://www.youtube.com/shorts/-Ctf6QEXQw8)
 
 Prompt: go home, and swipe left, then right, then up, then down
-<video src="./res/deki-swipes-demo.mp4" controls width="640">
-  Your browser does not support the video tag.
-</video>
+[Youtube](https://www.youtube.com/shorts/x5w6dC6bFmw)
 
 ---
 

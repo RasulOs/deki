@@ -8,498 +8,240 @@
   },
   "elements": [
     {
-      "id": "region_1_class_0",
-      "type": "View",
-      "coordinates": {
-        "x_min": 104,
-        "y_min": 21,
-        "x_max": 619,
-        "y_max": 108
-      },
-      "size": {
-        "width": 515,
-        "height": 87
-      },
-      "properties": [
-        "The background color of the container is darkslategrey.",
-        "The container is opaque."
-      ]
+      "id": "region_1_class_View",
+      "x_coordinates_center": 361,
+      "y_coordinates_center": 64,
+      "width": 515,
+      "height": 87,
+      "view_color": "The background color of the container is darkslategrey.",
+      "view_alpha": "The container is opaque."
     },
     {
-      "id": "region_2_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 648,
-        "y_min": 30,
-        "x_max": 717,
-        "y_max": 100
-      },
-      "size": {
-        "width": 69,
-        "height": 70
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "This image is a circular headshot of a man in a white shirt, possibly an avatar for social media or other online applications. The photo was likely taken outdoors, as evidenced by the shadow behind him. A pair of sunglasses hangs around his neck, and he has dark hair. The background appears to be a beige wall with a window frame that is mostly obscured by shadows. \n\nThe image is surrounded by a black border and is slightly blurry."
+      "id": "region_2_class_ImageView",
+      "x_coordinates_center": 682,
+      "y_coordinates_center": 65,
+      "width": 69,
+      "height": 70
     },
     {
-      "id": "region_3_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 135,
-        "y_min": 44,
-        "x_max": 177,
-        "y_max": 83
-      },
-      "size": {
-        "width": 42,
-        "height": 39
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "The UI element in the picture is a magnifying glass icon, which is commonly used for search functions. It's a round shape with a handle on one side, and it looks like a traditional magnifying glass that you would use to see something more clearly. When you tap on this icon, it usually opens up a search bar or a new screen where you can enter keywords to find what you're looking for."
+      "id": "region_3_class_ImageView",
+      "x_coordinates_center": 156,
+      "y_coordinates_center": 63,
+      "width": 42,
+      "height": 39
     },
     {
-      "id": "region_4_class_2",
-      "type": "Text",
-      "coordinates": {
-        "x_min": 196,
-        "y_min": 49,
-        "x_max": 298,
-        "y_max": 82
-      },
-      "size": {
-        "width": 102,
-        "height": 33
-      },
+      "id": "region_4_class_Text",
+      "x_coordinates_center": 247,
+      "y_coordinates_center": 65,
+      "width": 102,
+      "height": 33,
       "extractedText": "Search",
       "correctedText": "Search"
     },
     {
-      "id": "region_5_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 36,
-        "y_min": 50,
-        "x_max": 74,
-        "y_max": 80
-      },
-      "size": {
-        "width": 38,
-        "height": 30
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "This image shows a horizontal menu symbol, which is commonly used in mobile applications and web pages to indicate navigation or additional options. It consists of three parallel lines placed horizontally next to each other, giving it a distinct and recognizable shape that can be easily identified by users. The menu symbol may also vary slightly depending on the platform or application but generally looks similar to this one."
+      "id": "region_5_class_ImageView",
+      "x_coordinates_center": 55,
+      "y_coordinates_center": 65,
+      "width": 38,
+      "height": 30
     },
     {
-      "id": "region_6_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 36,
-        "y_min": 129,
-        "x_max": 712,
-        "y_max": 956
-      },
-      "size": {
-        "width": 676,
-        "height": 827
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "The mobile UI element in this image is a video player, featuring a circular pause button at its center and three buttons positioned below it. The buttons are labeled as \"30 seconds,\" \"10 seconds,\" and \"5 seconds,\" respectively.\n\n**Key Features:**\n\n* **Circular Pause Button:** Located at the center of the screen, serving as a central control for pausing or resuming playback.\n* **Three Buttons Below:** Positioned below the circular pause button, each button allows users to rewind their video by 30 seconds, 10 seconds, or 5 seconds.\n\n**Design and Layout:**\n\nThe mobile UI element is designed with simplicity in mind, making it easy for users to navigate and control their videos. The clean design ensures that key features are prominently displayed without overwhelming the user interface."
+      "id": "region_6_class_ImageView",
+      "x_coordinates_center": 374,
+      "y_coordinates_center": 542,
+      "width": 676,
+      "height": 827
     },
     {
-      "id": "region_7_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 628,
-        "y_min": 169,
-        "x_max": 670,
-        "y_max": 210
-      },
-      "size": {
-        "width": 42,
-        "height": 41
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "The mobile UI element in the image appears to be a camera icon, commonly used to initiate video or photo capture in various applications. It is likely an overlay feature intended for use within other apps, serving as a shortcut to access the device's camera capabilities directly from the app interface. The presence of this icon suggests that the app aims to provide users with seamless and convenient access to their device's camera functionality without requiring them to navigate through multiple menus or screens."
+      "id": "region_7_class_ImageView",
+      "x_coordinates_center": 649,
+      "y_coordinates_center": 189,
+      "width": 42,
+      "height": 41
     },
     {
-      "id": "region_8_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 79,
-        "y_min": 172,
-        "x_max": 123,
-        "y_max": 207
-      },
-      "size": {
-        "width": 44,
-        "height": 35
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "The image depicts a rectangular button with rounded corners, featuring a dark red background and white color for its outline and fill. The absence of any visible text or icons suggests that it is likely a \"back\" button. \n\nPlease let me know if you need anything else."
+      "id": "region_8_class_ImageView",
+      "x_coordinates_center": 101,
+      "y_coordinates_center": 189,
+      "width": 44,
+      "height": 35
     },
     {
-      "id": "region_9_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 249,
-        "y_min": 407,
-        "x_max": 504,
-        "y_max": 662
-      },
-      "size": {
-        "width": 255,
-        "height": 255
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "The mobile UI element in this image is a pause button, which allows the user to temporarily stop the currently playing media or game. It's often used to create breaks during long activities and can be found on various devices such as smartphones, tablets, TVs, etc.\n\n**Key Features:**\n\n* A symbol of two parallel vertical lines\n* Indicates that playback has been paused"
+      "id": "region_9_class_ImageView",
+      "x_coordinates_center": 376,
+      "y_coordinates_center": 534,
+      "width": 255,
+      "height": 255
     },
     {
-      "id": "region_10_class_0",
-      "type": "View",
-      "coordinates": {
-        "x_min": 248,
-        "y_min": 408,
-        "x_max": 503,
-        "y_max": 663
-      },
-      "size": {
-        "width": 255,
-        "height": 255
-      },
-      "properties": [
-        "The background color of the container is darkolivegreen.",
-        "The container is opaque."
-      ]
+      "id": "region_10_class_View",
+      "x_coordinates_center": 375,
+      "y_coordinates_center": 535,
+      "width": 255,
+      "height": 255,
+      "view_color": "The background color of the container is darkolivegreen.",
+      "view_alpha": "The container is opaque."
     },
     {
-      "id": "region_11_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 598,
-        "y_min": 479,
-        "x_max": 683,
-        "y_max": 573
-      },
-      "size": {
-        "width": 85,
-        "height": 94
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "The image depicts a circular arrow with the number 30 in its center, indicating that there are 30 seconds left in an activity or task. This is a common design pattern used in user interfaces to provide visual feedback and inform users of time remaining.\n\n**Key Features:**\n\n* Circular arrow shape\n* Number \"30\" at the center\n* Indicates remaining time (in this case, 30 seconds)\n* Common design pattern for user interface elements\n\nThis UI element is likely used in various applications or systems to keep users informed about time limits or deadlines."
+      "id": "region_11_class_ImageView",
+      "x_coordinates_center": 640,
+      "y_coordinates_center": 526,
+      "width": 85,
+      "height": 94
     },
     {
-      "id": "region_12_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 65,
-        "y_min": 479,
-        "x_max": 152,
-        "y_max": 574
-      },
-      "size": {
-        "width": 87,
-        "height": 95
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "The UI element is an arrow icon that indicates a circular, clockwise direction with a number 30 in the center of it.\n\nIt could represent 30 seconds remaining or perhaps 30 days remaining in a countdown timer or calendar. The arrow symbolizes moving forward in time."
+      "id": "region_12_class_ImageView",
+      "x_coordinates_center": 108,
+      "y_coordinates_center": 526,
+      "width": 87,
+      "height": 95
     },
     {
-      "id": "region_13_class_2",
-      "type": "Text",
-      "coordinates": {
-        "x_min": 338,
-        "y_min": 497,
-        "x_max": 413,
-        "y_max": 576
-      },
-      "size": {
-        "width": 75,
-        "height": 79
-      },
-      "extractedText": "Il",
-      "correctedText": "i"
+      "id": "region_13_class_Text",
+      "x_coordinates_center": 375,
+      "y_coordinates_center": 536,
+      "width": 75,
+      "height": 79,
+      "extractedText": "",
+      "correctedText": ""
     },
     {
-      "id": "region_14_class_0",
-      "type": "View",
-      "coordinates": {
-        "x_min": 366,
-        "y_min": 833,
-        "x_max": 404,
-        "y_max": 871
-      },
-      "size": {
-        "width": 38,
-        "height": 38
-      },
-      "properties": [
-        "The background color of the container is gainsboro.",
-        "The container is opaque."
-      ]
+      "id": "region_14_class_View",
+      "x_coordinates_center": 385,
+      "y_coordinates_center": 852,
+      "width": 38,
+      "height": 38,
+      "view_color": "The background color of the container is gainsboro.",
+      "view_alpha": "The container is opaque."
     },
     {
-      "id": "region_15_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 371,
-        "y_min": 838,
-        "x_max": 399,
-        "y_max": 867
-      },
-      "size": {
-        "width": 28,
-        "height": 29
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "There is no mobile UI element present in this image. The image features a blank, white canvas with a subtle grey gradient effect at its edges, creating a sense of depth and dimensionality.\n\nThe overall design is minimalist and clean, making it an ideal background for various applications or as a standalone visual element to enhance the aesthetic appeal of a digital interface or presentation."
+      "id": "region_15_class_ImageView",
+      "x_coordinates_center": 385,
+      "y_coordinates_center": 852,
+      "width": 28,
+      "height": 29
     },
     {
-      "id": "region_16_class_3",
-      "type": "Line",
-      "coordinates": {
-        "x_min": 402,
-        "y_min": 848,
-        "x_max": 667,
-        "y_max": 857
-      },
-      "size": {
-        "width": 265,
-        "height": 9
-      },
-      "properties": [
-        "The color of the line is darkslategrey.",
-        "The line is opaque."
-      ]
+      "id": "region_16_class_Line",
+      "x_coordinates_center": 534,
+      "y_coordinates_center": 852,
+      "width": 265,
+      "height": 9,
+      "line_color": "The color of the line is darkslategrey.",
+      "line_alpha": "The line is opaque."
     },
     {
-      "id": "region_17_class_3",
-      "type": "Line",
-      "coordinates": {
-        "x_min": 79,
-        "y_min": 849,
-        "x_max": 373,
-        "y_max": 856
-      },
-      "size": {
-        "width": 294,
-        "height": 7
-      },
-      "properties": [
-        "The color of the line is lavender.",
-        "The line is opaque."
-      ]
+      "id": "region_17_class_Line",
+      "x_coordinates_center": 226,
+      "y_coordinates_center": 852,
+      "width": 294,
+      "height": 7,
+      "line_color": "The color of the line is lavender.",
+      "line_alpha": "The line is opaque."
     },
     {
-      "id": "region_18_class_2",
-      "type": "Text",
-      "coordinates": {
-        "x_min": 75,
-        "y_min": 886,
-        "x_max": 183,
-        "y_max": 917
-      },
-      "size": {
-        "width": 108,
-        "height": 31
-      },
+      "id": "region_18_class_Text",
+      "x_coordinates_center": 129,
+      "y_coordinates_center": 901,
+      "width": 108,
+      "height": 31,
       "extractedText": "00.35.07",
       "correctedText": "00.35.07"
     },
     {
-      "id": "region_19_class_2",
-      "type": "Text",
-      "coordinates": {
-        "x_min": 565,
-        "y_min": 886,
-        "x_max": 672,
-        "y_max": 917
-      },
-      "size": {
-        "width": 107,
-        "height": 31
-      },
+      "id": "region_19_class_Text",
+      "x_coordinates_center": 618,
+      "y_coordinates_center": 901,
+      "width": 107,
+      "height": 31,
       "extractedText": "01.05.23",
       "correctedText": "01.05.23"
     },
     {
-      "id": "region_20_class_2",
-      "type": "Text",
-      "coordinates": {
-        "x_min": 34,
-        "y_min": 996,
-        "x_max": 257,
-        "y_max": 1061
-      },
-      "size": {
-        "width": 223,
-        "height": 65
-      },
+      "id": "region_20_class_Text",
+      "x_coordinates_center": 145,
+      "y_coordinates_center": 1028,
+      "width": 223,
+      "height": 65,
       "extractedText": "Decode",
       "correctedText": "Decode"
     },
     {
-      "id": "region_21_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 641,
-        "y_min": 1007,
-        "x_max": 684,
-        "y_max": 1051
-      },
-      "size": {
-        "width": 43,
-        "height": 44
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "The mobile UI element in the image appears to be a share button icon, commonly found in social media and messaging apps. Its design suggests it is intended for sharing content with others.\n\n**Design and Functionality**\n\n* The icon features two circles connected by a line, a well-known symbol for sharing or forwarding.\n* Typically used to initiate the process of sharing content from an app or website, allowing users to send links or other information to friends, family, or social networks."
+      "id": "region_21_class_ImageView",
+      "x_coordinates_center": 662,
+      "y_coordinates_center": 1029,
+      "width": 43,
+      "height": 44
     },
     {
-      "id": "region_22_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 448,
-        "y_min": 1008,
-        "x_max": 490,
-        "y_max": 1049
-      },
-      "size": {
-        "width": 42,
-        "height": 41
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "This is an \"information\" icon, which likely opens a help or information center when tapped. It features a lowercase letter \"i\" in white within a circle outline. This type of icon is commonly used in user interfaces (UIs) to provide users with access to supplementary information about the app's features and functionality.\n\n**Common Uses:**\n\n* Providing assistance on how to use an application or software\n* Offering additional resources, such as tutorials or FAQs\n* Displaying relevant links or buttons to help users navigate through the app"
+      "id": "region_22_class_ImageView",
+      "x_coordinates_center": 469,
+      "y_coordinates_center": 1028,
+      "width": 42,
+      "height": 41
     },
     {
-      "id": "region_23_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 544,
-        "y_min": 1008,
-        "x_max": 587,
-        "y_max": 1046
-      },
-      "size": {
-        "width": 43,
-        "height": 38
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "This image appears to contain a simple heart icon, which may be used in conjunction with an app or website that allows users to bookmark or save content for later viewing. The white heart icon sits against a black background and is surrounded by no text or other icons.\n\nThe design of the heart suggests that it could also be used as a button that, when clicked, opens a page where saved content can be viewed. Alternatively, it may indicate an alert or notification related to saved items, prompting users to check their saved content.\n\nIt's important to note that without additional context, it's difficult to provide a more specific interpretation of the heart icon's purpose in this image. However, based on its design and placement within the image, it seems likely that the heart is intended to represent bookmarking or saving functionality."
+      "id": "region_23_class_ImageView",
+      "x_coordinates_center": 565,
+      "y_coordinates_center": 1027,
+      "width": 43,
+      "height": 38
     },
     {
-      "id": "region_24_class_2",
-      "type": "Text",
-      "coordinates": {
-        "x_min": 19,
-        "y_min": 1107,
-        "x_max": 695,
-        "y_max": 1331
-      },
-      "size": {
-        "width": 676,
-        "height": 224
-      },
-      "extractedText": "Thriller starring Emily Miller and Lydia Franci, paints in a future where we've figured out sustainability, yet the question is what to do now with all the abundance: How will we in earth remain in harmony and how will it inspire to help",
-      "correctedText": "Thriller starring family Miller and media francs paints in a future where we've figured out sustainability yet the question is what to do now with all the abundance How will we in earth remain in harmony and how will it inspire to help"
+      "id": "region_24_class_Text",
+      "x_coordinates_center": 357,
+      "y_coordinates_center": 1219,
+      "width": 676,
+      "height": 224,
+      "extractedText": "Thriller starring Emily Miller and Lydia Franci; paints in a future where we've figured out sustainability; yet the question is what to do now How will we in earth with all the abundance. remain in harmony and how will it inspire to help",
+      "correctedText": "Thriller starring family Miller and media francs paints in a future where we've figured out sustainability yet the question is what to do now How will we in earth with all the abundance remain in harmony and how will it inspire to help"
     },
     {
-      "id": "region_25_class_0",
-      "type": "View",
-      "coordinates": {
-        "x_min": 31,
-        "y_min": 1341,
-        "x_max": 717,
-        "y_max": 1501
-      },
-      "size": {
-        "width": 686,
-        "height": 160
-      },
-      "properties": [
-        "The background color of the container is black.",
-        "The container is opaque."
-      ]
+      "id": "region_25_class_View",
+      "x_coordinates_center": 374,
+      "y_coordinates_center": 1421,
+      "width": 686,
+      "height": 160,
+      "view_color": "The background color of the container is black.",
+      "view_alpha": "The container is opaque."
     },
     {
-      "id": "region_26_class_0",
-      "type": "View",
-      "coordinates": {
-        "x_min": 40,
-        "y_min": 1364,
-        "x_max": 158,
-        "y_max": 1424
-      },
-      "size": {
-        "width": 118,
-        "height": 60
-      },
-      "properties": [
-        "The background color of the container is darkolivegreen.",
-        "The container is opaque."
-      ]
+      "id": "region_26_class_View",
+      "x_coordinates_center": 99,
+      "y_coordinates_center": 1394,
+      "width": 118,
+      "height": 60,
+      "view_color": "The background color of the container is darkolivegreen.",
+      "view_alpha": "The container is opaque."
     },
     {
-      "id": "region_27_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 261,
-        "y_min": 1369,
-        "x_max": 304,
-        "y_max": 1418
-      },
-      "size": {
-        "width": 43,
-        "height": 49
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "The image shows a white bookmark icon in the shape of an inverted U, with an arrow pointing toward the bottom left corner. The icon is likely used to mark pages for easy return or reference. It may also represent favorites or saved content."
+      "id": "region_27_class_ImageView",
+      "x_coordinates_center": 282,
+      "y_coordinates_center": 1393,
+      "width": 43,
+      "height": 49
     },
     {
-      "id": "region_28_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 444,
-        "y_min": 1370,
-        "x_max": 489,
-        "y_max": 1418
-      },
-      "size": {
-        "width": 45,
-        "height": 48
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "The mobile UI element appears to be a button with an icon of a downward arrow in it. This is likely used for downloading a file or saving content, as indicated by the name \"Download\"."
+      "id": "region_28_class_ImageView",
+      "x_coordinates_center": 466,
+      "y_coordinates_center": 1394,
+      "width": 45,
+      "height": 48
     },
     {
-      "id": "region_29_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 81,
-        "y_min": 1374,
-        "x_max": 118,
-        "y_max": 1414
-      },
-      "size": {
-        "width": 37,
-        "height": 40
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "The image depicts a home button, which is likely used for navigating between different screens or menus within an application.\n\n**Key Features:**\n\n* A house icon is displayed in white.\n* The background of the button is brown.\n* The overall design is simple and intuitive, making it easy to identify the purpose of the button."
+      "id": "region_29_class_ImageView",
+      "x_coordinates_center": 99,
+      "y_coordinates_center": 1394,
+      "width": 37,
+      "height": 40
     },
     {
-      "id": "region_30_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 632,
-        "y_min": 1376,
-        "x_max": 666,
-        "y_max": 1412
-      },
-      "size": {
-        "width": 34,
-        "height": 36
-      },
-      "prediction": "Icon/Mobile UI Element",
-      "description": "The mobile UI element depicted in the image is a downward-facing arrow, commonly used for downloading content. It features white text and a black background.\n\n**Key Features:**\n\n* Arrow pointing downwards\n* White color scheme\n* Black background\n* Used for downloading content on mobile devices"
+      "id": "region_30_class_ImageView",
+      "x_coordinates_center": 649,
+      "y_coordinates_center": 1394,
+      "width": 34,
+      "height": 36
     }
   ]
 }

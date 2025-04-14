@@ -1,0 +1,627 @@
+{
+  "image": {
+    "path": "./res/home_1.png",
+    "size": {
+      "width": 373,
+      "height": 800
+    }
+  },
+  "elements": [
+    {
+      "id": "region_1_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 0,
+        "y_min": 2,
+        "x_max": 367,
+        "y_max": 799
+      },
+      "size": {
+        "width": 367,
+        "height": 797
+      }
+    },
+    {
+      "id": "region_2_class_2",
+      "type": "Text",
+      "coordinates": {
+        "x_min": 10,
+        "y_min": 6,
+        "x_max": 111,
+        "y_max": 27
+      },
+      "size": {
+        "width": 101,
+        "height": 21
+      },
+      "extractedText": "07.27 44",
+      "correctedText": "07.27 44"
+    },
+    {
+      "id": "region_3_class_2",
+      "type": "Text",
+      "coordinates": {
+        "x_min": 261,
+        "y_min": 6,
+        "x_max": 363,
+        "y_max": 26
+      },
+      "size": {
+        "width": 102,
+        "height": 20
+      },
+      "extractedText": "ll 100%0",
+      "correctedText": "all 100%0"
+    },
+    {
+      "id": "region_4_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 263,
+        "y_min": 8,
+        "x_max": 279,
+        "y_max": 24
+      },
+      "size": {
+        "width": 16,
+        "height": 16
+      }
+    },
+    {
+      "id": "region_5_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 102,
+        "y_min": 11,
+        "x_max": 114,
+        "y_max": 23
+      },
+      "size": {
+        "width": 12,
+        "height": 12
+      }
+    },
+    {
+      "id": "region_6_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 148,
+        "y_min": 135,
+        "x_max": 192,
+        "y_max": 169
+      },
+      "size": {
+        "width": 44,
+        "height": 34
+      }
+    },
+    {
+      "id": "region_7_class_2",
+      "type": "Text",
+      "coordinates": {
+        "x_min": 167,
+        "y_min": 180,
+        "x_max": 205,
+        "y_max": 195
+      },
+      "size": {
+        "width": 38,
+        "height": 15
+      },
+      "extractedText": "Baku",
+      "correctedText": "bake"
+    },
+    {
+      "id": "region_8_class_2",
+      "type": "Text",
+      "coordinates": {
+        "x_min": 139,
+        "y_min": 198,
+        "x_max": 234,
+        "y_max": 215
+      },
+      "size": {
+        "width": 95,
+        "height": 17
+      },
+      "extractedText": "High UV today",
+      "correctedText": "High up today"
+    },
+    {
+      "id": "region_9_class_0",
+      "type": "View",
+      "coordinates": {
+        "x_min": 19,
+        "y_min": 314,
+        "x_max": 355,
+        "y_max": 362
+      },
+      "size": {
+        "width": 336,
+        "height": 48
+      },
+      "properties": [
+        "The background color of the container is darkslategrey.",
+        "The container is opaque."
+      ]
+    },
+    {
+      "id": "region_10_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 27,
+        "y_min": 324,
+        "x_max": 56,
+        "y_max": 353
+      },
+      "size": {
+        "width": 29,
+        "height": 29
+      }
+    },
+    {
+      "id": "region_11_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 270,
+        "y_min": 326,
+        "x_max": 294,
+        "y_max": 352
+      },
+      "size": {
+        "width": 24,
+        "height": 26
+      }
+    },
+    {
+      "id": "region_12_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 316,
+        "y_min": 327,
+        "x_max": 343,
+        "y_max": 352
+      },
+      "size": {
+        "width": 27,
+        "height": 25
+      }
+    },
+    {
+      "id": "region_13_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 199,
+        "y_min": 412,
+        "x_max": 259,
+        "y_max": 472
+      },
+      "size": {
+        "width": 60,
+        "height": 60
+      }
+    },
+    {
+      "id": "region_14_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 114,
+        "y_min": 413,
+        "x_max": 173,
+        "y_max": 471
+      },
+      "size": {
+        "width": 59,
+        "height": 58
+      }
+    },
+    {
+      "id": "region_15_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 286,
+        "y_min": 414,
+        "x_max": 346,
+        "y_max": 471
+      },
+      "size": {
+        "width": 60,
+        "height": 57
+      }
+    },
+    {
+      "id": "region_16_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 28,
+        "y_min": 414,
+        "x_max": 85,
+        "y_max": 464
+      },
+      "size": {
+        "width": 57,
+        "height": 50
+      }
+    },
+    {
+      "id": "region_17_class_2",
+      "type": "Text",
+      "coordinates": {
+        "x_min": 289,
+        "y_min": 476,
+        "x_max": 342,
+        "y_max": 489
+      },
+      "size": {
+        "width": 53,
+        "height": 13
+      },
+      "extractedText": "Wearable",
+      "correctedText": "Wearable"
+    },
+    {
+      "id": "region_18_class_2",
+      "type": "Text",
+      "coordinates": {
+        "x_min": 31,
+        "y_min": 476,
+        "x_max": 80,
+        "y_max": 489
+      },
+      "size": {
+        "width": 49,
+        "height": 13
+      },
+      "extractedText": "Calendar",
+      "correctedText": "Calendar"
+    },
+    {
+      "id": "region_19_class_2",
+      "type": "Text",
+      "coordinates": {
+        "x_min": 119,
+        "y_min": 477,
+        "x_max": 167,
+        "y_max": 489
+      },
+      "size": {
+        "width": 48,
+        "height": 12
+      },
+      "extractedText": "Ooosted",
+      "correctedText": "boosted"
+    },
+    {
+      "id": "region_20_class_2",
+      "type": "Text",
+      "coordinates": {
+        "x_min": 212,
+        "y_min": 477,
+        "x_max": 247,
+        "y_max": 489
+      },
+      "size": {
+        "width": 35,
+        "height": 12
+      },
+      "extractedText": "NNotes",
+      "correctedText": "notes"
+    },
+    {
+      "id": "region_21_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 286,
+        "y_min": 522,
+        "x_max": 352,
+        "y_max": 582
+      },
+      "size": {
+        "width": 66,
+        "height": 60
+      }
+    },
+    {
+      "id": "region_22_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 114,
+        "y_min": 525,
+        "x_max": 172,
+        "y_max": 584
+      },
+      "size": {
+        "width": 58,
+        "height": 59
+      }
+    },
+    {
+      "id": "region_23_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 26,
+        "y_min": 525,
+        "x_max": 88,
+        "y_max": 584
+      },
+      "size": {
+        "width": 62,
+        "height": 59
+      }
+    },
+    {
+      "id": "region_24_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 201,
+        "y_min": 526,
+        "x_max": 258,
+        "y_max": 584
+      },
+      "size": {
+        "width": 57,
+        "height": 58
+      }
+    },
+    {
+      "id": "region_25_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 207,
+        "y_min": 529,
+        "x_max": 251,
+        "y_max": 577
+      },
+      "size": {
+        "width": 44,
+        "height": 48
+      }
+    },
+    {
+      "id": "region_26_class_2",
+      "type": "Text",
+      "coordinates": {
+        "x_min": 122,
+        "y_min": 588,
+        "x_max": 163,
+        "y_max": 601
+      },
+      "size": {
+        "width": 41,
+        "height": 13
+      },
+      "extractedText": "Gallery",
+      "correctedText": "Gallery"
+    },
+    {
+      "id": "region_27_class_2",
+      "type": "Text",
+      "coordinates": {
+        "x_min": 213,
+        "y_min": 588,
+        "x_max": 246,
+        "y_max": 601
+      },
+      "size": {
+        "width": 33,
+        "height": 13
+      },
+      "extractedText": "Olock",
+      "correctedText": "lock"
+    },
+    {
+      "id": "region_28_class_2",
+      "type": "Text",
+      "coordinates": {
+        "x_min": 295,
+        "y_min": 588,
+        "x_max": 337,
+        "y_max": 602
+      },
+      "size": {
+        "width": 42,
+        "height": 14
+      },
+      "extractedText": "Google",
+      "correctedText": "googly"
+    },
+    {
+      "id": "region_29_class_2",
+      "type": "Text",
+      "coordinates": {
+        "x_min": 30,
+        "y_min": 589,
+        "x_max": 82,
+        "y_max": 602
+      },
+      "size": {
+        "width": 52,
+        "height": 13
+      },
+      "extractedText": "Saisung",
+      "correctedText": "raising"
+    },
+    {
+      "id": "region_30_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 183,
+        "y_min": 645,
+        "x_max": 192,
+        "y_max": 657
+      },
+      "size": {
+        "width": 9,
+        "height": 12
+      }
+    },
+    {
+      "id": "region_31_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 215,
+        "y_min": 645,
+        "x_max": 226,
+        "y_max": 657
+      },
+      "size": {
+        "width": 11,
+        "height": 12
+      }
+    },
+    {
+      "id": "region_32_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 145,
+        "y_min": 645,
+        "x_max": 158,
+        "y_max": 657
+      },
+      "size": {
+        "width": 13,
+        "height": 12
+      }
+    },
+    {
+      "id": "region_33_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 198,
+        "y_min": 645,
+        "x_max": 209,
+        "y_max": 657
+      },
+      "size": {
+        "width": 11,
+        "height": 12
+      }
+    },
+    {
+      "id": "region_34_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 163,
+        "y_min": 646,
+        "x_max": 175,
+        "y_max": 657
+      },
+      "size": {
+        "width": 12,
+        "height": 11
+      }
+    },
+    {
+      "id": "region_35_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 155,
+        "y_min": 675,
+        "x_max": 178,
+        "y_max": 696
+      },
+      "size": {
+        "width": 23,
+        "height": 21
+      }
+    },
+    {
+      "id": "region_36_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 286,
+        "y_min": 680,
+        "x_max": 347,
+        "y_max": 739
+      },
+      "size": {
+        "width": 61,
+        "height": 59
+      }
+    },
+    {
+      "id": "region_37_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 27,
+        "y_min": 680,
+        "x_max": 86,
+        "y_max": 739
+      },
+      "size": {
+        "width": 59,
+        "height": 59
+      }
+    },
+    {
+      "id": "region_38_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 200,
+        "y_min": 681,
+        "x_max": 259,
+        "y_max": 739
+      },
+      "size": {
+        "width": 59,
+        "height": 58
+      }
+    },
+    {
+      "id": "region_39_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 113,
+        "y_min": 682,
+        "x_max": 173,
+        "y_max": 739
+      },
+      "size": {
+        "width": 60,
+        "height": 57
+      }
+    },
+    {
+      "id": "region_40_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 72,
+        "y_min": 764,
+        "x_max": 97,
+        "y_max": 786
+      },
+      "size": {
+        "width": 25,
+        "height": 22
+      }
+    },
+    {
+      "id": "region_41_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 284,
+        "y_min": 764,
+        "x_max": 301,
+        "y_max": 786
+      },
+      "size": {
+        "width": 17,
+        "height": 22
+      }
+    },
+    {
+      "id": "region_42_class_1",
+      "type": "ImageView",
+      "coordinates": {
+        "x_min": 177,
+        "y_min": 766,
+        "x_max": 198,
+        "y_max": 785
+      },
+      "size": {
+        "width": 21,
+        "height": 19
+      }
+    }
+  ]
+}

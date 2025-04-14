@@ -1,9 +1,11 @@
 # deki
 
-**deki** is an ML model (or several models) that detects UI elements in screenshots (such as containers, text, and icons) and provides structured descriptions of those elements. It can help with:
+**deki** is an ML model (or several models) that detects UI elements in
+screenshots (such as containers, text, and icons) and provides structured
+descriptions of those elements. It can help with:
 
-- Generating code by using LLMs that need structured UI information.
-- Automating device interactions by providing precise bounding box coordinates and sizes.
+- Generating code by using LLMs that need structured UI information. (Demo is available)
+- Help with building AI agents by providing precise bounding box coordinates and sizes. (Demo is available)
 - Assisting visually impaired users by describing the UI.
 
 ---
@@ -23,16 +25,6 @@
 
 ---
 
-## Where It Can Be Used
-
-The ML model creates a long description of the screenshot that can be used for various purposes:
-
-1. **Code Generation**: Provide structured UI details for LLMs that don't have vision-based input or their vision capabilities are limited.  
-2. **Device Control**: Automate interactions by detecting exact coordinates of all elements.  
-3. **Accessibility**: Help visually impaired users understand the UI structure.
-
----
-
 ## Usage
 
 Install dependencies (Python 3.12 recommended):
@@ -45,72 +37,46 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Full Pipeline
+Full Pipeline (raw text based output):
 
 ```bash
-python3.12 wrapper.py \
-   --input_image ./res/bb_1.jpeg \
+python3.12 wrapper.py \                                             
+   --input_image ./res/bb_1.jpeg \ 
    --weights_file ./best.pt \
    --icon_detection_path ./icon-image-detection-model.keras
 ```
 
 Full pipeline without image detection and image captioning (much faster) and
-with json structured output (recommended)
+with json structured output (recommended):
 
 ```bash
 python3.12 wrapper.py \
-   --input_image ./res/bb_1.jpeg \
+   --input_image ./res/bb_1.jpeg \ 
    --weights_file ./best.pt \
-   --icon_detection_path ./icon-image-detection-model.keras \
    --no-captioning --json
-```
-
-Full pipeline with image detection and image captioning (llama3.2-vision:11b)
-and with json structured output (recommended)
-
-```bash
-python3.12 wrapper.py \
-   --input_image ./res/gs_1.png \
-   --weights_file ./best.pt \
-   --icon_detection_path ./icon-image-detection-model.keras \
-   --json
-```
-
-Full pipeline with image captioning (llama3.2-vision:11b)
-and with json structured output (recommended)
-
-```bash
-python3.12 wrapper.py \
-   --input_image ./res/gs_1.png \
-   --weights_file ./best.pt \
-   --json
 ```
 
 YOLO-Only
 
 ```bash
-python3.12 yolo_script.py \
-  bb_1.jpeg \
-  ./best.pt
+python3.12 yolo_script.py ./res/home_1.png ./best.pt
 ```
 
-And don't forget to include your HuggingFace and OpenAI tokens if you use blip2 or ChatGPT.
+And don't forget to include your HuggingFace and OpenAI tokens if you use blip2 or ChatGPT
+(if you didn't pass --no-captioning). ChatGPT token is needed for server.
 
-Also, to use this version you need to install llama-3.2-11b via ollama.
+Also, to use this version you need to install llama-3.2-11b via ollama.  
+(if you didn't pass --no-captioning)
 
-You can see an example of usage for the **code generation** in code_generator.py. 
-Fine-tune the model to get high quality outputs because the image description is quite long
-and complex.
+You can see an example of usage for the **code generation** (and for other things) 
+in gradio section.
 
-```bash
-python3.12 code_generator.py ./bb_2.jpeg ./result/bb_2_regions_captions.txt ./result/gpt_output_bb_2.txt Android
-```
-It will use the image and the image description to generate the code for the UI screen
-for the Android platform.
+If you want a production ready code generator or AI agent then fine-tune the model to get
+high quality results because the image description is quite long and complex.
 
 ---
 
-## Examples
+## YOLO examples
 
 You can see examples in the result/ and output/ folders.
 
@@ -185,70 +151,41 @@ and if --json and --no-captioning are specified the output will look something l
   },
   "elements": [
     {
-      "id": "region_1_class_2",
-      "type": "Text",
-      "coordinates": {
-        "x_min": 830,
-        "y_min": 18,
-        "x_max": 1055,
-        "y_max": 74
-      },
-      "size": {
-        "width": 225,
-        "height": 56
-      },
+      "id": "region_1_class_Text",
+      "x_coordinates_center": 942,
+      "y_coordinates_center": 46,
+      "width": 225,
+      "height": 56,
       "extractedText": "34%",
       "correctedText": "34%"
     },
     {
-      "id": "region_2_class_1",
-      "type": "ImageView",
-      "coordinates": {
-        "x_min": 25,
-        "y_min": 20,
-        "x_max": 292,
-        "y_max": 75
-      },
-      "size": {
-        "width": 267,
-        "height": 55
-      }
+      "id": "region_2_class_ImageView",
+      "x_coordinates_center": 158,
+      "y_coordinates_center": 47,
+      "width": 267,
+      "height": 55
     },
     {
-      "id": "region_67_class_2",
-      "type": "Text",
-      "coordinates": {
-        "x_min": 934,
-        "y_min": 2090,
-        "x_max": 1011,
-        "y_max": 2127
-      },
-      "size": {
-        "width": 77,
-        "height": 37
-      },
+      "id": "region_67_class_Text",
+      "x_coordinates_center": 972,
+      "y_coordinates_center": 2108,
+      "width": 77,
+      "height": 37,
       "extractedText": "More",
       "correctedText": "More"
     },
     {
-      "id": "region_68_class_2",
-      "type": "Text",
-      "coordinates": {
-        "x_min": 62,
-        "y_min": 2091,
-        "x_max": 152,
-        "y_max": 2128
-      },
-      "size": {
-        "width": 90,
-        "height": 37
-      },
+      "id": "region_68_class_Text",
+      "x_coordinates_center": 107,
+      "y_coordinates_center": 2109,
+      "width": 90,
+      "height": 37,
       "extractedText": "Home",
       "correctedText": "Home"
     }
   ]
 }
-
 ```
 
 I have not used the best examples that do not have errors, so as not to give
@@ -263,7 +200,7 @@ model.
 This model can be used by an LLM to better understand an image’s view
 structure, coordinates, and view sizes. I used 4 examples for
 comparison. For the experiment, I used the latest GPT-4o model (as of January
-26) to generate code from a screenshot, and then to generate code from the same
+26 2025) to generate code from a screenshot, and then to generate code from the same
 screenshot + deki image description. Without any fine-tuning.
 
 The generated code is for Android and was placed into the Design Preview in 
@@ -283,6 +220,44 @@ Better coordinates (source code: ./res/bb_2_gpt_4o.md and ./res/bb_2_gpt_4o_deki
 
 ---
 
+## deki automata: AI agent (Android)
+
+Prompt: Open signal and say what was the last message from my frined Omar
+<video src="./res/deki-signal-demo.mp4" controls width="640">
+  Your browser does not support the video tag.
+</video>
+
+
+Prompt: go home, and swipe left, then right, then up, then down
+<video src="./res/deki-swipes-demo.mp4" controls width="640">
+  Your browser does not support the video tag.
+</video>
+
+---
+
+## Gradio (Web frontend)
+
+To run server locally:
+```bash
+source .venv/bin/activate
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+Then run gradio client:
+```bash
+python3.12 ./ui/uigrad.py
+```
+
+/action endpoint: for asking questions about objects on the image
+![example10](./res/gradio_action.png)
+
+/generate endpoint: you can ask anything you want about the image 
+![example11](./res/gradio_generate_1.png)
+
+/generate endpoint: for example, you can ask the model to generate the code for Android
+![example12](./res/gradio_generate_2.png)
+
+---
+
 ## YOLO model accuracy
 
 The base model is a YOLO model that was trained on 486 images and was tested on 60 images.
@@ -297,16 +272,19 @@ Current YOLO model accuracy:
     1. Make the image captioning functionality optional. Done.
     2. Increase accuracy of the YOLO model by increasing the size of the training dataset up to 1000 images/labels. 
     3. Increase accuracy of the icon detection model by improving training data quality.
-    4. Fine-tune the image captioning model for more accurate UI descriptions.
-    5. Fine-tune an LLM for generating UI code from detected elements.
-    6. Add the command mode to generate short image description files. Done.
-    7. Add an example of AI agent that can automate tasks in an Android OS using deki.
+    4. Fine-tune LLM for generating UI code from detected elements.
+    5. Add the command mode to generate short image description files. Done.
+    6. Add an example of AI agent that can automate tasks in an Android OS using deki. Done.
+    7. Fine-tune LLM for better AI agent capabilities. 
 
 ---
 
 ## Contributing
 
-Pull requests are welcome! 
+Fork this repo and create your own project or contribute to this project - both are ok. 
+Just don't forget about license.
+
+Also, you can open issues or you can send me an email or write me in the linkedin about improvements/problems.
 
 ---
 

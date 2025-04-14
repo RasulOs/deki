@@ -10,30 +10,24 @@ DEFAULT_API_TOKEN = ""
 default_image_1 = Image.open("./res/bb_1.jpeg")
 default_image_2 = Image.open("./res/mfa_1.jpeg")
 
-# Action endpoint examples
 def load_example_action_1():
-    # Example 1: default_image_1 with prompt "Open and read Umico partner"
     return default_image_1, "Open and read Umico partner"
 
 def load_example_action_2():
-    # Example 2: default_image_2 with prompt "Sign up in the application"
     return default_image_2, "Sign up in the application"
 
-# Analyze endpoint examples (only image required)
 def load_example_analyze_1():
     return default_image_1
 
 def load_example_analyze_2():
     return default_image_2
 
-# Analyze & Get YOLO endpoint examples (only image required)
 def load_example_yolo_1():
     return default_image_1
 
 def load_example_yolo_2():
     return default_image_2
 
-# Generate endpoint examples
 def load_example_generate_1():
     # Both examples use the same prompt.
     return default_image_1, "Generate the code for this screen for Android XML. Try to use constraint layout"
@@ -125,13 +119,12 @@ def call_generate_endpoint(token: str, image: Image.Image, prompt: str) -> str:
     return result
 
 with gr.Blocks() as demo:
-    gr.Markdown("# deki-automata Gradio UI")
+    gr.Markdown("# deki automata Gradio UI")
     
     # Global token input visible across all tabs.
     token_input = gr.Textbox(value=DEFAULT_API_TOKEN, label="API Token", placeholder="Enter API Token")
     
     with gr.Tabs():
-        # Action Endpoint Tab
         with gr.TabItem("Action Endpoint"):
             gr.Markdown("### Call the /action endpoint")
             with gr.Row():
@@ -147,7 +140,6 @@ with gr.Blocks() as demo:
             example_action_btn1.click(fn=load_example_action_1, outputs=[image_input, prompt_input])
             example_action_btn2.click(fn=load_example_action_2, outputs=[image_input, prompt_input])
         
-        # Analyze Endpoint Tab
         with gr.TabItem("Analyze Endpoint"):
             gr.Markdown("### Call the /analyze endpoint")
             image_input_analyze = gr.Image(value=None, type="pil", label="Upload Image")
@@ -160,7 +152,6 @@ with gr.Blocks() as demo:
             example_analyze_btn1.click(fn=load_example_analyze_1, outputs=image_input_analyze)
             example_analyze_btn2.click(fn=load_example_analyze_2, outputs=image_input_analyze)
         
-        # Analyze & Get YOLO Endpoint Tab
         with gr.TabItem("Analyze & Get YOLO Endpoint"):
             gr.Markdown("### Call the /analyze_and_get_yolo endpoint")
             image_input_yolo = gr.Image(value=None, type="pil", label="Upload Image")
@@ -178,7 +169,6 @@ with gr.Blocks() as demo:
             example_yolo_btn1.click(fn=load_example_yolo_1, outputs=image_input_yolo)
             example_yolo_btn2.click(fn=load_example_yolo_2, outputs=image_input_yolo)
         
-        # Generate Endpoint Tab
         with gr.TabItem("Generate Endpoint"):
             gr.Markdown("### Call the /generate endpoint")
             with gr.Row():

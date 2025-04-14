@@ -174,7 +174,7 @@ def process_yolo(input_image, weights_file: str, output_dir: str = './yolo_run',
         y2 = int(y_center + h_box / 2)
         cv2.rectangle(drawn_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
         cv2.putText(drawn_image, str(i + 1), (x1, y1 - 5),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.3, (143, 10, 18), 1)
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (143, 10, 18), 1)
 
     updated_output_image_path = os.path.join(output_dir, updated_output_image_name)
     cv2.imwrite(updated_output_image_path, drawn_image)

@@ -63,7 +63,7 @@ python3.12 yolo_script.py ./res/home_1.png ./best.pt
 ```
 
 And don't forget to include your HuggingFace and OpenAI tokens if you use blip2 or ChatGPT
-(if you didn't pass --no-captioning)
+(if you didn't pass --no-captioning). ChatGPT token is needed for server.
 
 Also, to use this version you need to install llama-3.2-11b via ollama.  
 (if you didn't pass --no-captioning)
@@ -72,7 +72,7 @@ You can see an example of usage for the **code generation** (and for other thing
 in gradio section.
 
 If you want a production ready code generator or AI agent then fine-tune the model to get
-high quality result because the image description is quite long and complex.
+high quality results because the image description is quite long and complex.
 
 ---
 

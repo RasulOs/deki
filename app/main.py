@@ -348,7 +348,7 @@ Description:
     logging.info("Sending request to GPT (action endpoint)")
     try:
         response = LLM_CLIENT.chat.completions.create(
-            model="gpt-4o",  # or "gpt-4o-mini"
+            model="gpt-4.1",  # or mini
             messages=messages,
             temperature=0.2,
         )

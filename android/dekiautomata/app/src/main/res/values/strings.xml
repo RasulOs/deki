@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">deki automata</string>
+    <string name="accessibility_service_description">deki automata Accessibility Service</string>
+    <string name="media_projection_notification_channel_name">Screen Capture</string>
+    <string name="media_projection_notification_channel_description">Notification shown while screen capture is active</string>
+    <string name="media_projection_notification_title">deki Automata Active</string>
+    <string name="media_projection_notification_text">Screen capture is active.</string>
+</resources>

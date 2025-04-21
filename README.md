@@ -222,11 +222,19 @@ Better coordinates (source code: ./res/bb_2_gpt_4o.md and ./res/bb_2_gpt_4o_deki
 
 ## deki automata: AI agent (Android)
 
+The code for android agent is in /android package.
+
+Demos:
+
 Prompt: Open signal and say what was the last message from my friend Omar
 [Youtube](https://www.youtube.com/shorts/-Ctf6QEXQw8)
 
 Prompt: go home, and swipe left, then right, then up, then down
 [Youtube](https://www.youtube.com/shorts/x5w6dC6bFmw)
+
+Prompt: Open linkedin,  tap post and write: hi, it is deki, and now I am open
+sourced. But don't send, just return
+[Youtube](https://www.youtube.com/shorts/4D4JuQKJ48c)
 
 ---
 

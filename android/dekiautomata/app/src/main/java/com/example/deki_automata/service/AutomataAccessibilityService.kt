@@ -426,8 +426,8 @@ class AutomataAccessibilityService : AccessibilityService(), DeviceController {
         val reader = imageReader!!
         var image: Image? = null
         var attempt = 0
-        val maxAttempts = 3
-        val retryDelayMs = 50L
+        val maxAttempts = 10
+        val retryDelayMs = 100L
         while (image == null && attempt < maxAttempts) {
             attempt++
             try {
@@ -844,7 +844,7 @@ class AutomataAccessibilityService : AccessibilityService(), DeviceController {
         val success = performGlobalAction(GLOBAL_ACTION_BACK)
         if (success) {
             try {
-                Thread.sleep(300) // TODO find optimal value
+                Thread.sleep(500) // TODO find optimal value
             } catch (_: InterruptedException) {
             }
         } else {

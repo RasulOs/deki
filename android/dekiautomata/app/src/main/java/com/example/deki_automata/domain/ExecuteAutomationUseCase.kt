@@ -33,7 +33,7 @@ class ExecuteAutomationUseCase(
 
     // TODO remove maxSteps from client and move it to backend
     suspend fun runAutomation(prompt: String, device: DeviceController): String {
-        val maxSteps = 15
+        val maxSteps = 20
         val allInstalledPackages by lazy { getInstalledPackages() }
 
         for (step in 1..maxSteps) {
@@ -56,6 +56,11 @@ class ExecuteAutomationUseCase(
 
             Log.d(TAG, "Parsing response: $responseString")
             val command = ActionParser.parseResponse(responseString)
+            if (command is AutomationCommand.RetryCapture) {
+                Log.i(TAG, "Backend reports loading screen - sending a fresh capture")
+                device.waitForIdle()
+                continue
+            }
 
             if (command is AutomationCommand.ShowMessage) {
                 Log.i(TAG, "Automation finished. Message: ${command.message}")

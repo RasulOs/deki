@@ -29,6 +29,9 @@ object ActionParser {
             cleaned.startsWith("Tap", ignoreCase = true) -> parseTapCommand(cleaned)
             cleaned.startsWith("Insert text", ignoreCase = true) -> parseInsertTextCommand(cleaned)
             cleaned.startsWith("Open", ignoreCase = true) -> parseOpenAppCommand(cleaned)
+            cleaned.startsWith("Screen is in a loading state", ignoreCase = true) -> AutomationCommand.RetryCapture.also {
+                Log.d(TAG, "Parsed: RetryCapture")
+            }
             cleaned.startsWith("Answer:", ignoreCase = true) -> {
                 val msg = cleaned.substringAfter("Answer:").trim()
                 AutomationCommand.ShowMessage(msg).also { Log.d(TAG, "Parsed: ShowMessage '$msg'") }

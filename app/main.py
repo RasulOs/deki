@@ -167,7 +167,7 @@ def log_request_data(request, endpoint: str):
     image_preview = request.image[:100] + "..." if len(request.image) > 100 else request.image
     logging.info(f"User image data (base64 preview): {image_preview}")
 
-def run_wrapper(image_path: str) -> str:
+def run_wrapper(image_path: str, skip_ocr: bool = False, skip_spell: bool = False) -> str:
     """
     Calls process_image_description() to perform YOLO detection and image description,
     then reads the resulting JSON or text file from ./result.
@@ -186,8 +186,10 @@ def run_wrapper(image_path: str) -> str:
         output_json=output_json,
         model_obj=YOLO_MODEL,
         sr=GLOBAL_SR,
-        reader=GLOBAL_READER,
-        spell=GLOBAL_SPELL
+        spell=None if skip_ocr else GLOBAL_SPELL,
+        reader=None if skip_ocr else GLOBAL_READER,
+        skip_ocr=skip_ocr,
+        skip_spell=skip_spell
     )
     elapsed = time.perf_counter() - start_time
     logging.info(f"process_image_description (run_wrapper) took {elapsed:.3f} seconds.")
@@ -259,7 +261,7 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
     start_time_wrapper = time.perf_counter()
     logging.info("Running wrapper for image description (action endpoint)")
     try:
-        image_description = run_wrapper(original_image_path)
+        image_description = run_wrapper(original_image_path, skip_ocr=False, skip_spell=True)
     except Exception as e:
         logging.exception("Image processing failed in action endpoint.")
         raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
@@ -307,9 +309,10 @@ and can be changed based on the context:
 8. "Open com.whatsapp" (or other app)
 9. "Tap coordinates 160, 820" (or other coordinates)
 10. "Insert text 210, 820:Hello world" (or other coordinates and text)
-11. "Answer: There are no new important mails today" (or other answer)
-12. "Finished" (task is finished)
-13. "Can't proceed" (can't understand what to do or image has problem etc.)
+11. "Screen is in a loading state. Try again" (send image again)
+12. "Answer: There are no new important mails today" (or other answer)
+13. "Finished" (task is finished)
+14. "Can't proceed" (can't understand what to do or image has problem etc.)
 
 
 The user said: "{request.prompt}"

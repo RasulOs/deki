@@ -101,7 +101,9 @@ def process_single_region(
     idx, bounding_box, image, sr, reader, spell, icon_model,
     processor, model, device, no_captioning, output_json,
     cropped_imageview_images_dir, base_name, save_images,
-    model_to_use, log_prefix=""
+    model_to_use, log_prefix="",
+    skip_ocr=False,
+    skip_spell=False
 ):
     """
     Processes one bounding box (region)
@@ -304,6 +306,22 @@ def process_single_region(
                 os.remove(temp_image_path)
 
     elif class_id == 2:  # Text
+        if skip_ocr or reader is None:
+            logs.append(f"{log_prefix}OCR skipped for Region {region_idx}.")
+
+            if not output_json:
+                block = (
+                    f"Text: region_{region_idx}_class_{class_id} ({class_name})\n"
+                    f"Coordinates: x_center={(x_min + x_max) // 2}, "
+                    f"y_center={(y_min + y_max) // 2}\n"
+                    f"Size: width={width}, height={height}\n"
+                    f"OCR + spell-check disabled\n"
+                    f"{BARRIER}"
+                )
+                logs.append(block)
+
+            return {"region_dict": region_dict, "text_log": "\n".join(logs)}
+
         upscaled = open_and_upscale_image(cropped_path, class_id)
         if upscaled is None:
             return {"region_dict": region_dict, "text_log": "\n".join(logs)}
@@ -321,20 +339,26 @@ def process_single_region(
         text = ' '.join(result_ocr).strip()
 
         # TODO use other lib to improve performance
-        correction_cache = {}
-        corrected_words = []
-        for w in text.split():
-            if w not in correction_cache:
-                correction_cache[w] = spell.correction(w) or w
-            corrected_words.append(correction_cache[w])
-        corrected_text = ' '.join(corrected_words)
+        if skip_spell or spell is None:
+            corrected_text = None
+            logs.append(f"{log_prefix}Spell-check skipped for Region {region_idx}.")
+        else:
+            correction_cache = {}
+            corrected_words  = []
+            for w in text.split():
+                if w not in correction_cache:
+                    correction_cache[w] = spell.correction(w) or w
+                corrected_words.append(correction_cache[w])
+            corrected_text = " ".join(corrected_words)
 
 
         logs.append(f"{log_prefix}Extracted Text for Region {region_idx}: {text}")
-        logs.append(f"{log_prefix}Corrected Text for Region {region_idx}: {corrected_text}")
+        if corrected_text is not None:
+            logs.append(f"{log_prefix}Corrected Text for Region {region_idx}: {corrected_text}")
 
         region_dict["extractedText"] = text
-        region_dict["correctedText"] = corrected_text
+        if corrected_text is not None:
+            region_dict["correctedText"] = corrected_text
 
         if not output_json:
             block = (
@@ -342,8 +366,8 @@ def process_single_region(
                 f"Coordinates: x_center={(x_min + x_max) // 2}, y_center={(y_min + y_max) // 2}\n"
                 f"Size: width={width}, height={height}\n"
                 f"Extracted Text: {text}\n"
-                f"Corrected Text: {corrected_text}\n"
-                f"{BARRIER}"
+                + (f"Corrected Text: {corrected_text}\n" if corrected_text is not None else "")
+                + f"{BARRIER}"
             )
             logs.append(block)
 
@@ -470,7 +494,9 @@ def process_image(
     output_json=False,
     sr=None,
     reader=None,
-    spell=None
+    spell=None,
+    skip_ocr=False,
+    skip_spell=False
 ):
     # Prepare JSON output dictionary
     json_output = {
@@ -510,20 +536,31 @@ def process_image(
     elapsed = time.perf_counter() - start_time
     print(f"super-resoulution init (in script.py) took {elapsed:.3f} seconds.")
 
-
     start_time = time.perf_counter()
-    print("OCR init start (in script.py)")
-    if reader is None:
-        print("No EasyOCR reference passed; performing local init ...")
-        reader = easyocr.Reader(['en'], gpu=True)
-    else:
-        print("Using pre-initialized EasyOCR reference.")
 
-    if spell is None:
-        print("No SpellChecker reference passed; performing local init ...")
-        spell = SpellChecker()
+    if skip_ocr:
+        print("skip_ocr flag set - skipping EasyOCR and SpellChecker.")
+        reader = None
+        spell  = None
+
     else:
-        print("Using pre-initialized SpellChecker reference.")
+        print("OCR initialisation start (in script.py)")
+        if reader is None:
+            print("No EasyOCR reference passed; performing local init")
+            reader = easyocr.Reader(['en'], gpu=True)
+        else:
+            print("Using pre-initialised EasyOCR object.")
+
+        if skip_spell:
+            print("skip_spell flag set - not initialising SpellChecker.")
+            spell = None
+        else:
+            if spell is None:
+                print("No SpellChecker reference passed; performing local init")
+                spell = SpellChecker()
+            else:
+                print("Using pre-initialised SpellChecker object.")
+
     elapsed = time.perf_counter() - start_time
     print(f"OCR init (in script.py) took {elapsed:.3f} seconds.")
 
@@ -656,7 +693,9 @@ def process_image(
                 icon_model, processor, model, device,
                 no_captioning, output_json,
                 cropped_dir, base_name, save_images,
-                model_to_use, log_prefix=""
+                model_to_use, log_prefix="",
+                skip_ocr=skip_ocr,
+                skip_spell=skip_spell
             )
             futures_map[future] = idx
 

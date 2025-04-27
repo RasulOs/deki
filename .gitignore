@@ -176,3 +176,4 @@ models_cache/*
 .gradio/
 .gradio/*
 uploaded_image_*.*
+cropped_imageview_images/

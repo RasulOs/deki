@@ -23,7 +23,9 @@ def process_image_description(
     model_obj: YOLO = None,
     sr=None,
     reader=None,
-    spell=None
+    spell=None,
+    skip_ocr=False,
+    skip_spell=False
 ) -> None:
     """
     Processes an image by running YOLO detection (via the imported process_yolo function)
@@ -80,7 +82,9 @@ def process_image_description(
         output_json=output_json,
         sr=sr,
         reader=reader,
-        spell=spell
+        spell=spell,
+        skip_ocr=skip_ocr,
+        skip_spell=skip_spell
     )
     elapsed = time.perf_counter() - start_time
     print(f"process_image (in wrapper.py) took {elapsed:.3f} seconds.")
@@ -106,6 +110,9 @@ if __name__ == '__main__':
                         help='Disable any image captioning')
     parser.add_argument('--json', dest='output_json', action='store_true',
                         help='Output the image data in JSON format')
+    parser.add_argument('--skip-ocr', action='store_true',
+                        help='Disable OCR & spell-checking (faster).')
+    parser.add_argument('--skip-spell', action='store_true', help='Run OCR but skip spell-check')
     
     args = parser.parse_args()
     
@@ -120,7 +127,9 @@ if __name__ == '__main__':
             cache_directory=args.cache_directory,
             huggingface_token=args.huggingface_token,
             no_captioning=args.no_captioning,
-            output_json=args.output_json
+            output_json=args.output_json,
+            skip_ocr=args.skip_ocr,
+            skip_spell=args.skip_spell
         )
     except Exception as e:
         print(e)

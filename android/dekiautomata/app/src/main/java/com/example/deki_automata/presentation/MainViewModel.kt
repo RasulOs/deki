@@ -6,9 +6,8 @@ import android.util.Log
 import android.view.accessibility.AccessibilityManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.deki_automata.data.ActionRepository
-import com.example.deki_automata.data.ActionRepositoryImpl
-import com.example.deki_automata.domain.ExecuteAutomationUseCase
+import com.example.deki_automata.domain.repository.ActionRepository
+import com.example.deki_automata.domain.usecase.ExecuteAutomationUseCase
 import com.example.deki_automata.service.AutomataAccessibilityService
 import com.example.deki_automata.service.ServiceInternalState
 import kotlinx.coroutines.Job

@@ -36,6 +36,7 @@ fun MainScreen(
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
+
     Scaffold(topBar = {
         TopAppBar(title = { Text("deki automata") })
     }) { paddingValues ->
@@ -63,7 +64,8 @@ fun MainScreen(
                 placeholder = { Text("Enter or speak your request") },
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !state.isProcessing && state.isAccessibilityEnabled && state.isScreenCaptureReady,
-                singleLine = true,
+                minLines = 3,
+                maxLines = 3,
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Send),
                 keyboardActions = KeyboardActions(
                     onSend = {

@@ -9,7 +9,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.media.projection.MediaProjectionManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -23,14 +22,12 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.core.app.NotificationCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.deki_automata.R
-import com.example.deki_automata.data.ActionRepositoryImpl
-import com.example.deki_automata.domain.ExecuteAutomationUseCase
+import com.example.deki_automata.data.repository.ActionRepositoryImpl
+import com.example.deki_automata.domain.usecase.ExecuteAutomationUseCase
 import com.example.deki_automata.service.AutomataAccessibilityService
 import com.example.deki_automata.ui.theme.DekiAutomataTheme
 

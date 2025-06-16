@@ -14,13 +14,12 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 import openai
 from openai import OpenAI
-
 from ultralytics import YOLO
-
 from wrapper import process_image_description
 from utils.pills import preprocess_image
-
 import logging
+import tempfile
+import uuid
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
@@ -28,7 +27,7 @@ app = FastAPI(title="deki-automata API")
 
 # Global semaphore limit is set to 1 because the ML tasks take almost all RAM for the current server.
 # Can be increased in the future
-CONCURRENT_LIMIT = 1
+CONCURRENT_LIMIT = 2
 concurrency_semaphore = asyncio.Semaphore(CONCURRENT_LIMIT)
 
 def with_semaphore(timeout: float = 20):
@@ -72,8 +71,6 @@ os.makedirs("./output", exist_ok=True)
 
 # for action step tracking
 ACTION_STEPS_LIMIT = 10 # can be updated
-action_step_history = []
-action_step_count = 0
 
 @app.on_event("startup")
 def load_models():
@@ -123,6 +120,12 @@ def load_models():
 class ActionRequest(BaseModel):
     image: str  # Base64-encoded image
     prompt: str  # User prompt (like "Open whatsapp and write my friend user_name that I will be late for 15 minutes")
+    history: list[str] = []
+
+class ActionResponse(BaseModel):
+    response: str
+    history: list[str]
+
 
 class AnalyzeRequest(BaseModel):
     image: str  # Base64-encoded image
@@ -167,7 +170,7 @@ def log_request_data(request, endpoint: str):
     image_preview = request.image[:100] + "..." if len(request.image) > 100 else request.image
     logging.info(f"User image data (base64 preview): {image_preview}")
 
-def run_wrapper(image_path: str, skip_ocr: bool = False, skip_spell: bool = False, json_mini = False) -> str:
+def run_wrapper(image_path: str, output_dir: str, skip_ocr: bool = False, skip_spell: bool = False, json_mini = False) -> str:
     """
     Calls process_image_description() to perform YOLO detection and image description,
     then reads the resulting JSON or text file from ./result.
@@ -182,6 +185,7 @@ def run_wrapper(image_path: str, skip_ocr: bool = False, skip_spell: bool = Fals
     process_image_description(
         input_image=image_path,
         weights_file=weights_file,
+        output_dir=output_dir,
         no_captioning=no_captioning,
         output_json=output_json,
         json_mini=json_mini,
@@ -196,7 +200,7 @@ def run_wrapper(image_path: str, skip_ocr: bool = False, skip_spell: bool = Fals
     logging.info(f"process_image_description (run_wrapper) took {elapsed:.3f} seconds.")
 
     base_name = os.path.splitext(os.path.basename(image_path))[0]
-    result_dir = os.path.join(os.getcwd(), "result")
+    result_dir = os.path.join(output_dir, "result") 
     json_file = os.path.join(result_dir, f"{base_name}.json")
     txt_file = os.path.join(result_dir, f"{base_name}.txt")
 
@@ -222,7 +226,7 @@ def run_wrapper(image_path: str, skip_ocr: bool = False, skip_spell: bool = Fals
 async def root():
     return {"message": "deki"}
 
-@app.post("/action")
+@app.post("/action", response_model=ActionResponse)
 @with_semaphore(timeout=60)
 async def action(request: ActionRequest, token: str = Depends(verify_token)):
     """
@@ -233,69 +237,63 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
     4. Preprocesses the YOLO-updated image.
     5. Constructs a prompt for ChatGPT (using description + preprocessed YOLO image) and sends it.
     6. Returns the command response.
-
-    This endpoint tracks previous steps and current step count.
-    If the number of calls reaches a limit (ACTION_STEPS_LIMIT), it returns
-    that step limits are reached and resets the history.
     """
-    global action_step_history, action_step_count
-
-    # Check if the step limit is reached.
-    if action_step_count >= ACTION_STEPS_LIMIT:
-        action_step_history = []
-        action_step_count = 0
-        return {"response": "Step limit is reached"}
-
     start_time = time.perf_counter()
     logging.info("action endpoint start")
     log_request_data(request, "/action")
 
-    original_image_path = "./res/uploaded_image_action.png"
-    base_name = "uploaded_image_action"
-    yolo_updated_image_path = f"./output/{base_name}_yolo_updated.png"
+    action_step_history = request.history
+    action_step_count = len(action_step_history)
 
-    start_time_decode = time.perf_counter()
-    logging.info(f"Decoding and saving original image to: {original_image_path}")
-    _ = save_base64_image(request.image, original_image_path)
-    logging.info(f"Original image decode and save took {time.perf_counter()-start_time_decode:.3f} seconds.")
+    # Check if the step limit is reached.
+    if action_step_count >= ACTION_STEPS_LIMIT:
+        logging.warning(f"Step limit of {ACTION_STEPS_LIMIT} reached. Resetting history.")
+        # Return a clear response and an empty history to reset the client.
+        return ActionResponse(response="Step limit is reached", history=[])
 
-    start_time_wrapper = time.perf_counter()
-    logging.info("Running wrapper for image description (action endpoint)")
-    try:
-        image_description = run_wrapper(original_image_path, skip_ocr=False, skip_spell=True, json_mini=True)
-    except Exception as e:
-        logging.exception("Image processing failed in action endpoint.")
-        raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
-    logging.info(f"run_wrapper took {time.perf_counter()-start_time_wrapper:.3f} seconds.")
+    # Use a temporary directory to isolate all files for this request.
+    with tempfile.TemporaryDirectory() as temp_dir:
+        request_id = str(uuid.uuid4())
+        
+        original_image_path = os.path.join(temp_dir, f"{request_id}.png")
+        yolo_updated_image_path = os.path.join(temp_dir, f"{request_id}_yolo_updated.png")
 
-    start_time_yolo_read_prep = time.perf_counter()
-    try:
-        logging.info(f"Reading YOLO updated image from: {yolo_updated_image_path}")
-        if not os.path.exists(yolo_updated_image_path):
-            logging.error(f"YOLO updated image not found at {yolo_updated_image_path}")
-            raise HTTPException(status_code=500, detail="YOLO updated image generation failed or not found.")
-        with open(yolo_updated_image_path, "rb") as f:
-            yolo_updated_img_bytes = f.read()
-    except Exception as e:
-        logging.exception(f"Error reading YOLO updated image from {yolo_updated_image_path}")
-        raise HTTPException(status_code=500, detail=f"Failed to read YOLO updated image: {e}")
+        save_base64_image(request.image, original_image_path)
 
-    logging.info("Preprocessing YOLO updated image for GPT (action endpoint)")
-    try:
-        new_bytes, new_b64 = preprocess_image(yolo_updated_img_bytes, threshold=2000, scale=0.5, fmt="png")
-    except Exception as e:
-        logging.exception("YOLO updated image preprocessing failed.")
-        raise HTTPException(status_code=500, detail=f"YOLO updated image preprocessing failed: {e}")
-    logging.info(f"YOLO image read & preprocess took {time.perf_counter()-start_time_yolo_read_prep:.3f} seconds.")
+        try:
+            image_description = run_wrapper(
+                image_path=original_image_path,
+                output_dir=temp_dir, 
+                skip_ocr=False, 
+                skip_spell=True, 
+                json_mini=True
+            )
+        except Exception as e:
+            logging.exception("Image processing failed in action endpoint.")
+            raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
+
+        try:
+            if not os.path.exists(yolo_updated_image_path):
+                logging.error(f"YOLO updated image not found at {yolo_updated_image_path}")
+                raise HTTPException(status_code=500, detail="YOLO updated image generation failed or not found.")
+            with open(yolo_updated_image_path, "rb") as f:
+                yolo_updated_img_bytes = f.read()
+        except Exception as e:
+            logging.exception(f"Error reading YOLO updated image from {yolo_updated_image_path}")
+            raise HTTPException(status_code=500, detail=f"Failed to read YOLO updated image: {e}")
+        
+        try:
+            _, new_b64 = preprocess_image(yolo_updated_img_bytes, threshold=2000, scale=0.5, fmt="png")
+        except Exception as e:
+            logging.exception("YOLO updated image preprocessing failed.")
+            raise HTTPException(status_code=500, detail=f"YOLO updated image preprocessing failed: {e}")
 
     base64_image_url = f"data:image/png;base64,{new_b64}"
 
-    # Construct previous steps text and include current step number
     current_step = action_step_count + 1
+    previous_steps_text = ""
     if action_step_history:
         previous_steps_text = "\nPrevious steps:\n" + "\n".join(f"{i+1}. {step}" for i, step in enumerate(action_step_history))
-    else:
-        previous_steps_text = ""
 
     prompt_text = f"""You are an AI agent that controls a mobile device and sees the content of screen.
 User can ask you about some information or to do some task and you need to do these tasks.
@@ -325,57 +323,32 @@ I will share the screenshot of the current state of the phone (with UI elements 
 index of these UI elements) and the description (sizes, coordinates and indexes) of UI elements.
 Description:
 "{image_description}" """
-    # Log the prompt for debugging (remove later)
-    logging.info("Constructed prompt for LLM:")
-    logging.info(prompt_text)
-
+    
     messages = [
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": prompt_text
-                },
-                {
-                    "type": "image_url",
-                    "image_url": {
-                        "url": base64_image_url,
-                        "detail": "high"
-                    }
-                }
-            ]
-        }
+        {"role": "user", "content": [{"type": "text", "text": prompt_text}, {"type": "image_url", "image_url": {"url": base64_image_url, "detail": "high"}}]}
     ]
 
-    start_time_gpt = time.perf_counter()
-    logging.info("Sending request to GPT (action endpoint)")
     try:
-        response = LLM_CLIENT.chat.completions.create(
-            model="gpt-4.1",  # or mini
-            messages=messages,
-            temperature=0.2,
-        )
+        response = LLM_CLIENT.chat.completions.create(model="gpt-4.1", messages=messages, temperature=0.2)
     except Exception as e:
         logging.exception("OpenAI API error.")
         raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")
 
-    logging.info(f"GPT call took {time.perf_counter()-start_time_gpt:.3f} seconds.")
     command_response = response.choices[0].message.content.strip()
 
     action_step_history.append(command_response)
-    action_step_count += 1
 
     command_lower = command_response.strip().strip('\'"').lower()
-
-    if command_lower.startswith("answer:") or command_lower.startswith("finished") or command_lower.startswith("can't proceed"):
-        logging.info(f"Terminal command received ('{command_response}'). Resetting history and count.")
-        action_step_history = []
-        action_step_count = 0
-
+    if command_lower.startswith(("answer:", "finished", "can't proceed")):
+        logging.info(f"Terminal command received ('{command_response}'). Resetting history for next turn.")
+        final_history = []
+    else:
+        final_history = action_step_history
+    
     logging.info(f"action endpoint total processing time: {time.perf_counter()-start_time:.3f} seconds.")
-    logging.info(f"response: {command_response}")
-    return {"response": command_response}
+    logging.info(f"Response: {command_response}, History length for next turn: {len(final_history)}")
+
+    return ActionResponse(response=command_response, history=final_history)
 
 
 @app.post("/generate")
@@ -394,82 +367,46 @@ async def generate(request: ActionRequest, token: str = Depends(verify_token)):
     logging.info("generate endpoint start")
     log_request_data(request, "/generate")
 
-    original_image_path = "./res/uploaded_image_generate.png"
-    base_name = "uploaded_image_generate"
-    yolo_updated_image_path = f"./output/{base_name}_yolo_updated.png"
+    with tempfile.TemporaryDirectory() as temp_dir:
+        request_id = str(uuid.uuid4())
+        original_image_path = os.path.join(temp_dir, f"{request_id}.png")
+        yolo_updated_image_path = os.path.join(temp_dir, f"{request_id}_yolo_updated.png")
 
-    start_time_decode = time.perf_counter()
-    logging.info(f"Decoding and saving original image to: {original_image_path}")
-    _ = save_base64_image(request.image, original_image_path)
-    logging.info(f"Original image decode and save took {time.perf_counter()-start_time_decode:.3f} seconds")
+        save_base64_image(request.image, original_image_path)
+        
+        try:
+            image_description = run_wrapper(image_path=original_image_path, output_dir=temp_dir)
+        except Exception as e:
+            logging.exception("Image processing failed in generate endpoint")
+            raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
 
-    start_time_wrapper = time.perf_counter()
-    logging.info("Running wrapper for image description (generate endpoint)")
-    try:
-        image_description = run_wrapper(original_image_path)
-    except Exception as e:
-        logging.exception("Image processing failed in generate endpoint")
-        raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
-    logging.info(f"run_wrapper took {time.perf_counter()-start_time_wrapper:.3f} seconds")
-
-    start_time_yolo_read_prep = time.perf_counter()
-    try:
-        logging.info(f"Reading YOLO updated image from: {yolo_updated_image_path}")
-        if not os.path.exists(yolo_updated_image_path):
-            logging.error(f"YOLO updated image not found at {yolo_updated_image_path}")
-            raise HTTPException(status_code=500, detail="YOLO updated image generation failed or not found")
-        with open(yolo_updated_image_path, "rb") as f:
-            yolo_updated_img_bytes = f.read()
-    except Exception as e:
-        logging.exception(f"Error reading YOLO updated image from {yolo_updated_image_path}")
-        raise HTTPException(status_code=500, detail=f"Failed to read YOLO updated image: {e}")
-    
-    logging.info("Preprocessing YOLO updated image for GPT (generate endpoint)")
-    try:
-        new_bytes, new_b64 = preprocess_image(yolo_updated_img_bytes, threshold=1500, scale=0.5, fmt="png")
-    except Exception as e:
-        logging.exception("Image preprocessing failed")
-        raise HTTPException(status_code=500, detail=f"Image preprocessing failed: {e}")
-
-    logging.info(f"YOLO image read & preprocess took {time.perf_counter()-start_time_yolo_read_prep:.3f} seconds.")
+        try:
+            if not os.path.exists(yolo_updated_image_path):
+                raise HTTPException(status_code=500, detail="YOLO updated image generation failed or not found")
+            with open(yolo_updated_image_path, "rb") as f:
+                yolo_updated_img_bytes = f.read()
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Failed to read YOLO updated image: {e}")
+        
+        try:
+            _, new_b64 = preprocess_image(yolo_updated_img_bytes, threshold=1500, scale=0.5, fmt="png")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Image preprocessing failed: {e}")
 
     base64_image_url = f"data:image/png;base64,{new_b64}"
 
     messages = [
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": '''"Prompt: {0}" 
-                    Image description:
-                    "{1}"'''.format(request.prompt,
-                    image_description)
-                },
-                {
-                    "type": "image_url",
-                    "image_url": {
-                        "url": base64_image_url,
-                        "detail": "high" # or low
-                    }
-                }
-            ]
-        }
+        {"role": "user", "content": [
+            {"type": "text", "text": f'"Prompt: {request.prompt}"\nImage description:\n"{image_description}"'},
+            {"type": "image_url", "image_url": {"url": base64_image_url, "detail": "high"}}
+        ]}
     ]
     
-    start_time_gpt = time.perf_counter()
-    logging.info("Sending request to GPT (generate endpoint)")
     try:
-        response = LLM_CLIENT.chat.completions.create(
-            model="gpt-4.1",  # or mini
-            messages=messages,
-            temperature=0.2,
-        )
+        response = LLM_CLIENT.chat.completions.create(model="gpt-4.1", messages=messages, temperature=0.2)
     except Exception as e:
-        logging.exception("OpenAI API error.")
         raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")
 
-    logging.info(f"GPT call took {time.perf_counter()-start_time_gpt:.3f} seconds")
     command_response = response.choices[0].message.content.strip()
     logging.info(f"generate endpoint total processing time: {time.perf_counter()-start_time:.3f} seconds")
     return {"response": command_response}
@@ -482,15 +419,17 @@ async def analyze(request: AnalyzeRequest, token: str = Depends(verify_token)):
     """
     logging.info("analyze endpoint start")
     log_request_data(request, "/analyze")
-    image_path = "./res/uploaded_image_analyze.png"
-    img_bytes = save_base64_image(request.image, image_path)
+    
+    with tempfile.TemporaryDirectory() as temp_dir:
+        image_path = os.path.join(temp_dir, "image_to_analyze.png")
+        save_base64_image(request.image, image_path)
 
-    try:
-        image_description = run_wrapper(image_path)
-        analyzed_description = json.loads(image_description)
-    except Exception as e:
-        logging.exception("Image processing failed in analyze endpoint.")
-        raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
+        try:
+            image_description = run_wrapper(image_path=image_path, output_dir=temp_dir)
+            analyzed_description = json.loads(image_description)
+        except Exception as e:
+            logging.exception("Image processing failed in analyze endpoint.")
+            raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
 
     return JSONResponse(content={"description": analyzed_description})
 
@@ -501,41 +440,40 @@ async def analyze_and_get_yolo(request: AnalyzeRequest, token: str = Depends(ver
     """
     Processes the input image (in base64 format) to:
       1. Return the image description as a JSON object.
-      2. Return the YOLO-updated image (base64 encoded) generated at ./output/uploaded_image_analyze_and_get_yolo_yolo_updated.
+      2. Return the YOLO-updated image (base64 encoded). 
     """
     logging.info("analyze_and_get_yolo endpoint start")
     log_request_data(request, "/analyze_and_get_yolo")
     
-    # Save the input image to the res folder.
-    image_path = "./res/uploaded_image_analyze_and_get_yolo.png"
-    img_bytes = save_base64_image(request.image, image_path)
-    
-    # Run the wrapper to generate the image description.
-    try:
-        image_description = run_wrapper(image_path)
-        analyzed_description = json.loads(image_description)
-    except Exception as e:
-        logging.exception("Image processing failed in analyze_and_get_yolo endpoint.")
-        raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
-    
-    # Load the YOLO-updated image from the output folder.
-    print(os.getcwd())
-    yolo_image_path = "./output/uploaded_image_analyze_and_get_yolo_yolo_updated.png"
-    if not os.path.exists(yolo_image_path):
-        logging.error("YOLO updated image not found.")
-        raise HTTPException(status_code=500, detail="YOLO updated image not generated.")
-    
-    try:
-        with open(yolo_image_path, "rb") as f:
-            yolo_img_bytes = f.read()
-        yolo_b64 = base64.b64encode(yolo_img_bytes).decode("utf-8")
-        yolo_image_encoded = f"data:image/png;base64,{yolo_b64}"
-    except Exception as e:
-        logging.exception("Error reading YOLO updated image.")
-        raise HTTPException(status_code=500, detail=f"Error reading YOLO updated image: {e}")
-    
-    # Return both the description and the YOLO image.
+    with tempfile.TemporaryDirectory() as temp_dir:
+        request_id = str(uuid.uuid4())
+        image_path = os.path.join(temp_dir, f"{request_id}.png")
+        yolo_image_path = os.path.join(temp_dir, f"{request_id}_yolo_updated.png")
+
+        save_base64_image(request.image, image_path)
+        
+        try:
+            image_description = run_wrapper(image_path=image_path, output_dir=temp_dir)
+            analyzed_description = json.loads(image_description)
+        except Exception as e:
+            logging.exception("Image processing failed in analyze_and_get_yolo endpoint.")
+            raise HTTPException(status_code=500, detail=f"Image processing failed: {e}")
+        
+        if not os.path.exists(yolo_image_path):
+            logging.error("YOLO updated image not found.")
+            raise HTTPException(status_code=500, detail="YOLO updated image not generated.")
+        
+        try:
+            with open(yolo_image_path, "rb") as f:
+                yolo_img_bytes = f.read()
+            yolo_b64 = base64.b64encode(yolo_img_bytes).decode("utf-8")
+            yolo_image_encoded = f"data:image/png;base64,{yolo_b64}"
+        except Exception as e:
+            logging.exception("Error reading or encoding YOLO updated image.")
+            raise HTTPException(status_code=500, detail=f"Error handling YOLO updated image: {e}")
+
     return JSONResponse(content={
         "description": analyzed_description,
         "yolo_image": yolo_image_encoded
     })
+

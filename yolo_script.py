@@ -57,9 +57,8 @@ def load_image(input_image, base_name: str = None):
 
 def process_yolo(input_image, weights_file: str, output_dir: str = './yolo_run', model_obj: YOLO = None, base_name: str = None) -> str:
 
-    # Load image (from disk or memory) and determine a base name
     orig_image, inferred_base_name = load_image(input_image, base_name)
-    base_name = inferred_base_name  # use provided or inferred base name
+    base_name = inferred_base_name 
     
     os.makedirs(output_dir, exist_ok=True)
     # Determine file extension: if input_image is a file path, use its extension. Otherwise, default to .png

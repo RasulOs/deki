@@ -5,5 +5,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ActionRequest(
     val image: String, // Base64 encoded image
-    val prompt: String
+    val prompt: String,
+    val history: List<String> = emptyList(), // List of previous commands or messages
 )

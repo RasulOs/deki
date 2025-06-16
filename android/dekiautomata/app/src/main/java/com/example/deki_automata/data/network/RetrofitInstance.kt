@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitInstance {
 
     // TODO: Replace with your backend base URL
-    private const val BASE_URL = "https://your_backend.com"
+    private const val BASE_URL = "https://your_backend"
 
     private val json = Json { ignoreUnknownKeys = true }
 

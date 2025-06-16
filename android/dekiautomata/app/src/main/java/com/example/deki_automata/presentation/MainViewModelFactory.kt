@@ -1,11 +1,9 @@
 package com.example.deki_automata.presentation
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.deki_automata.data.ActionRepository
-import com.example.deki_automata.data.ActionRepositoryImpl
-import com.example.deki_automata.domain.ExecuteAutomationUseCase
+import com.example.deki_automata.domain.repository.ActionRepository
+import com.example.deki_automata.domain.usecase.ExecuteAutomationUseCase
 
 // TODO update
 class MainViewModelFactory(

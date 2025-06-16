@@ -1,10 +1,12 @@
-package com.example.deki_automata.domain
+package com.example.deki_automata.domain.usecase
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.util.Log
-import com.example.deki_automata.data.ActionRepository
+import com.example.deki_automata.domain.ActionParser
+import com.example.deki_automata.domain.AutomationCommand
+import com.example.deki_automata.domain.repository.ActionRepository
 import com.example.deki_automata.service.DeviceController
 
 // TODO Extract context
@@ -31,10 +33,11 @@ class ExecuteAutomationUseCase(
         }
     }
 
-    // TODO remove maxSteps from client and move it to backend
     suspend fun runAutomation(prompt: String, device: DeviceController): String {
-        val maxSteps = 20
+        val maxSteps = 20 // Safety break to prevent infinite loops
         val allInstalledPackages by lazy { getInstalledPackages() }
+
+        var currentHistory = emptyList<String>()
 
         for (step in 1..maxSteps) {
             Log.d(TAG, "Step $step: Capturing screen")
@@ -42,17 +45,22 @@ class ExecuteAutomationUseCase(
                 ?: return "Automation Failed: Screen capture error"
 
             val promptForThisRequest = buildPrompt(prompt, step, allInstalledPackages)
+
             Log.d(TAG, "Sending action request with prompt:\n$promptForThisRequest")
 
             val result = repository.sendActionRequest(
                 prompt = promptForThisRequest,
                 screenshotBase64 = screenshot,
+                history = currentHistory,
             )
 
-            val responseString = result.getOrElse { e ->
+            val response = result.getOrElse { e ->
                 Log.e(TAG, "Action request failed", e)
                 return "Automation Failed: Network request failed - ${e.message}"
             }
+
+            currentHistory = response.history
+            val responseString = response.response
 
             Log.d(TAG, "Parsing response: $responseString")
             val command = ActionParser.parseResponse(responseString)
@@ -64,9 +72,9 @@ class ExecuteAutomationUseCase(
 
             if (command is AutomationCommand.ShowMessage) {
                 Log.i(TAG, "Automation finished. Message: ${command.message}")
-                if (command.message.equals("Finished", true)) {
+                if (command.message.equals("Finished", true))
                     device.returnToApp()
-                }
+
                 return command.message
             }
 
@@ -85,6 +93,12 @@ class ExecuteAutomationUseCase(
                 Log.e(TAG, "Command execution failed: $command")
                 device.returnToApp()
                 return "Automation Failed: Could not execute command $command"
+            }
+
+            if (currentHistory.isEmpty()) {
+                Log.w(TAG, "History was cleared by the server, but a terminal command was not issued. Finishing.")
+                device.returnToApp()
+                return "Automation finished: Server ended the session."
             }
 
             device.waitForIdle()

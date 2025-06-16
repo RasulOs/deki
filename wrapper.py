@@ -75,6 +75,7 @@ def process_image_description(
     process_image(
         input_image_path=input_image,
         yolo_output_path=label_file,
+        output_dir=output_dir,
         model_to_use=model_to_use,
         save_images=save_images,
         icon_model_path=icon_detection_path,
@@ -122,13 +123,24 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     try:
-        process_image_description(
-            input_image=args.input_image,
-            weights_file=args.weights_file,
-            output_dir=args.output_dir,
+        print("Running YOLO detection...")
+        yolo_output_dir = args.output_dir
+        os.makedirs(yolo_output_dir, exist_ok=True)
+        process_yolo(args.input_image, args.weights_file, yolo_output_dir)
+
+        base_name = splitext(basename(args.input_image))[0]
+        labels_dir = os.path.join(yolo_output_dir, 'yolo_labels_output', 'labels')
+        label_file = os.path.join(labels_dir, base_name + '.txt')
+        if not os.path.isfile(label_file):
+            raise FileNotFoundError(f"Labels file not found: {label_file}")
+
+        print("Running image description...")
+        process_image(
+            input_image_path=args.input_image,
+            yolo_output_path=label_file,
             model_to_use=args.model_to_use,
             save_images=args.save_images,
-            icon_detection_path=args.icon_detection_path,
+            icon_model_path=args.icon_detection_path,
             cache_directory=args.cache_directory,
             huggingface_token=args.huggingface_token,
             no_captioning=args.no_captioning,
@@ -140,3 +152,4 @@ if __name__ == '__main__':
     except Exception as e:
         print(e)
         sys.exit(1)
+

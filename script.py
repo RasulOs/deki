@@ -530,6 +530,7 @@ def process_single_region(
 def process_image(
     input_image_path,
     yolo_output_path,
+    output_dir:str = '.',
     model_to_use='llama',     
     save_images=False,
     icon_model_path=None,
@@ -702,9 +703,9 @@ def process_image(
 
 
     # Create output dirs
-    cropped_dir = "cropped_imageview_images"
+    cropped_dir = os.path.join(output_dir, "cropped_imageview_images")
     os.makedirs(cropped_dir, exist_ok=True)
-    result_dir = "result"
+    result_dir = os.path.join(output_dir, "result")
     os.makedirs(result_dir, exist_ok=True)
 
     base_name = os.path.splitext(os.path.basename(input_image_path))[0]
@@ -772,6 +773,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process an image and its YOLO labels.')
     parser.add_argument('input_image', help='Path to the input YOLO image.')
     parser.add_argument('input_labels', help='Path to the input YOLO labels file.')
+    parser.add_argument('--output_dir', default='.', 
+                        help='Directory to save output files. Defaults to the current directory.')
     parser.add_argument('--model_to_use', choices=['llama', 'blip'], default='llama',
                         help='Model for captioning (llama or blip).')
     parser.add_argument('--save_images', action='store_true',
@@ -792,6 +795,7 @@ if __name__ == "__main__":
     process_image(
         input_image_path=args.input_image,
         yolo_output_path=args.input_labels,
+        output_dir=args.output_dir,
         model_to_use=args.model_to_use,
         save_images=args.save_images,
         icon_model_path=args.icon_detection_path,

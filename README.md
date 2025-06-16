@@ -262,11 +262,24 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 Don't forget that a server expects 2 tokens. A first one for OpenAI and the
 second token for your backend (you can enter anything you want for the second
-one). 
+one).
 ```python
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 API_TOKEN = os.environ.get("API_TOKEN")
 ```
+
+To test if you have them already:
+```bash
+echo $OPENAI_API_KEY
+echo $API_TOKEN
+```
+
+If you want to test AI agent then run this command to get the public 
+url that your device can use (for testing):
+```bash
+ngrok http http://localhost:8000
+```
+
 ---
 
 ## deki automata: AI agent (Android)

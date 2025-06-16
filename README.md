@@ -46,14 +46,27 @@ python3.12 wrapper.py \
    --icon_detection_path ./icon-image-detection-model.keras
 ```
 
-Full pipeline without image detection and image captioning (much faster) and
-with json structured output (recommended):
+Full pipeline without image detection and image captioning (much faster),
+with json structured output and skipping a spell checker (recommended):
 
 ```bash
 python3.12 wrapper.py \
-   --input_image ./res/bb_1.jpeg \ 
+   --input_image ./res/bb_1.jpeg \
    --weights_file ./best.pt \
-   --no-captioning --json
+   --no-captioning \
+   --json --skip-spell 
+```
+
+Same as above but json-mini is used. json-mini has a smaller output size,
+recommended for AI agents (it is also a default configuration for an /action 
+endpoint used by AI agents):
+
+```bash
+python3.12 wrapper.py \
+   --input_image ./res/bb_1.jpeg \
+   --weights_file ./best.pt \
+   --no-captioning \
+   --json-mini --skip-spell 
 ```
 
 YOLO-Only
@@ -139,7 +152,7 @@ Corrected Text: 64 partners
 ********
 ```
 
-and if --json and --no-captioning are specified the output will look something like this:
+if --json and --no-captioning are specified the output will look something like this:
 ```json
 {
   "image": {
@@ -188,10 +201,29 @@ and if --json and --no-captioning are specified the output will look something l
 }
 ```
 
+and if --json-mini, --skip-spell and --no-captioning are specified the output
+will look something like this:
+```json
+{
+  "image_size": "[1080,2178]",
+  "bbox_format": "center_x, center_y, width, height",
+  "elements": [
+    {
+      "id": "text_1",
+      "bbox": "[942,46,225,56]",
+      "text": "34%"
+    },
+    {
+      "id": "image_2",
+      "bbox": "[158,47,267,55]"
+    },
+```
+
 I have not used the best examples that do not have errors, so as not to give
 people a false impression of the accuracy of the model. The examples you see
 are approximately the standard result that can usually be obtained using this
 model.
+
 
 ---
 
@@ -220,6 +252,23 @@ Better coordinates (source code: ./res/bb_2_gpt_4o.md and ./res/bb_2_gpt_4o_deki
 
 ---
 
+## Server init 
+
+To run server locally:
+```bash
+source .venv/bin/activate
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Don't forget that a server expects 2 tokens. A first one for OpenAI and the
+second token for your backend (you can enter anything you want for the second
+one). 
+```python
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+API_TOKEN = os.environ.get("API_TOKEN")
+```
+---
+
 ## deki automata: AI agent (Android)
 
 The code for android agent is in /android package.
@@ -240,12 +289,7 @@ sourced. But don't send, just return
 
 ## Gradio (Web frontend)
 
-To run server locally:
-```bash
-source .venv/bin/activate
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-```
-Then run gradio client:
+First, run a server locally and then run gradio client:
 ```bash
 python3.12 ./ui/uigrad.py
 ```
@@ -279,6 +323,12 @@ Current YOLO model accuracy:
     5. Add the command mode to generate short image description files. Done.
     6. Add an example of AI agent that can automate tasks in an Android OS using deki. Done.
     7. Fine-tune LLM for better AI agent capabilities. 
+    8. Decrease the size of deki output to reduce the usage of LLM's context
+       window. Every region should have 1 line description.
+    9. Add an iOS agent demo.
+    10. Add a comparisson with other AI agents.
+    11. Add an option to run deki fully locally on the device without internet
+        access (Object detection, OCR, Image Processing, LLM)
 
 ---
 

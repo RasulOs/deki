@@ -14,6 +14,8 @@ import argparse
 import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
+from utils.json_helpers import NoIndent, CustomEncoder
+
 
 # constants
 BARRIER = "********\n"
@@ -99,7 +101,7 @@ def downscale_for_ocr(image_cv, max_dim=600):
 # Worker function to process a single bounding box
 def process_single_region(
     idx, bounding_box, image, sr, reader, spell, icon_model,
-    processor, model, device, no_captioning, output_json,
+    processor, model, device, no_captioning, output_json, json_mini,
     cropped_imageview_images_dir, base_name, save_images,
     model_to_use, log_prefix="",
     skip_ocr=False,
@@ -115,46 +117,12 @@ def process_single_region(
     class_names = {0: 'View', 1: 'ImageView', 2: 'Text', 3: 'Line'}
     class_name = class_names.get(class_id, f'Unknown Class {class_id}')
     region_idx = idx + 1
-
-    # collect text output in a list, then join at the end
     logs = []
 
-    logs.append(f"\n{log_prefix}Region {region_idx} - Class ID: {class_id} ({class_name})")
     x_center = (x_min + x_max) // 2
     y_center = (y_min + y_max) // 2
-    logs.append(f"{log_prefix}Coordinates: x_center={x_center}, y_center={y_center}")
     width = x_max - x_min
     height = y_max - y_min
-    logs.append(f"{log_prefix}Size: width={width}, height={height}")
-
-    region_dict = {
-        "id": f"region_{region_idx}_class_{class_name}",
-        "x_coordinates_center": x_center,
-        "y_coordinates_center": y_center,
-        "width": width,
-        "height": height
-    }
-
-    # Crop region
-    cropped_image_region = image[y_min:y_max, x_min:x_max]
-    if cropped_image_region.size == 0:
-        logs.append(f"{log_prefix}Empty crop for Region {region_idx}, skipping...")
-        return {"region_dict": region_dict, "text_log": "\n".join(logs)}
-
-    # Save cropped region
-    if class_id == 0:
-        # Save as PNG if it's a View
-        cropped_path = os.path.join(
-            cropped_imageview_images_dir, f"region_{region_idx}_class_{class_id}.png"
-        )
-        cv2.imwrite(cropped_path, cropped_image_region)
-    else:
-        # Save as JPG
-        cropped_path = os.path.join(
-            cropped_imageview_images_dir, f"region_{region_idx}_class_{class_id}.jpg"
-        )
-        cv2.imwrite(cropped_path, cropped_image_region)
-
 
     def open_and_upscale_image(img_path, cid):
 
@@ -196,6 +164,83 @@ def process_single_region(
                 return sr.upsample(cv_image)
             else:
                 return cv2.resize(cv_image, (w * 2, h * 2), interpolation=cv2.INTER_CUBIC)
+
+    if json_mini:
+        simplified_class_name = class_name.lower().replace('imageview', 'image')
+        new_id = f"{simplified_class_name}_{region_idx}"
+        mini_region_dict = {
+            "id": new_id,
+            "bbox": NoIndent([x_center, y_center, width, height])
+        }
+        
+        # only need to process text for the mini format
+        if class_name == 'Text' and not skip_ocr:
+            cropped_image_region = image[y_min:y_max, x_min:x_max]
+            if cropped_image_region.size > 0:
+                # Save the cropped image so open_and_upscale_image can use it
+                cropped_path = os.path.join(cropped_imageview_images_dir, f"region_{region_idx}_class_{class_id}.jpg")
+                cv2.imwrite(cropped_path, cropped_image_region)
+
+                upscaled = open_and_upscale_image(cropped_path, class_id)
+                if upscaled is not None:
+                    if isinstance(upscaled, Image.Image):
+                        upscaled_cv = cv2.cvtColor(np.array(upscaled), cv2.COLOR_RGBA2BGR)
+                    else:
+                        upscaled_cv = upscaled
+                    
+                    gray = cv2.cvtColor(downscale_for_ocr(upscaled_cv), cv2.COLOR_BGR2GRAY)
+                    text = ' '.join(reader.readtext(gray, detail=0, batch_size=8)).strip()
+
+                    if text:
+                        if not skip_spell and spell:
+                            corrected_words  = []
+                            for w in text.split():
+                                corrected_words.append(spell.correction(w) or w)
+                            mini_region_dict["text"] = " ".join(corrected_words)
+                        else:
+                             mini_region_dict["text"] = text
+                
+                # Clean up the temporary cropped image
+                if os.path.exists(cropped_path) and not save_images:
+                    os.remove(cropped_path)
+
+        return {"mini_region_dict": mini_region_dict, "text_log": ""}
+
+    logs.append(f"\n{log_prefix}Region {region_idx} - Class ID: {class_id} ({class_name})")
+    x_center = (x_min + x_max) // 2
+    y_center = (y_min + y_max) // 2
+    logs.append(f"{log_prefix}Coordinates: x_center={x_center}, y_center={y_center}")
+    width = x_max - x_min
+    height = y_max - y_min
+    logs.append(f"{log_prefix}Size: width={width}, height={height}")
+
+    region_dict = {
+        "id": f"region_{region_idx}_class_{class_name}",
+        "x_coordinates_center": x_center,
+        "y_coordinates_center": y_center,
+        "width": width,
+        "height": height
+    }
+
+    # Crop region
+    cropped_image_region = image[y_min:y_max, x_min:x_max]
+    if cropped_image_region.size == 0:
+        logs.append(f"{log_prefix}Empty crop for Region {region_idx}, skipping...")
+        return {"region_dict": region_dict, "text_log": "\n".join(logs)}
+
+    # Save cropped region
+    if class_id == 0:
+        # Save as PNG if it's a View
+        cropped_path = os.path.join(
+            cropped_imageview_images_dir, f"region_{region_idx}_class_{class_id}.png"
+        )
+        cv2.imwrite(cropped_path, cropped_image_region)
+    else:
+        # Save as JPG
+        cropped_path = os.path.join(
+            cropped_imageview_images_dir, f"region_{region_idx}_class_{class_id}.jpg"
+        )
+        cv2.imwrite(cropped_path, cropped_image_region)
 
     # for LLaMA (ollama)
     def call_ollama(prompt_text, rid, task_type):
@@ -492,23 +537,27 @@ def process_image(
     huggingface_token='your_token', # for blip2
     no_captioning=False,
     output_json=False,
+    json_mini=False,
     sr=None,
     reader=None,
     spell=None,
     skip_ocr=False,
     skip_spell=False
 ):
-    # Prepare JSON output dictionary
-    json_output = {
-        "image": {
-            "path": input_image_path,
-            "size": {
-                "width": None,
-                "height": None
-            }
-        },
-        "elements": []
-    }
+    if json_mini:
+        json_output = {
+            "image_size": None, # Will be populated later
+            "bbox_format": "center_x, center_y, width, height",
+            "elements": []
+        }
+    elif output_json:
+        json_output = {
+            "image": {"path": input_image_path, "size": {"width": None, "height": None}},
+            "elements": []
+        }
+    else:
+        json_output = None
+
 
     start_time = time.perf_counter()
     print("super-resolution initialization start (in script.py)")
@@ -659,66 +708,64 @@ def process_image(
     os.makedirs(result_dir, exist_ok=True)
 
     base_name = os.path.splitext(os.path.basename(input_image_path))[0]
-    captions_filename = f"{base_name}_regions_captions.txt"
-    captions_file_path = os.path.join(result_dir, captions_filename)
-
-
-    # Write initial image info
-    def put_image_size_in_output_file():
-        h, w = image.shape[:2]
-        if output_json:
-            json_output["image"]["size"]["width"] = w
-            json_output["image"]["size"]["height"] = h
-        else:
-            with open(captions_file_path, 'w', encoding='utf-8') as f:
-                f.write(f"Image path: {input_image_path}\n")
-                f.write(f"Image Size: width={w}, height={h}\n")
-                f.write(BARRIER)
-        print(f"Image path: {input_image_path}")
-        print(f"Image Size: width={w}, height={h}")
-        print(BARRIER)
-
-    put_image_size_in_output_file()
+    captions_file_path = None
+    if json_mini:
+        json_output["image_size"] = NoIndent([image_width, image_height])
+    elif output_json:
+        json_output["image"]["size"]["width"] = image_width
+        json_output["image"]["size"]["height"] = image_height
+    else: # Text output
+        captions_filename = f"{base_name}_regions_captions.txt"
+        captions_file_path = os.path.join(result_dir, captions_filename)
+        with open(captions_file_path, 'w', encoding='utf-8') as f:
+            f.write(f"Image path: {input_image_path}\n")
+            f.write(f"Image Size: width={image_width}, height={image_height}\n")
+            f.write(BARRIER)
 
     # Number of workers can be increased if hardware is suitable for it. But testing is needed
     start_time = time.perf_counter()
     print("Process single region start (in script.py)")
-    all_results = []
+
     with ThreadPoolExecutor(max_workers=1) as executor:
-        futures_map = {}
-        for idx, box in enumerate(bounding_boxes):
-            future = executor.submit(
+        futures = [
+            executor.submit(
                 process_single_region,
                 idx, box, image, sr, reader, spell,
-                icon_model, processor, model, device,
-                no_captioning, output_json,
+                icon_model, processor, model, (model and device),
+                no_captioning, output_json, json_mini,
                 cropped_dir, base_name, save_images,
                 model_to_use, log_prefix="",
                 skip_ocr=skip_ocr,
                 skip_spell=skip_spell
-            )
-            futures_map[future] = idx
+            ) for idx, box in enumerate(bounding_boxes)
+        ]
 
-        for future in as_completed(futures_map):
-            item = future.result()  # { "region_dict":..., "text_log":... }
-            all_results.append(item)
+        for future in as_completed(futures):
+            item = future.result()
+            if json_mini:
+                if item.get("mini_region_dict"):
+                    json_output["elements"].append(item["mini_region_dict"])
+            elif output_json:
+                if item.get("region_dict"):
+                    json_output["elements"].append(item["region_dict"])
+            else: # Text output
+                if item.get("text_log") and captions_file_path:
+                    with open(captions_file_path, 'a', encoding='utf-8') as f:
+                        f.write(item["text_log"])
 
     elapsed = time.perf_counter() - start_time
-    print(f"Process single region (in script.py) took {elapsed:.3f} seconds.")
+    print(f"Processing regions took {elapsed:.3f} seconds.")
 
-    # Finalyzing JSON or captions text
-    if output_json:
-        for item in all_results:
-            region_info = item["region_dict"]
-            json_output["elements"].append(region_info)
+    if json_mini or output_json:
         json_file = os.path.join(result_dir, f"{base_name}.json")
         with open(json_file, 'w', encoding='utf-8') as f:
-            json.dump(json_output, f, indent=2, ensure_ascii=False)
-        print(f"JSON output written to {json_file}")
+            json.dump(json_output, f, indent=2, ensure_ascii=False, cls=CustomEncoder)
+        
+        output_type = "mini JSON" if json_mini else "JSON"
+        print(f"{output_type} output written to {json_file}")
     else:
-        with open(captions_file_path, 'a', encoding='utf-8') as f:
-            for item in all_results:
-                f.write(item["text_log"])
+        print(f"Text output written to {captions_file_path}")
+    
 
 # CLI entry point
 if __name__ == "__main__":
@@ -738,6 +785,8 @@ if __name__ == "__main__":
                         help='Disable any image captioning.')
     parser.add_argument('--json', dest='output_json', action='store_true',
                         help='Output the image data in JSON format')
+    parser.add_argument('--json-mini', action='store_true',
+                        help='Output the image data in a condensed JSON format')
     args = parser.parse_args()
 
     process_image(
@@ -749,5 +798,7 @@ if __name__ == "__main__":
         cache_directory=args.cache_directory,
         huggingface_token=args.huggingface_token,
         no_captioning=args.no_captioning,
-        output_json=args.output_json
+        output_json=args.output_json,
+        json_mini=args.json_mini
     )
+

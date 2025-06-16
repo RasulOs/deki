@@ -20,6 +20,7 @@ def process_image_description(
     huggingface_token: str = 'your_token',
     no_captioning: bool = False,
     output_json: bool = False,
+    json_mini: bool = False,
     model_obj: YOLO = None,
     sr=None,
     reader=None,
@@ -42,6 +43,7 @@ def process_image_description(
       - huggingface_token: Hugging Face token for model downloads.
       - no_captioning: If True, disable image captioning.
       - output_json: If True, output the results in JSON format.
+      - json_mini: same as output_json but has more compact json output.
       - model_obj: YOLO object that was initialized at a startup time (optional)
       - sr: Super resolution object (optional)
       - reader: EasyOCR object (optional)
@@ -80,6 +82,7 @@ def process_image_description(
         huggingface_token=huggingface_token,
         no_captioning=no_captioning,
         output_json=output_json,
+        json_mini=json_mini,
         sr=sr,
         reader=reader,
         spell=spell,
@@ -110,6 +113,8 @@ if __name__ == '__main__':
                         help='Disable any image captioning')
     parser.add_argument('--json', dest='output_json', action='store_true',
                         help='Output the image data in JSON format')
+    parser.add_argument('--json-mini', action='store_true',
+                        help='JSON output in a more condensed format')
     parser.add_argument('--skip-ocr', action='store_true',
                         help='Disable OCR & spell-checking (faster).')
     parser.add_argument('--skip-spell', action='store_true', help='Run OCR but skip spell-check')
@@ -128,6 +133,7 @@ if __name__ == '__main__':
             huggingface_token=args.huggingface_token,
             no_captioning=args.no_captioning,
             output_json=args.output_json,
+            json_mini=args.json_mini,
             skip_ocr=args.skip_ocr,
             skip_spell=args.skip_spell
         )

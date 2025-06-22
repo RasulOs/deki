@@ -309,7 +309,10 @@ sourced. But don't send, just return
 
 ## Gradio (Web frontend)
 
-First, run a server locally and then run gradio client:
+You can see how the model works on [[Huggingface Space](https://huggingface.co/spaces/orasul/deki)]
+
+But if you want to check gradio locally then first, run a server and
+then run gradio client:
 ```bash
 python3.12 ./ui/uigrad.py
 ```

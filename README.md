@@ -1,5 +1,7 @@
 # deki
 
+[[Huggingface Space](https://huggingface.co/spaces/orasul/deki)]
+
 **deki** is an ML model (or several models) that detects UI elements in
 screenshots (such as containers, text, and icons) and provides structured
 descriptions of those elements. It can help with:

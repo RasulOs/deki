@@ -1,7 +1,6 @@
 package com.example.deki_automata.service
 
 import android.accessibilityservice.AccessibilityService
-import android.accessibilityservice.AccessibilityServiceInfo
 import android.accessibilityservice.GestureDescription
 import android.app.Activity
 import android.app.Notification
@@ -11,7 +10,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Path
 import android.graphics.PixelFormat
@@ -25,19 +23,17 @@ import android.media.projection.MediaProjectionManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.os.IBinder
 import android.os.Looper
 import android.util.Base64
 import android.util.DisplayMetrics
 import android.util.Log
-import android.view.Display
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import com.example.deki_automata.R
-import com.example.deki_automata.domain.Direction
+import com.example.deki_automata.domain.model.Direction
 import com.example.deki_automata.presentation.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -184,7 +180,7 @@ class AutomataAccessibilityService : AccessibilityService(), DeviceController {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        event?.recycle()
+         Log.d(TAG, "onAccessibilityEvent: ${event?.eventType}")
     }
 
     private fun startMediaProjectionForegroundService(resultCode: Int, resultData: Intent) {

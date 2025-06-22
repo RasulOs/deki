@@ -69,8 +69,6 @@ def process_yolo(input_image, weights_file: str, output_dir: str = './yolo_run',
     output_image_name = f"{base_name}_yolo{ext}"
     updated_output_image_name = f"{base_name}_yolo_updated{ext}"
 
-    print(ultralytics.checks())
-
     # If input_image is a file path, call YOLO with the path to preserve filename-based labeling.
     # Otherwise, if processing in-memory, YOLO might default to a generic name.
     if isinstance(input_image, str):
@@ -84,19 +82,12 @@ def process_yolo(input_image, weights_file: str, output_dir: str = './yolo_run',
     else:
         model = model_obj
 
-    # Delete existing label file for this image (if it exists) so that detections are rewritten and not appended
-    labels_dir = os.path.join(output_dir, "yolo_labels_output", "labels")
-    expected_label_file = os.path.join(labels_dir, f"{base_name}.txt")
-    if os.path.exists(expected_label_file):
-        print(f"Deleting existing label file: {expected_label_file}")
-        os.remove(expected_label_file)
-
     results = model(
-        source=source_input, 
-        save_txt=True, 
-        project=output_dir, 
-        name="yolo_labels_output",
-        exist_ok=True
+        source=source_input,
+        save_txt=True,
+        project=output_dir,
+        name='.',
+        exist_ok=True,
     )
 
     # Save the initial inference image.
@@ -105,13 +96,11 @@ def process_yolo(input_image, weights_file: str, output_dir: str = './yolo_run',
     cv2.imwrite(output_image_path, img_with_boxes)
     print(f"Image saved as '{output_image_path}'")
 
-    # Directory containing label files.
-    labels_dir = os.path.join(output_dir, 'yolo_labels_output', 'labels')
-    # Search for txt files whose filenames contain the original base name.
-    label_files = [f for f in glob.glob(os.path.join(labels_dir, '*.txt')) if base_name in os.path.basename(f)]
-    if not label_files:
-        raise FileNotFoundError(f"No label files found for the image '{base_name}'.")
-    label_file = label_files[0]
+    labels_dir = os.path.join(output_dir, 'labels')
+    label_file = os.path.join(labels_dir, f"{base_name}.txt")
+    
+    if not os.path.isfile(label_file):
+        raise FileNotFoundError(f"No label files found for the image '{base_name}' at path '{label_file}'.")
 
     with open(label_file, 'r') as f:
         lines = f.readlines()

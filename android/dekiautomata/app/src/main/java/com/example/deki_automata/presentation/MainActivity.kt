@@ -30,6 +30,8 @@ import com.example.deki_automata.data.repository.ActionRepositoryImpl
 import com.example.deki_automata.domain.usecase.ExecuteAutomationUseCase
 import com.example.deki_automata.service.AutomataAccessibilityService
 import com.example.deki_automata.ui.theme.DekiAutomataTheme
+import com.example.deki_automata.util.ResultEventBus
+import kotlinx.coroutines.flow.collectLatest
 
 class MainActivity : ComponentActivity() {
 
@@ -114,6 +116,12 @@ class MainActivity : ComponentActivity() {
             DekiAutomataTheme {
                 val uiState by viewModel.uiState.collectAsState()
 
+                LaunchedEffect(key1 = viewModel) {
+                    ResultEventBus.events.collectLatest { message ->
+                        viewModel.setResultMessage(message)
+                    }
+                }
+
                 LaunchedEffect(Unit) {
                     Log.d(TAG, "LaunchedEffect: Checking permissions and requesting Audio")
                     viewModel.processIntent(AutomationIntent.CheckPermissionsAndServices, this@MainActivity)
@@ -135,7 +143,7 @@ class MainActivity : ComponentActivity() {
                     onRequestAccessibility = ::openAccessibilitySettings,
                     onRequestRecordAudio = { requestRecordAudioPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO) },
                     onRequestMediaProjection = { requestMediaProjectionLauncher.launch(mediaProjectionManager.createScreenCaptureIntent()) },
-                    onResetResult = { viewModel.processIntent(AutomationIntent.ResetResult) },
+                    onResetResult = { viewModel.clearResultMessage() },
                     onDismissPermissionGuidance = { viewModel.processIntent(AutomationIntent.DismissPermissionGuidance) }
                 )
             }

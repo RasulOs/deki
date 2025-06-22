@@ -1,6 +1,6 @@
 package com.example.deki_automata.service
 
-import com.example.deki_automata.domain.Direction
+import com.example.deki_automata.domain.model.Direction
 
 interface DeviceController {
     fun captureScreenBase64(): String?

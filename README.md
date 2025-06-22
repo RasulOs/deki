@@ -216,7 +216,9 @@ will look something like this:
     {
       "id": "image_2",
       "bbox": "[158,47,267,55]"
-    },
+    }
+  ]
+}
 ```
 
 I have not used the best examples that do not have errors, so as not to give
@@ -297,6 +299,9 @@ Prompt: go home, and swipe left, then right, then up, then down
 Prompt: Open linkedin,  tap post and write: hi, it is deki, and now I am open
 sourced. But don't send, just return
 [Youtube](https://www.youtube.com/shorts/4D4JuQKJ48c)
+
+2 Android AI agents running at the same time
+[Youtube](https://youtube.com/shorts/jsJcSwy6djI?feature=share)
 
 ---
 

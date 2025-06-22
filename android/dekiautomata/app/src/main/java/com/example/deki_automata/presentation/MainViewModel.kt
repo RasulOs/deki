@@ -10,10 +10,13 @@ import com.example.deki_automata.domain.repository.ActionRepository
 import com.example.deki_automata.domain.usecase.ExecuteAutomationUseCase
 import com.example.deki_automata.service.AutomataAccessibilityService
 import com.example.deki_automata.service.ServiceInternalState
+import com.example.deki_automata.util.ResultEventBus
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
@@ -225,19 +228,12 @@ class MainViewModel(
         viewModelScope.launch {
             automationJob?.cancelAndJoin()
             automationJob = launch {
-                val outcome = runCatching { useCase.runAutomation(prompt, service.controller) }
-                outcome.onSuccess { result ->
-                    if (isActive) {
-                        _uiState.update {
-                            it.copy(isProcessing = false, resultMessage = result, promptText = "")
-                        }
-                    }
-                }.onFailure { e ->
-                    if (isActive) {
-                        _uiState.update {
-                            it.copy(isProcessing = false, resultMessage = "Failed: ${e.message}")
-                        }
-                    }
+                if (latestServiceState.controller == null) return@launch
+                val outcome = runCatching { useCase.runAutomation(prompt, latestServiceState.controller!!) }
+                val resultMessage = outcome.getOrElse { e -> "Failed: ${e.message}" }
+                if (isActive) {
+                    _uiState.update { it.copy(isProcessing = false, promptText = "") }
+                    ResultEventBus.post(resultMessage)
                 }
             }
         }
@@ -255,6 +251,14 @@ class MainViewModel(
         val serviceEnabled = enabledServices.any { it.id.equals(expectedServiceName, ignoreCase = true) }
         Log.d("ViewModel", "Accessibility Service Check: ${if (serviceEnabled) "ENABLED" else "DISABLED"}")
         return serviceEnabled
+    }
+
+    fun setResultMessage(message: String) {
+        _uiState.update { it.copy(resultMessage = message) }
+    }
+
+    fun clearResultMessage() {
+        _uiState.update { it.copy(resultMessage = null) }
     }
 
     override fun onCleared() {

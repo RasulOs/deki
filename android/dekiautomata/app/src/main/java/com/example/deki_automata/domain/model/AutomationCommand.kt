@@ -1,4 +1,4 @@
-package com.example.deki_automata.domain
+package com.example.deki_automata.domain.model
 
 sealed class AutomationCommand {
     data class Swipe(val direction: Direction, val startX: Int, val startY: Int) : AutomationCommand()

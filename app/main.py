@@ -58,7 +58,6 @@ if not OPENAI_API_KEY or not API_TOKEN:
 
 openai.api_key = OPENAI_API_KEY
 
-YOLO_MODEL = None
 GLOBAL_SR = None
 GLOBAL_READER = None
 GLOBAL_SPELL = None
@@ -77,10 +76,7 @@ def load_models():
     """
     Called once when FastAPI starts.
     """
-    global YOLO_MODEL, GLOBAL_SR, GLOBAL_READER, GLOBAL_SPELL, LLM_CLIENT
-    logging.info("Loading YOLO model ...")
-    YOLO_MODEL = YOLO("best.pt")
-    logging.info("YOLO model loaded successfully.")
+    global GLOBAL_SR, GLOBAL_READER, GLOBAL_SPELL, LLM_CLIENT
 
     # Super-resolution
     logging.info("Loading super-resolution model ...")
@@ -175,8 +171,6 @@ def run_wrapper(image_path: str, output_dir: str, skip_ocr: bool = False, skip_s
     Calls process_image_description() to perform YOLO detection and image description,
     then reads the resulting JSON or text file from ./result.
     """
-    start_time = time.perf_counter()
-    logging.info("run_wrapper start")
 
     weights_file = "best.pt"
     no_captioning = True
@@ -189,15 +183,12 @@ def run_wrapper(image_path: str, output_dir: str, skip_ocr: bool = False, skip_s
         no_captioning=no_captioning,
         output_json=output_json,
         json_mini=json_mini,
-        model_obj=YOLO_MODEL,
         sr=GLOBAL_SR,
         spell=None if skip_ocr else GLOBAL_SPELL,
         reader=None if skip_ocr else GLOBAL_READER,
         skip_ocr=skip_ocr,
-        skip_spell=skip_spell
+        skip_spell=skip_spell,
     )
-    elapsed = time.perf_counter() - start_time
-    logging.info(f"process_image_description (run_wrapper) took {elapsed:.3f} seconds.")
 
     base_name = os.path.splitext(os.path.basename(image_path))[0]
     result_dir = os.path.join(output_dir, "result") 
@@ -261,12 +252,15 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
         save_base64_image(request.image, original_image_path)
 
         try:
-            image_description = run_wrapper(
-                image_path=original_image_path,
-                output_dir=temp_dir, 
-                skip_ocr=False, 
-                skip_spell=True, 
-                json_mini=True
+            loop = asyncio.get_running_loop()
+            image_description = await loop.run_in_executor(
+                None,
+                run_wrapper,
+                original_image_path,
+                temp_dir,
+                False,
+                True,
+                True,
             )
         except Exception as e:
             logging.exception("Image processing failed in action endpoint.")
@@ -312,7 +306,6 @@ and can be changed based on the context:
 12. "Answer: There are no new important mails today" (or other answer)
 13. "Finished" (task is finished)
 14. "Can't proceed" (can't understand what to do or image has problem etc.)
-
 
 The user said: "{request.prompt}"
 

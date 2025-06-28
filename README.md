@@ -253,16 +253,18 @@ sourced. But don't send, just return
 
 ## Agent Performance Evaluation
 
-deki was evaluated on the **Android Control** benchmark from the ScreenSuite
-collection. This benchmark measures an agent's ability to perform a sequence of
+**Android Control** benchmark from the ScreenSuite
+collection measures an agent's ability to perform a sequence of
 actions on a variety of Android apps. The primary metric is **Action
 Accuracy**, which measures how often the agent chooses the correct action.
 
 The deki agent, which is **vision-only** and does not use accessibility data,
 was tested over 143 cases (143 for deki+gpt-4o and 143 for deki+gpt-4.1).
 
-The results show that deki significantly enhances the performance of
-general-purpose LLMs, outperforming several other notable models.
+The results show that augmenting image description to the prompt for the LLM and
+adding Set of Mark prompting significantly enhances the performance of
+general-purpose LLMs, outperforming several other notable models which 
+were specifically trained for the agentic usage.
 
 | Agent / Model            | Android Control Accuracy |
 | ------------------------ | ------------------------ |

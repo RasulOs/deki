@@ -127,9 +127,9 @@ class ExecuteAutomationUseCase(
             }
 
             Log.i(TAG, "Executing command: $command")
-            // TODO add zoom in/out, volume up/down, turn on/off commands
+            // TODO add zoom in/out, volume up/down, turn on/off commands, long press
             val success = when (command) {
-                is AutomationCommand.Swipe -> device.swipe(command.direction, command.startX, command.startY)
+                is AutomationCommand.Swipe -> device.swipe(command.direction, command.startX, command.startY) // TODO replace to swipe from to
                 is AutomationCommand.Tap -> device.tap(command.x, command.y)
                 is AutomationCommand.InsertText -> device.insertText(command.x, command.y, command.text)
                 is AutomationCommand.OpenApp -> device.openApp(command.packageName)

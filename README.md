@@ -96,16 +96,16 @@ high quality results because the image description is quite long and complex.
 You can see examples in the result/ and output/ folders.
 
 Bounding boxes with classes for bb_1:
-![example](output/bb_1_yolo.jpeg)
+<img src="output/bb_1_yolo.jpeg" alt="example1" width="60%">
 
 Bounding boxes without classes but with IDs after NMS for bb_1:
-![example2](output/bb_1_yolo_updated.jpeg)
+<img src="output/bb_1_yolo_updated.jpeg" alt="example2" width="60%">
 
 Bounding boxes with classes for bb_2:
-![example3](output/bb_2_yolo.jpeg)
+<img src="output/bb_2_yolo.jpeg" alt="example3" width="60%">
 
 Bounding boxes without classes but with IDs after NMS for bb_2:
-![example4](output/bb_2_yolo_updated.jpeg)
+<img src="output/bb_2_yolo_updated.jpeg" alt="example4" width="60%">
 
 Text output will look something like this (if --json and --no_captioning are not specified):
 ```text

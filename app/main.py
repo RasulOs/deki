@@ -217,6 +217,7 @@ def run_wrapper(image_path: str, output_dir: str, skip_ocr: bool = False, skip_s
 async def root():
     return {"message": "deki"}
 
+
 @app.post("/action", response_model=ActionResponse)
 @with_semaphore(timeout=60)
 async def action(request: ActionRequest, token: str = Depends(verify_token)):
@@ -396,7 +397,7 @@ async def generate(request: ActionRequest, token: str = Depends(verify_token)):
     ]
     
     try:
-        response = LLM_CLIENT.chat.completions.create(model="gpt-4.1", messages=messages, temperature=0.2)
+        response = LLM_CLIENT.chat.completions.create(model="gpt-4o", messages=messages, temperature=0.2)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")
 

@@ -228,6 +228,56 @@ people a false impression of the accuracy of the model. The examples you see
 are approximately the standard result that can usually be obtained using this
 model.
 
+---
+
+## deki automata: AI agent (Android)
+
+The code for android agent is in /android package.
+
+Demos:
+
+Prompt: Open signal and say what was the last message from my friend Omar
+[Youtube](https://www.youtube.com/shorts/-Ctf6QEXQw8)
+
+Prompt: go home, and swipe left, then right, then up, then down
+[Youtube](https://www.youtube.com/shorts/x5w6dC6bFmw)
+
+Prompt: Open linkedin,  tap post and write: hi, it is deki, and now I am open
+sourced. But don't send, just return
+[Youtube](https://www.youtube.com/shorts/4D4JuQKJ48c)
+
+2 Android AI agents running at the same time
+[Youtube](https://youtube.com/shorts/jsJcSwy6djI?feature=share)
+
+---
+
+## Agent Performance Evaluation
+
+deki was evaluated on the **Android Control** benchmark from the ScreenSuite
+collection. This benchmark measures an agent's ability to perform a sequence of
+actions on a variety of Android apps. The primary metric is **Action
+Accuracy**, which measures how often the agent chooses the correct action.
+
+The deki agent, which is **vision-only** and does not use accessibility data,
+was tested over 143 cases (143 for deki+gpt-4o and 143 for deki+gpt-4.1).
+
+The results show that deki significantly enhances the performance of
+general-purpose LLMs, outperforming several other notable models.
+
+| Agent / Model            | Android Control Accuracy |
+| ------------------------ | ------------------------ |
+| **deki + GPT-4.1**       | **70.7%**                |
+| **deki + GPT-4o**        | **66.5%**                |
+| ---                      | ---                      |
+| Qwen2.5-VL-72B           | 66.6%                    |
+| Holo1-7B                 | 49.4%                    |
+| GPT-4o (standalone)      | 48.2%                    |
+| Qwen2.5-VL-32B           | 47.4%                    |
+| Qwen2.5-VL-7B            | 47.3%                    |
+| Qwen2.5-VL-3B            | 27.5%                    |
+
+*For full transparency, the raw log files, evaluation results, code updates can
+be found in the /evaluation_logs/android_control directory.*
 
 ---
 
@@ -283,27 +333,6 @@ url that your device can use (for testing):
 ```bash
 ngrok http http://localhost:8000
 ```
-
----
-
-## deki automata: AI agent (Android)
-
-The code for android agent is in /android package.
-
-Demos:
-
-Prompt: Open signal and say what was the last message from my friend Omar
-[Youtube](https://www.youtube.com/shorts/-Ctf6QEXQw8)
-
-Prompt: go home, and swipe left, then right, then up, then down
-[Youtube](https://www.youtube.com/shorts/x5w6dC6bFmw)
-
-Prompt: Open linkedin,  tap post and write: hi, it is deki, and now I am open
-sourced. But don't send, just return
-[Youtube](https://www.youtube.com/shorts/4D4JuQKJ48c)
-
-2 Android AI agents running at the same time
-[Youtube](https://youtube.com/shorts/jsJcSwy6djI?feature=share)
 
 ---
 

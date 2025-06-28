@@ -1,0 +1,10 @@
+{
+    "benchmark_name": "android_control",
+    "metrics": {
+        "action_acc": 0.6652042997437431,
+        "action_acc_confidence_interval_lower": 0.6011519838038304,
+        "action_acc_confidence_interval_upper": 0.7281123080159041,
+        "proportion_missing": 0.0,
+        "count_samples": 143
+    }
+}

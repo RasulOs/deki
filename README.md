@@ -1,6 +1,6 @@
 # deki
 
-[[Huggingface Space](https://huggingface.co/spaces/orasul/deki)]
+[Huggingface Space](https://huggingface.co/spaces/orasul/deki)
 
 **deki** is an ML model (or several models) that detects UI elements in
 screenshots (such as containers, text, and icons) and provides structured
@@ -257,17 +257,20 @@ sourced. But don't send, just return
 
 ## Agent Performance Evaluation
 
+[Huggingface Model Hub](https://huggingface.co/orasul/deki-yolo)
+
 **Android Control** benchmark from the ScreenSuite
-collection measures an agent's ability to perform a sequence of
-actions on a variety of Android apps. The primary metric is **Action
-Accuracy**, which measures how often the agent chooses the correct action.
+collection measures an agent's ability to perform single tasks on a variety of
+Android apps. The primary metric is **Action Accuracy**, 
+which measures how often the agent chooses the correct action, with correct coordinates,
+directions, action type etc.
 
 The deki agent, which is **vision-only** and does not use accessibility data,
 was tested over 143 cases (143 for deki+gpt-4o and 143 for deki+gpt-4.1).
 
 The results show that augmenting image description to the prompt for the LLM and
-adding Set of Mark prompting significantly enhances the performance of
-general-purpose LLMs, outperforming several other notable models which 
+adding Set of Mark prompting improves the performance of
+general-purpose LLMs, outperforming several other strong models which 
 were specifically trained for the agentic usage.
 
 | Agent / Model            | Android Control Accuracy |

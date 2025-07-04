@@ -1,0 +1,32 @@
+                                      task_num  num_complete_trials  mean_success_rate  mean_episode_length  total_runtime_s  num_fail_trials
+AudioRecorderRecordAudio                     0                 1.00               1.00                 7.00           106.80             0.00
+AudioRecorderRecordAudioWithFileName         1                 1.00               1.00                15.00           207.60             0.00
+BrowserDraw                                  2                 1.00               0.00                20.00           323.50             0.00
+BrowserMaze                                  3                 1.00               0.00                20.00           286.30             0.00
+BrowserMultiply                              4                 1.00               1.00                22.00           319.40             0.00
+CameraTakePhoto                              5                 1.00               1.00                 3.00            36.20             0.00
+CameraTakeVideo                              6                 1.00               1.00                 9.00          1118.30             0.00
+ClockStopWatchPausedVerify                   7                 1.00               1.00                 7.00           116.30             0.00
+ClockStopWatchRunning                        8                 1.00               1.00                 4.00            44.80             0.00
+ClockTimerEntry                              9                 1.00               1.00                  7.0            311.8             0.00
+ContactsAddContact                          10                 1.00               1.00                11.00           149.10             0.00
+ContactsNewContactDraft                     11                 1.00               1.00                11.00           153.20             0.00
+ExpenseAddMultiple                          12                 1.00               1.00                39.00          1031.50             0.00
+ExpenseAddMultipleFromGallery               13                 0.00               0.00                30.00           435.40             0.00
+ExpenseAddMultipleFromMarkor                14                 1.00               0.00                23.00           312.20             0.00
+ExpenseAddSingle                            15                 1.00               1.00                12.00           178.50             0.00
+ExpenseDeleteDuplicates                     16                 1.00               1.00                12.00           153.60             0.00
+ExpenseDeleteDuplicates2                    17                 1.00               0.00                 18.0           519.90             0.00
+ExpenseDeleteMultiple                       18                 1.00               1.00                 11.0           139.90             0.00
+ExpenseDeleteMultiple2                      19                 1.00               1.00                 19.0           226.90             0.00
+ExpenseDeleteSingle                         20                 1.00               1.00                  5.0            65.80             0.00
+FilesDeleteFile                             21                 1.00               1.00                 10.0           318.40             0.00
+FilesMoveFile                               22                 1.00               1.00                 18.0           265.40             0.00
+MarkorAddNoteHeader                         23                 1.00               0.00                 12.0            193.8             0.00
+MarkorChangeNoteContent,                    24                 1.00               0.00                                                      
+MarkorCreateFolder                          25                 1.00               0.00                 10.0            300.7             0.00
+MarkorCreateNote                            26                 1.00               0.00                  9.0           1025.5             0.00
+
+***********************************************************
+
+Mean succes rate: 0.66

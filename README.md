@@ -1,6 +1,6 @@
 # deki
 
-[Huggingface Space](https://huggingface.co/spaces/orasul/deki)
+[Huggingface Space](https://huggingface.co/spaces/orasul/deki) [Huggingface Model](https://huggingface.co/orasul/deki-yolo)
 
 **deki** is an ML model (or several models) that detects UI elements in
 screenshots (such as containers, text, and icons) and provides structured
@@ -257,8 +257,7 @@ sourced. But don't send, just return
 
 ## Agent Performance Evaluation
 
-[Huggingface Model Hub](https://huggingface.co/orasul/deki-yolo)
-
+### Android Control
 **Android Control** benchmark from the ScreenSuite
 collection measures an agent's ability to perform single tasks on a variety of
 Android apps. The primary metric is **Action Accuracy**, 
@@ -287,6 +286,41 @@ were specifically trained for the agentic usage.
 
 *For full transparency, the raw log files, evaluation results, code updates can
 be found in the /evaluation_logs/android_control directory.*
+
+### Android World
+**Android World** benchmark measures multi step accuracy of agents. An agent
+implementetion is done by Android World and all participants can only extend
+the base agent class to update several methods. 
+
+deki was tested on subset of Android World benchmark - 27 tasks.
+
+The complete logs and code used for the evaluation are available in the
+`/evaluations_logs/android_world/` directory.
+
+### Leaderboard
+
+| Agent | Foundation Model | Success Rate (pass@1) | Open? | Model Size | Screen Representation |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Human | Human | 80.0% | - | - | - |
+| **deki** | **Gemini 2.5 Pro** | **66.0%** | **✓** | **-** | **Screenshot** |
+| DroidRun | Gemini 2.5 Pro | 63% | ✓ | - | Screenshot + A11y tree |
+| Seed1.5-VL | Seed1.5-VL | 62.1% | ✓ | 20.B | Screenshot + A11y tree |
+| OSCAR | GPT-4o | 61.6% (k=4) | x | - | Screenshot |
+| JT-GUIAgent-V1 | JT-GUIAgent-V1 | 60.0% | x | - | Screenshot |
+| V-Droid Paper | V-Droid (Llama8B) | 59.5% | x | 8B | A11y tree |
+| Agent S2 | Agent S2 | 54.3% | ✓ | - | Screenshot |
+| GUI-Explorer | GPT-4o | 47.4% | ✓ | - | Screenshot + A11y tree |
+| AndroidGen | GPT-4o | 46.8% | ✓ | - | A11y tree |
+| UI-TARS | UI-TARS | 46.6% | ✓ | 72B | Screenshot |
+| Aria-UI | GPT-4o + Aria-UI | 44.8% | ✓ | - | Screenshot |
+| ScaleTrack | ScaleTrack-7B | 44.0% | x | 8B | A11y tree |
+| UGround | GPT-4o + UGround | 44.0% | ✓ | - | Screenshot |
+| Mirage-1 | GPT-4o | 42.2% | ✓ | - | Screenshot |
+| Ponder & Press | GPT-4o | 34.5% | x | - | Screenshot |
+| AndroidWorld | GPT-4 Turbo | 30.6% | ✓ | - | A11y tree |
+| GUI-Critic-R1 | Qwen-2.5-VL-7B | 27.6% | ✓ | 7B | Screenshot + A11y tree |
+| EcoAgent | GPT-4o, OS-Atlas-Pi | 27.6% | x | - | Screenshot |
+| InfiGUIAgent | Qwen2-VL-2B | 9.0% | ✓ | 2B | Screenshot |
 
 ---
 

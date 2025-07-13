@@ -228,7 +228,7 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
     3. Reads the YOLO-updated image file.
     4. Preprocesses the YOLO-updated image.
     5. Constructs a prompt for ChatGPT (using description + preprocessed YOLO image) and sends it.
-    6. Returns the command response.
+    6. Returns the reasoning + command response.
     """
     start_time = time.perf_counter()
     logging.info("action endpoint start")
@@ -240,8 +240,7 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
     # Check if the step limit is reached.
     if action_step_count >= ACTION_STEPS_LIMIT:
         logging.warning(f"Step limit of {ACTION_STEPS_LIMIT} reached. Resetting history.")
-        # Return a clear response and an empty history to reset the client.
-        return ActionResponse(response="Step limit is reached", history=[])
+        return ActionResponse(response=json.dumps({"reason": "Step limit reached.", "action": "\"Finished\""}), history=[])
 
     # Use a temporary directory to isolate all files for this request.
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -286,14 +285,14 @@ async def action(request: ActionRequest, token: str = Depends(verify_token)):
     base64_image_url = f"data:image/png;base64,{new_b64}"
 
     current_step = action_step_count + 1
-    previous_steps_text = ""
-    if action_step_history:
-        previous_steps_text = "\nPrevious steps:\n" + "\n".join(f"{i+1}. {step}" for i, step in enumerate(action_step_history))
+    previous_steps_text = "\nPrevious Actions and Reasoning:\n" + "\n".join(f"- Step {i+1}: {step}" for i, step in enumerate(action_step_history)) if action_step_history else "This is the first step."
 
-    prompt_text = f"""You are an AI agent that controls a mobile device and sees the content of screen.
-User can ask you about some information or to do some task and you need to do these tasks.
-You can only respond with one of these commands (in quotes) but some variables are dynamic
-and can be changed based on the context:
+    prompt_text = f"""You are an AI agent controlling a mobile device. Your task is to follow a user's instruction.
+Analyze the provided screenshot, its element description, and the history of past actions to decide the next best command.
+
+Your response MUST be a single, valid JSON object with two keys: "reason" and "action".
+- "reason": What you see on the screen and an explanation for your chosen action.
+- "action": ONE of the following commands as a string (with quotes):
 1. "Swipe left. From start coordinates 300, 400" (or other coordinates) (Goes right)
 2. "Swipe right. From start coordinates 500, 650" (or other coordinates) (Goes left)
 3. "Swipe top. From start coordinates 600, 510" (or other coordinates) (Goes bottom)
@@ -308,41 +307,69 @@ and can be changed based on the context:
 13. "Finished" (task is finished)
 14. "Can't proceed" (can't understand what to do or image has problem etc.)
 
-The user said: "{request.prompt}"
+User's Goal: "{request.prompt}"
 
-Current step: {current_step}
+Current Step: {current_step}
 {previous_steps_text}
 
 I will share the screenshot of the current state of the phone (with UI elements highlighted and the corresponding 
 index of these UI elements) and the description (sizes, coordinates and indexes) of UI elements.
 Description:
-"{image_description}" """
+"{image_description}" 
+
+Now, provide your response as a single JSON object.
+Example response format:
+{{
+  "reason": "I see the sign-up screen with a user logo on the center, 2 input fields below which say 'Email' and 'Password', eye toggle icon on the right side of 'Password' text, and 2 buttons below with texts 'Cancel' and 'Continue'. To complete the sign-up, I need to tap the 'Continue' button.",
+  "action": "Tap coordinates 540, 1850"
+}}
+"""
+
+    logging.info(f"previous_steps_text: {previous_steps_text}")
     
     messages = [
+        {"role": "system", "content": "You are a helpful AI assistant that provides responses in a specific JSON format."},
         {"role": "user", "content": [{"type": "text", "text": prompt_text}, {"type": "image_url", "image_url": {"url": base64_image_url, "detail": "high"}}]}
     ]
 
     try:
-        response = LLM_CLIENT.chat.completions.create(model="gpt-4.1", messages=messages, temperature=0.2)
+        response = LLM_CLIENT.chat.completions.create(
+                model="gpt-4.1", 
+                messages=messages,
+                temperature=0.2,
+                response_format={"type": "json_object"},
+                )
     except Exception as e:
         logging.exception("OpenAI API error.")
         raise HTTPException(status_code=500, detail=f"OpenAI API error: {e}")
 
-    command_response = response.choices[0].message.content.strip()
+    logging.info(f"Sending request to remote LLM")
 
-    action_step_history.append(command_response)
+    command_response_json_str = response.choices[0].message.content.strip()
+    
+    try:
+        command_json = json.loads(command_response_json_str)
+        action_str = command_json.get("action", "").strip().strip('\'"').lower()
+    except (json.JSONDecodeError, AttributeError):
+        logging.error(f"Failed to parse LLM JSON response: {command_response_json_str}")
+        command_response_json_str = json.dumps({
+            "reason": "Error parsing the model's response.",
+            "action": "\"Can't proceed\""
+        })
+        action_str = "can't proceed"
 
-    command_lower = command_response.strip().strip('\'"').lower()
-    if command_lower.startswith(("answer:", "finished", "can't proceed")):
-        logging.info(f"Terminal command received ('{command_response}'). Resetting history for next turn.")
+    action_step_history.append(command_response_json_str)
+    
+    if action_str.startswith(("answer:", "finished", "can't proceed")) or "step limit is reached" in action_str:
+        logging.info(f"Terminal command received ('{action_str}'). Resetting history for next turn.")
         final_history = []
     else:
         final_history = action_step_history
     
     logging.info(f"action endpoint total processing time: {time.perf_counter()-start_time:.3f} seconds.")
-    logging.info(f"Response: {command_response}, History length for next turn: {len(final_history)}")
+    logging.info(f"Response: {command_response_json_str}, History length for next turn: {len(final_history)}")
 
-    return ActionResponse(response=command_response, history=final_history)
+    return ActionResponse(response=command_response_json_str, history=final_history)
 
 
 @app.post("/generate")
@@ -470,4 +497,3 @@ async def analyze_and_get_yolo(request: AnalyzeRequest, token: str = Depends(ver
         "description": analyzed_description,
         "yolo_image": yolo_image_encoded
     })
-

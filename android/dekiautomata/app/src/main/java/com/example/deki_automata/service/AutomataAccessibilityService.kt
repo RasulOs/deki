@@ -71,30 +71,6 @@ class AutomataAccessibilityService : AccessibilityService(), DeviceController {
     private val imageListenerHandler = Handler(Looper.getMainLooper())
     private var statusBarHeightPx: Int = 0
 
-
-    companion object {
-        private const val TAG = "AutomataService"
-        private val _serviceInternalState = MutableStateFlow(ServiceInternalState(null, false))
-        val serviceInternalStateFlow: StateFlow<ServiceInternalState> = _serviceInternalState.asStateFlow()
-        const val ACTION_START_MEDIA_PROJECTION = "com.example.deki_automata.action.START_PROJECTION"
-        const val ACTION_STOP_MEDIA_PROJECTION = "com.example.deki_automata.action.STOP_PROJECTION"
-        const val EXTRA_RESULT_CODE = "com.example.deki_automata.extra.RESULT_CODE"
-        const val EXTRA_RESULT_DATA = "com.example.deki_automata.extra.RESULT_DATA"
-        const val NOTIFICATION_CHANNEL_ID = "DekiAutomataMediaProjectionChannel"
-        const val NOTIFICATION_ID = 1001
-        private var instance: AutomataAccessibilityService? = null
-        fun stopProjection(context: Context) {
-            Log.d(TAG, "Static stopProjection called")
-            val intent = Intent(context, AutomataAccessibilityService::class.java)
-            intent.action = ACTION_STOP_MEDIA_PROJECTION
-            try {
-                context.startService(intent)
-            } catch (e: Exception) {
-                Log.e(TAG, "Error starting service to stop projection", e)
-            }
-        }
-    }
-
     private fun updateInternalState(controller: DeviceController? = instance) {
         val isCaptureActuallyReady = hasCaptureStartedProducingFrames.get()
         val newState = ServiceInternalState(controller, isCaptureActuallyReady)
@@ -869,5 +845,28 @@ class AutomataAccessibilityService : AccessibilityService(), DeviceController {
         val t = 500L
         Log.d(TAG, "Wait $t ms")
         Thread.sleep(t)
+    }
+
+    companion object {
+        private const val TAG = "AutomataService"
+        private val _serviceInternalState = MutableStateFlow(ServiceInternalState(null, false))
+        val serviceInternalStateFlow: StateFlow<ServiceInternalState> = _serviceInternalState.asStateFlow()
+        const val ACTION_START_MEDIA_PROJECTION = "com.example.deki_automata.action.START_PROJECTION"
+        const val ACTION_STOP_MEDIA_PROJECTION = "com.example.deki_automata.action.STOP_PROJECTION"
+        const val EXTRA_RESULT_CODE = "com.example.deki_automata.extra.RESULT_CODE"
+        const val EXTRA_RESULT_DATA = "com.example.deki_automata.extra.RESULT_DATA"
+        const val NOTIFICATION_CHANNEL_ID = "DekiAutomataMediaProjectionChannel"
+        const val NOTIFICATION_ID = 1001
+        private var instance: AutomataAccessibilityService? = null
+        fun stopProjection(context: Context) {
+            Log.d(TAG, "Static stopProjection called")
+            val intent = Intent(context, AutomataAccessibilityService::class.java)
+            intent.action = ACTION_STOP_MEDIA_PROJECTION
+            try {
+                context.startService(intent)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error starting service to stop projection", e)
+            }
+        }
     }
 }

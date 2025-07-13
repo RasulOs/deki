@@ -10,20 +10,15 @@ import com.example.deki_automata.domain.repository.ActionRepository
 import com.example.deki_automata.service.DeviceController
 import kotlinx.coroutines.delay
 import java.security.MessageDigest
+import com.example.deki_automata.data.model.DetailedAction
+import kotlinx.serialization.json.Json
 
 class ExecuteAutomationUseCase(
     private val repository: ActionRepository,
     private val context: Context,
 ) {
 
-    companion object {
-        private const val TAG = "ExecuteAutomationUC"
-        private const val MAX_STEPS = 20
-        private const val MAX_CONSECUTIVE_LOADING_STATES = 2
-        private const val MAX_CAPTURE_ATTEMPTS = 2
-        private const val DEFAULT_DELAY = 500L
-        private const val DEFAULT_DELAY_AFTER_SCREEN_CAPTURE = 1000L
-    }
+    private val json = Json { ignoreUnknownKeys = true }
 
     private fun getScreenshotHash(screenshot: String): String {
         return MessageDigest.getInstance("MD5")
@@ -93,7 +88,17 @@ class ExecuteAutomationUseCase(
             }
 
             currentHistory = response.history
-            val parsedResult = ActionParser.parseResponse(response.response)
+
+            val detailedAction = try {
+                json.decodeFromString<DetailedAction>(response.response)
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to parse detailed action JSON: ${response.response}", e)
+                DetailedAction(reason = "Error parsing server response", action = "\"Can't proceed\"")
+            }
+
+            Log.i(TAG, "LLM Reasoning: ${detailedAction.reason}, LLM Action: ${detailedAction.action}")
+
+            val parsedResult = ActionParser.parseResponse(detailedAction.action)
 
             parsedResult.message?.let {
                 if (finalMessage.isNotEmpty()) finalMessage += "\n"
@@ -177,5 +182,14 @@ class ExecuteAutomationUseCase(
             Log.e(TAG, "Failed to get installed packages", e)
             emptyList()
         }
+    }
+
+    companion object {
+        private const val TAG = "ExecuteAutomationUC"
+        private const val MAX_STEPS = 20
+        private const val MAX_CONSECUTIVE_LOADING_STATES = 2
+        private const val MAX_CAPTURE_ATTEMPTS = 2
+        private const val DEFAULT_DELAY = 500L
+        private const val DEFAULT_DELAY_AFTER_SCREEN_CAPTURE = 1000L
     }
 }

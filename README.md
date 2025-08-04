@@ -438,9 +438,9 @@ Current YOLO model accuracy:
     8. Decrease the size of deki output to reduce the usage of LLM's context
        window. Every region should have 1 line description.
     9. Add an iOS agent demo.
-    10. Add a comparisson with other AI agents.
+    10. Add a comparisson with other AI agents. Done.
     11. Add an option to run deki fully locally on the device without internet
-        access (Object detection, OCR, Image Processing, LLM)
+        access (Object detection, OCR, Image Processing, LLM). Done.
 
 ---
 

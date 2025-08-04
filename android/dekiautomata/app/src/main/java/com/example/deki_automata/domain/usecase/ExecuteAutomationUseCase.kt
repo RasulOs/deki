@@ -14,7 +14,7 @@ import com.example.deki_automata.data.model.DetailedAction
 import kotlinx.serialization.json.Json
 
 class ExecuteAutomationUseCase(
-    private val repository: ActionRepository,
+    private val commandGenerator: CommandGenerator,
     private val context: Context,
 ) {
 
@@ -80,7 +80,7 @@ class ExecuteAutomationUseCase(
                 promptForThisRequest = if (step == 1) buildPrompt(prompt, allInstalledPackages) else prompt
             }
             lastScreenshotHash = currentScreenshotHash
-            val result = repository.sendActionRequest(promptForThisRequest, screenshot, currentHistory)
+            val result = commandGenerator.getNextAction(promptForThisRequest, screenshot, currentHistory)
 
             val response = result.getOrElse { e ->
                 Log.e(TAG, "Action request failed", e)

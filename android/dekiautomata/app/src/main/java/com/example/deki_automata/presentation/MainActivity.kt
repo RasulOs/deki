@@ -40,14 +40,9 @@ class MainActivity : ComponentActivity() {
     }
 
     private val viewModel: MainViewModel by viewModels {
-        viewModelFactory {
-            initializer {
-                val repo = ActionRepositoryImpl()
-                val uc = ExecuteAutomationUseCase(repo, this@MainActivity.applicationContext)
-                MainViewModel(repo, uc)
-            }
-        }
+        MainViewModelFactory(ActionRepositoryImpl(), this.application)
     }
+
     private lateinit var mediaProjectionManager: MediaProjectionManager
 
     private val requestRecordAudioPermissionLauncher: ActivityResultLauncher<String> =
@@ -124,7 +119,7 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(Unit) {
                     Log.d(TAG, "LaunchedEffect: Checking permissions and requesting Audio")
-                    viewModel.processIntent(AutomationIntent.CheckPermissionsAndServices, this@MainActivity)
+                    viewModel.processIntent(AutomationIntent.CheckPermissionsAndServices)
                     requestRecordAudioPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
                 }
 
@@ -144,7 +139,10 @@ class MainActivity : ComponentActivity() {
                     onRequestRecordAudio = { requestRecordAudioPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO) },
                     onRequestMediaProjection = { requestMediaProjectionLauncher.launch(mediaProjectionManager.createScreenCaptureIntent()) },
                     onResetResult = { viewModel.clearResultMessage() },
-                    onDismissPermissionGuidance = { viewModel.processIntent(AutomationIntent.DismissPermissionGuidance) }
+                    onDismissPermissionGuidance = { viewModel.processIntent(AutomationIntent.DismissPermissionGuidance) },
+                    onModeToggled = { isEnabled ->
+                        viewModel.processIntent(AutomationIntent.ModeToggled(isEnabled))
+                    },
                 )
             }
         }
@@ -153,7 +151,7 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume: Re-checking permissions and services")
-        viewModel.processIntent(AutomationIntent.CheckPermissionsAndServices, this)
+        viewModel.processIntent(AutomationIntent.CheckPermissionsAndServices)
     }
 
     override fun onStop() {

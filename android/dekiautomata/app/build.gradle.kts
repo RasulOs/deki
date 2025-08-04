@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.Packaging
 import java.util.Properties
 
 plugins {
@@ -62,9 +63,13 @@ android {
         kotlinCompilerExtensionVersion = "1.5.3"
     }
     packaging {
+
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+    packagingOptions {
+        jniLibs.pickFirsts.add("lib/**/libtensorflowlite_jni.so")
     }
 }
 
@@ -86,6 +91,25 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
+
+    // Local ML
+    implementation(libs.media.pipe.tasks.genai)
+    implementation(libs.ml.kit.text.recognition)
+    implementation(libs.media.pipe.tasks.vision)
+    implementation(libs.tensor.flow.lite.task.vision)
+    implementation(libs.tensor.flow.lite.support)
+
+    constraints {
+        implementation("org.tensorflow:tensorflow-lite:2.13.0") {
+            because("Align all TFLite dependencies to a single, compatible version")
+        }
+        implementation("org.tensorflow:tensorflow-lite-api:2.13.0") {
+            because("Align all TFLite dependencies to a single, compatible version")
+        }
+        implementation("org.tensorflow:tensorflow-lite-gpu:2.13.0") {
+            because("Align all TFLite dependencies to a single, compatible version")
+        }
+    }
 
     // Testing
     testImplementation(libs.junit)

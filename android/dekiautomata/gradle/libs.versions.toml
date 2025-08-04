@@ -13,6 +13,14 @@ kotlinxSerializationJson = "1.6.0"
 retrofitKotlinxSerializationConverter = "1.0.0"
 okhttp = "4.11.0"
 kotlinxSerializationPlugin = "1.9.10"
+mediaPipeVersionGenAI = "0.10.24"
+mlKitTextRecognition = "16.0.1"
+mediaPipeTasksVision = "0.10.14"
+tensorFlowLiteTaskVision = "0.4.4"
+tensorFlowLiteSupport = "0.4.4"
+litert = "1.4.0"
+tensorFlowLite = "2.13.0"
+tensorFlowLiteApi = "2.13.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +43,15 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 retrofit-kotlinx-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinxSerializationConverter" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+media-pipe-tasks-genai = { group = "com.google.mediapipe", name = "tasks-genai", version.ref = "mediaPipeVersionGenAI" }
+ml-kit-text-recognition = { group = "com.google.mlkit", name = "text-recognition", version.ref = "mlKitTextRecognition" }
+media-pipe-tasks-vision = { group = "com.google.mediapipe", name = "tasks-vision", version.ref = "mediaPipeTasksVision" }
+tensor-flow-lite-task-vision = { group = "org.tensorflow", name = "tensorflow-lite-task-vision", version.ref = "tensorFlowLiteTaskVision" }
+tensor-flow-lite-support = { group = "org.tensorflow", name = "tensorflow-lite-support", version.ref = "tensorFlowLiteSupport" }
+litert = { group = "com.google.ai.edge.litert", name = "litert", version.ref = "litert" }
+tensor-flow-lite = { group = "org.tensorflow", name = "tensorflow-lite", version.ref = "tensorFlowLite" }
+tensor-flow-lite-api = { group = "org.tensorflow", name = "tensorflow-lite-api", version.ref = "tensorFlowLiteApi" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

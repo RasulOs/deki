@@ -1,13 +1,17 @@
 package com.example.deki_automata.presentation
 
 import android.accessibilityservice.AccessibilityServiceInfo
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import android.view.accessibility.AccessibilityManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.deki_automata.domain.repository.ActionRepository
+import com.example.deki_automata.domain.usecase.CommandGenerator
 import com.example.deki_automata.domain.usecase.ExecuteAutomationUseCase
+import com.example.deki_automata.domain.usecase.LocalCommandGenerator
+import com.example.deki_automata.domain.usecase.RemoteCommandGenerator
 import com.example.deki_automata.service.AutomataAccessibilityService
 import com.example.deki_automata.service.ServiceInternalState
 import com.example.deki_automata.util.ResultEventBus
@@ -31,7 +35,8 @@ data class MainUiState(
     val isAccessibilityEnabled: Boolean = false,
     val isScreenCaptureReady: Boolean = false,
     val isRecordAudioGranted: Boolean = false,
-    val showPermissionGuidance: Boolean = false
+    val showPermissionGuidance: Boolean = false,
+    val isLocalModeEnabled: Boolean = false,
 ) {
     val needsAccessibilityPermission get() = !isAccessibilityEnabled
     val needsRecordAudioPermission get() = !isRecordAudioGranted
@@ -50,11 +55,12 @@ sealed class AutomationIntent {
     data object RequestRecordAudioPermission : AutomationIntent()
     data object RequestMediaProjectionPermission : AutomationIntent()
     data object DismissPermissionGuidance : AutomationIntent()
+    data class ModeToggled(val isEnabled: Boolean) : AutomationIntent()
 }
 
 class MainViewModel(
     private val repository: ActionRepository,
-    private val useCase: ExecuteAutomationUseCase
+    private val application: Application,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MainUiState())
@@ -64,8 +70,14 @@ class MainViewModel(
     private var automationJob: Job? = null
     private var latestServiceState = ServiceInternalState(null, false)
 
+    private val sharedPrefs by lazy {
+        application.getSharedPreferences("deki_automata_prefs", Context.MODE_PRIVATE)
+    }
+
     init {
         listenForServiceState()
+        val isLocalEnabled = sharedPrefs.getBoolean("is_local_mode_enabled", false)
+        _uiState.update { it.copy(isLocalModeEnabled = isLocalEnabled) }
     }
 
     private fun listenForServiceState() {
@@ -111,7 +123,7 @@ class MainViewModel(
         }
     }
 
-    fun processIntent(intent: AutomationIntent, context: Context? = null) {
+    fun processIntent(intent: AutomationIntent) {
         when (intent) {
             AutomationIntent.RequestVoiceInput ->
                 _uiState.update { it.copy(isListening = true, promptText = "", resultMessage = null) }
@@ -123,26 +135,19 @@ class MainViewModel(
 
             AutomationIntent.ResetResult -> {
                 _uiState.update {
-                    it.copy(
-                        isProcessing = false,
-                        resultMessage = null,
-                        promptText = "",
-                        isListening = false,
-                    )
+                    it.copy(isProcessing = false, resultMessage = null, promptText = "", isListening = false)
                 }
                 viewModelScope.launch { automationJob?.cancelAndJoin() }
             }
 
-            AutomationIntent.CheckPermissionsAndServices ->
-                context?.let { checkCurrentState(it) }
+            AutomationIntent.CheckPermissionsAndServices -> checkCurrentState()
 
             is AutomationIntent.RecordAudioPermissionResult -> {
                 _uiState.update { curr ->
                     val needsOther = curr.needsAccessibilityPermission || curr.needsMediaProjectionPermission
                     curr.copy(
                         isRecordAudioGranted = intent.granted,
-                        showPermissionGuidance =
-                        if (intent.granted) curr.showPermissionGuidance && needsOther else true
+                        showPermissionGuidance = if (intent.granted) curr.showPermissionGuidance && needsOther else true
                     )
                 }
             }
@@ -151,8 +156,7 @@ class MainViewModel(
                 _uiState.update { curr ->
                     val needsOther = curr.needsAccessibilityPermission || curr.needsRecordAudioPermission
                     curr.copy(
-                        showPermissionGuidance =
-                        if (intent.success) curr.showPermissionGuidance && needsOther else true
+                        showPermissionGuidance = if (intent.success) curr.showPermissionGuidance && needsOther else true
                     )
                 }
             }
@@ -168,10 +172,19 @@ class MainViewModel(
 
             AutomationIntent.DismissPermissionGuidance ->
                 _uiState.update { it.copy(showPermissionGuidance = false) }
+
+            is AutomationIntent.ModeToggled -> {
+                _uiState.update { it.copy(isLocalModeEnabled = intent.isEnabled) }
+                with(sharedPrefs.edit()) {
+                    putBoolean("is_local_mode_enabled", intent.isEnabled)
+                    apply()
+                }
+            }
         }
     }
 
-    private fun checkCurrentState(context: Context) {
+    private fun checkCurrentState() {
+        val context = application
         viewModelScope.launch {
             val isAccessibilityEnabled = isAccessibilityServiceEnabled(context)
             val currentServiceValue = latestServiceState
@@ -184,10 +197,9 @@ class MainViewModel(
                     isScreenCaptureReady = currentServiceValue.isCaptureReady,
                     isRecordAudioGranted = !needsMic,
                     serviceStatusMessage =
-                    if (isAccessibilityEnabled)
-                        "Service: Connected" +
-                                if (currentServiceValue.isCaptureReady) "/Capture Ready" else "/Capture Not Ready"
-                    else "Service: Disconnected",
+                        if (isAccessibilityEnabled)
+                            "Service: Connected" + if (currentServiceValue.isCaptureReady) "/Capture Ready" else "/Capture Not Ready"
+                        else "Service: Disconnected",
                     showPermissionGuidance = needsMic || needsCapture || !isAccessibilityEnabled
                 )
             }
@@ -198,43 +210,50 @@ class MainViewModel(
         val state = _uiState.value
         val service = latestServiceState
         val prompt = state.promptText.trim()
+        val context = application
 
         if (prompt.isEmpty()) {
             _uiState.update { it.copy(resultMessage = "Prompt cannot be empty") }
             return
         }
-        if (service.controller == null) {
-            _uiState.update {
-                it.copy(
-                    resultMessage = "Error: Accessibility Service not connected",
-                    showPermissionGuidance = true,
-                )
-            }
+        if (service.controller == null || !state.isAccessibilityEnabled) {
+            _uiState.update { it.copy(resultMessage = "Error: Accessibility Service not connected", showPermissionGuidance = true) }
             return
         }
         if (!service.isCaptureReady) {
-            _uiState.update {
-                it.copy(
-                    resultMessage = "Error: Screen Capture not ready",
-                    showPermissionGuidance = true,
-                )
-            }
+            _uiState.update { it.copy(resultMessage = "Error: Screen Capture not ready", showPermissionGuidance = true) }
             return
         }
         if (state.isProcessing) return
 
         _uiState.update { it.copy(isProcessing = true, resultMessage = null, isListening = false) }
 
-        viewModelScope.launch {
-            automationJob?.cancelAndJoin()
-            automationJob = launch {
-                if (latestServiceState.controller == null) return@launch
-                val outcome = runCatching { useCase.runAutomation(prompt, latestServiceState.controller!!) }
-                val resultMessage = outcome.getOrElse { e -> "Failed: ${e.message}" }
-                if (isActive) {
-                    _uiState.update { it.copy(isProcessing = false, promptText = "") }
-                    ResultEventBus.post(resultMessage)
-                }
+        val commandGenerator: CommandGenerator = if (state.isLocalModeEnabled) {
+            Log.i("MainViewModel", "Using LocalCommandGenerator (On-Device)")
+            LocalCommandGenerator(context)
+        } else {
+            Log.i("MainViewModel", "Using RemoteCommandGenerator (Standard Mode)")
+            RemoteCommandGenerator(repository)
+        }
+
+        val useCase = ExecuteAutomationUseCase(commandGenerator, context)
+
+        automationJob = viewModelScope.launch {
+            val controller = latestServiceState.controller
+            if (controller == null) {
+                _uiState.update { it.copy(isProcessing = false, resultMessage = "Automation failed: Service disconnected.") }
+                return@launch
+            }
+
+            val outcome = runCatching { useCase.runAutomation(prompt, controller) }
+            val resultMessage = outcome.getOrElse { e ->
+                Log.e("MainViewModel", "Automation failed with exception", e)
+                "Failed: ${e.message}"
+            }
+
+            if (isActive) {
+                _uiState.update { it.copy(isProcessing = false, promptText = "") }
+                ResultEventBus.post(resultMessage)
             }
         }
     }

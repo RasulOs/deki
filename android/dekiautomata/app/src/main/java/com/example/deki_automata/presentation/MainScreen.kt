@@ -1,6 +1,7 @@
 package com.example.deki_automata.presentation
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -32,7 +33,8 @@ fun MainScreen(
     onRequestRecordAudio: () -> Unit,
     onRequestMediaProjection: () -> Unit,
     onResetResult: () -> Unit,
-    onDismissPermissionGuidance: () -> Unit
+    onDismissPermissionGuidance: () -> Unit,
+    onModeToggled: (Boolean) -> Unit,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -56,6 +58,29 @@ fun MainScreen(
             )
 
             Spacer(modifier = Modifier.height(16.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start,
+            ) {
+                Text(
+                    text = "Local Mode (On-Device)",
+                    style = MaterialTheme.typography.labelMedium,
+                )
+                Spacer(Modifier.weight(1f))
+                Switch(
+                    checked = state.isLocalModeEnabled,
+                    onCheckedChange = { isEnabled ->
+                        onModeToggled(isEnabled)
+                    },
+                    enabled = !state.isProcessing,
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             OutlinedTextField(
                 value = state.promptText,
@@ -313,7 +338,8 @@ fun MainScreenPreview_AllDisabled() {
             state = previewState,
             onSendClicked = {}, onTextChanged = {}, onVoiceClicked = {},
             onRequestAccessibility = {}, onRequestRecordAudio = {}, onRequestMediaProjection = {},
-            onResetResult = {}, onDismissPermissionGuidance = {}
+            onResetResult = {}, onDismissPermissionGuidance = {},
+            onModeToggled = {},
         )
     }
 }
@@ -336,7 +362,8 @@ fun MainScreenPreview_Ready() {
             state = previewState,
             onSendClicked = {}, onTextChanged = {}, onVoiceClicked = {},
             onRequestAccessibility = {}, onRequestRecordAudio = {}, onRequestMediaProjection = {},
-            onResetResult = {}, onDismissPermissionGuidance = {}
+            onResetResult = {}, onDismissPermissionGuidance = {},
+            onModeToggled = {},
         )
     }
 }
@@ -359,7 +386,8 @@ fun MainScreenPreview_Processing() {
             state = previewState,
             onSendClicked = {}, onTextChanged = {}, onVoiceClicked = {},
             onRequestAccessibility = {}, onRequestRecordAudio = {}, onRequestMediaProjection = {},
-            onResetResult = {}, onDismissPermissionGuidance = {}
+            onResetResult = {}, onDismissPermissionGuidance = {},
+            onModeToggled = {},
         )
     }
 }
@@ -382,7 +410,8 @@ fun MainScreenPreview_Result() {
             state = previewState,
             onSendClicked = {}, onTextChanged = {}, onVoiceClicked = {},
             onRequestAccessibility = {}, onRequestRecordAudio = {}, onRequestMediaProjection = {},
-            onResetResult = {}, onDismissPermissionGuidance = {}
+            onResetResult = {}, onDismissPermissionGuidance = {},
+            onModeToggled = {},
         )
     }
 }

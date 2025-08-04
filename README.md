@@ -253,6 +253,9 @@ sourced. But don't send, just return
 2 Android AI agents running at the same time
 [Youtube](https://youtube.com/shorts/jsJcSwy6djI?feature=share)
 
+Fully local Android AI agent (runs fully on the phone)
+[Youtube](https://youtube.com/shorts/CEuayAVZkrw?si=J5q1Jajqucq8Qq8n)
+
 ---
 
 ## Agent Performance Evaluation
@@ -343,6 +346,53 @@ url that your device can use (for testing):
 ```bash
 ngrok http http://localhost:8000
 ```
+
+---
+## Local (on the phone) Android AI agent using Gemma 3n 
+
+Local Android AI agent runs YOLO, OCR, Image Processing and LLM fully locally on the phone.
+I made an example of how to do it, but if you want to use it in production you need to fine-tune
+LLM for this task.
+
+Download gemma3n-E4B-it-int4.taks or gemma3n-E2B-it-int4.taks from Kaggle (it is tensorflow lite version)
+
+Enable developer options on the phone -> Connect Android phone to your computer via USB ->
+Run Android app -> then run these commands:
+
+Check if your computer sees your device
+```bash
+adb devices
+```
+Remove any LLM models from the app's cache folder:
+```bash
+adb shell "run-as com.example.deki_automata sh -c 'rm /data/data/com.example.deki_automata/cache/*'"
+```
+Copy the gemma3n to phone:
+```bash
+adb push ~/Downloads/gemma-3n-E4B-it-int4.task /data/local/tmp/temp_model_4b.task 
+```
+Copy the gemma3n from common storage to app's cache folder:
+```bash
+adb shell "run-as com.example.deki_automata cp /data/local/tmp/temp_model_4b.task /data/data/com.example.deki_automata/cache/gemma-3n-4b-it-int4.task"
+```
+Remove gemma3n from common folder:
+```bash
+adb shell "rm /data/local/tmp/temp_model_4b.task"
+```
+Check if gemma3n is in your app's cache folder:
+```bash
+adb shell "run-as com.example.deki_automata ls -l /data/data/com.example.deki_automata/cache"
+```
+Then run the app.
+
+Check LocalCommandGenerator file in Android app to get the idea how everything works.
+
+Keep in mind, tensorflow lite versions of LLM and YOLO have lower accuracies than standard models
+and you need to fine-tune or train these models more to get same level accuracy that you get from 
+your standard models.
+
+Demo on Samsung S23 Ultra with gemma3n-E4B-it-int4:
+[Youtube](https://youtube.com/shorts/CEuayAVZkrw?si=J5q1Jajqucq8Qq8n)
 
 ---
 
